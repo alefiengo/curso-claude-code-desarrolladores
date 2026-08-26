@@ -156,6 +156,27 @@ docker pull postgres:18-alpine
 
 Hazlo con tiempo: descargarla en clase consume varios minutos.
 
+### Descarga previa del repositorio del Lab 03
+
+El Lab 03 de la sesión 1 trabaja sobre `click`, un proyecto que no has leído
+antes. Clónalo ahora y guárdalo aparte, para no depender de la red ese día:
+
+```bash
+mkdir -p ~/curso-claude/material-lab-03
+git clone --branch 8.1.7 --depth 1 \
+  https://github.com/pallets/click ~/curso-claude/material-lab-03/click
+```
+
+Comprueba que quedó en el commit correcto:
+
+```bash
+git -C ~/curso-claude/material-lab-03/click log --oneline -1
+```
+
+Debe imprimir `874ca2b`. Esa carpeta se copia en el lab; no trabajes dentro de
+ella. Si el clon falla, el lab explica cómo seguir con otro proyecto que ya
+tengas en disco.
+
 ---
 
 ## 4. Python con uv
@@ -270,7 +291,8 @@ claude doctor
 
 Debe terminar sin errores.
 
-Guarda también la versión. El instructor publica la línea base de la cohorte:
+Guarda también tu versión, para poder compararla con la línea base del curso si
+algo se comporta distinto:
 
 ```bash
 claude --version
@@ -310,6 +332,22 @@ source ~/.bashrc
 
 Si usas `zsh` —el predeterminado en macOS—, sustituye `~/.bashrc` por `~/.zshrc`
 en las dos líneas.
+
+### Qué acabas de crear
+
+`~/curso-claude/` es la carpeta del curso, y va a contener cosas con vidas
+distintas. Conviene tener el mapa antes de empezar:
+
+```text
+~/curso-claude/
+├── material/            este repositorio. Es $CURSO. No trabajes aquí dentro.
+├── material-lab-03/     el clon de click para el Lab 03 de la sesión 1.
+├── evidencias/          lo que escribes tú. Se conserva.
+└── sesion-01/           carpetas desechables de los labs. Se borran al terminar.
+```
+
+Desde la sesión 2 aparece además `curso-claude-code-api`, el proyecto que
+construyes durante el curso, con su propia carpeta `evidencias/`.
 
 Comprueba que apunta a donde debe:
 

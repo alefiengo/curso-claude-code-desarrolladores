@@ -18,12 +18,12 @@ Construye un cliente web o CLI contra la API. Debe permitir listar, crear,
 actualizar estado y mostrar errores. El stack es libre, pero la elección debe
 justificarse y no ampliar innecesariamente el alcance.
 
-No se permite elegir una tarea ya implementada en los labs.
+No elijas una tarea que ya resolviste en los labs.
 
 ## Restricciones
 
-- Rama propia desde `s10-final` o el último checkpoint verde, siguiendo la
-  [regla de ramas](checkpoints.md) del curso.
+- Rama propia desde `main`, siguiendo el
+  [flujo de trabajo con Git](flujo-git.md) del curso.
 - Sin secretos ni acceso a producción.
 - Plan revisado antes de implementar.
 - Tests o verificaciones independientes.
@@ -44,7 +44,7 @@ una especificación débil aumentando autonomía o esfuerzo del modelo.
 
 ## Revisión
 
-La revisión es formativa. El resultado puede requerir cambios, pero no recibe
+La revisión es formativa: puede pedirte cambios, pero no recibe
 nota. El listón lo fija la [rúbrica](../docs/evaluacion.md): `Competente` en
 todas las dimensiones y `Sólido` en verificación, control humano y una dimensión
 más a tu elección.

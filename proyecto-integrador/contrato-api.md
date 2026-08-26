@@ -19,15 +19,13 @@ abierta salvo las restricciones de seguridad, migración y verificación.
 
 ### Normalización de texto
 
-Se aplica a `title` de tarea y a `code` de estado, **antes** de validar y
-guardar:
+Se aplica a `title` de tarea, **antes** de validar y guardar:
 
 1. Se recorta el espacio de los extremos.
 2. Se rechaza con `422` el valor que no deja **ningún carácter visible**. No
    basta con `strip()`: hay invisibles —como `U+200B`— que lo atraviesan. La
    comprobación es por categoría Unicode, rechazando `Cc`, `Cf`, `Zl`, `Zp`
    y `Zs`.
-3. En `code` de estado, además, se pasa a mayúsculas.
 
 La sesión 7 trabaja este defecto a fondo, con un título que parece válido y no
 lo es.
@@ -57,17 +55,29 @@ No expone credenciales ni detalles internos.
 
 ## Estados
 
-Catálogo inicial: `PENDIENTE`, `EN_CURSO`, `BLOQUEADA`, `HECHA`.
+Catálogo fijo: `PENDIENTE`, `EN_CURSO`, `BLOQUEADA`, `HECHA`.
+
+**No tiene endpoints.** Los estados no se crean ni se borran desde la API: son un
+catálogo cerrado que existe antes de que llegue la primera petición.
 
 | Método y ruta | Comportamiento |
 |---|---|
-| `GET /states` | `200` con lista ordenada y estable |
-| `POST /states` | `201`; crea código normalizado y único, `409` si ya existe, `422` si queda vacío |
-| `PATCH /states/{id}` | `200`; cambia **solo** `code`, con la misma normalización y unicidad que el alta. `404` si no existe, `409` si el código ya es de otro estado |
-| `DELETE /states/{id}` | `204` si no está usado, `409` si lo está |
+| `GET /states` | `200` con la lista, ordenada por el campo de orden y `id` como desempate |
 
-El seed debe ser idempotente y versionado mediante migración o mecanismo
-equivalente comprobable.
+Lo único que hay que resolver es **cómo llega ese catálogo a la base**, y ahí está
+la decisión que importa:
+
+| Dónde vive el seed | Cuándo se ejecuta |
+|---|---|
+| Script de inicialización de Docker | Solo al crear el volumen por primera vez |
+| **Migración** | En cada `upgrade`, en cualquier entorno |
+
+El curso adopta la migración. Con el script de Docker, quien ya tenía el volumen
+creado nunca recibe el catálogo: el proyecto funciona en la máquina donde se
+creó y falla en la siguiente.
+
+El seed debe ser [idempotente](../docs/glosario.md#idempotente) —ejecutarlo dos
+veces deja lo mismo que una—.
 
 ## Proyectos
 
@@ -142,17 +152,16 @@ Tres detalles que deciden si dos implementaciones son intercambiables:
 ## Matriz Mínima de Tests
 
 - Salud.
-- CRUD feliz de cada recurso.
+- CRUD feliz de proyectos y de tareas.
 - IDs inexistentes.
 - Título vacío y espacios ASCII; los invisibles Unicode se trabajan como regresión en la sesión 7.
-- Proyecto/estado inexistente.
-- Unicidad y conflicto de catálogo.
-- Borrado de proyecto/estado referenciado.
+- Proyecto o estado inexistente al crear una tarea.
+- Borrado de proyecto con tareas (`409`).
 - Filtros solos y combinados.
 - Orden estable: dos llamadas idénticas devuelven los ids en la misma posición.
 - Esquema de respuesta exacto: los campos declarados, ni uno más.
-- `PATCH /states` con código duplicado (`409`) y con id inexistente (`404`).
 - Migración desde base vacía y rollback de v2.
+- El catálogo de estados existe tras migrar, y migrar dos veces no lo duplica.
 - `due_at` omitido, válido, sin zona, vencido, futuro y tarea hecha.
 
 Los tests pueden incluir casos adicionales. No pueden debilitar estas invariantes.

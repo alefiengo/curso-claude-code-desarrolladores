@@ -39,7 +39,8 @@ Solo dos, y son breves:
 | [Guía del estudiante](guia-estudiante.md) | Cómo funcionan los labs, las evidencias y la evaluación | 10 min |
 
 El resto —[plan del curso](../curso.md), [mapa de comandos](comandos.md),
-[compatibilidad](compatibilidad.md)— es **material de consulta**. No lo leas
+[glosario](glosario.md), [compatibilidad](compatibilidad.md)— es **material de
+consulta**. No lo leas
 ahora de corrido; búscalo cuando lo necesites.
 
 ---
@@ -49,8 +50,8 @@ ahora de corrido; búscalo cuando lo necesites.
 Cada sesión sigue siempre la misma forma. Ábrela y recórrela en este orden:
 
 1. **Objetivo y Duración** — qué vas a poder hacer al terminar.
-2. **Conceptos Clave** — léelos, pero no los memorices. Son el material del
-   que hablará quien imparte.
+2. **Conceptos Clave** — léelos, pero no los memorices. Son lo que da sentido a
+   los laboratorios; vuelves a ellos cuando algo no encaja.
 3. **Laboratorios** — aquí está el trabajo real. Cada lab tiene su propia
    página con pasos numerados.
 4. **Validación General** — la lista que confirma que la sesión quedó hecha.
@@ -96,7 +97,8 @@ cd $CURSO && git pull
 |---|---|
 | Un comando falla | [Problemas frecuentes](problemas-frecuentes.md) |
 | No recuerdo qué hace un comando | [Mapa de comandos](comandos.md) |
+| No sé qué significa una palabra del material | [Glosario](glosario.md) |
 | Mi cuenta o versión se comporta distinto | [Compatibilidad](compatibilidad.md) |
-| Perdí el hilo del proyecto | [Checkpoints](../proyecto-integrador/checkpoints.md) |
+| Perdí el hilo del proyecto | [Flujo de trabajo con Git](../proyecto-integrador/flujo-git.md) |
 | Quiero saber qué se ve en cada sesión | [Temario](temario.md) |
 | Quiero ver el curso completo | [Plan del curso](../curso.md) |

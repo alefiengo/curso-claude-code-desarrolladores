@@ -4,7 +4,14 @@
 
 Curso práctico de Claude Code para desarrolladores. 20 horas distribuidas en 10 sesiones de 2 horas.
 
-El objetivo es dominar la herramienta, no construir una API. A lo largo del curso construyes una API como medio para practicar: lo que se aprende es cómo trabajar con el agente, no el código que resulta.
+El objetivo es dominar la herramienta, no construir una API. Construyes una API
+porque las herramientas necesitan un sitio donde doler: un skill se entiende
+cuando te ahorra la quinta repetición, y un hook cuando llevas cuatro sesiones
+olvidando el lint.
+
+Cada sesión hace avanzar el proyecto **y** te deja una herramienta nueva en tu
+`.claude/`. Al terminar tienes las dos cosas: una API funcionando y un conjunto
+de herramientas que te llevas a tu trabajo el lunes siguiente.
 
 ## El eje del curso
 
@@ -16,16 +23,21 @@ Todo lo demás son técnicas al servicio de una de esas dos cosas. La ventana de
 
 El mismo concepto en cuatro grados de automatización, uno por bloque:
 
-| Nivel | Mecanismo | Sesión |
-|---|---|---|
-| En el prompt | "ejecuta el test y arregla lo que falle" | 1 |
-| En la sesión | `/goal` con condición comprobable | 4 |
-| Puerta determinista | Stop hook que bloquea el fin de turno | 9 |
-| Segunda opinión | Subagente nombrado en contexto aislado | 10 |
+El mismo criterio en cuatro grados. Lo que cambia es **quién decide** si se
+cumplió, y cuánto puede reinterpretarlo el agente:
 
-Cada sesión trabaja además **un modo de fallo**. Los fallos deterministas se
-provocan; los que dependen del modelo se observan como experimentos y se
-comparan con evidencia.
+| Grado | Dónde vive el criterio | Quién decide | Sesión |
+|---|---|---|---:|
+| 1 | En el prompt | El modelo | 1 |
+| 2 | En un script que tú ejecutas | Un código de salida | 5 |
+| 3 | En un hook que se ejecuta solo | Un código de salida, sin que nadie lo pida | 6 |
+| 4 | En otro agente, con contexto limpio | Alguien que no tiene tus supuestos | 9 |
+
+El cuarto es el único que puede descubrir que **el criterio estaba mal**.
+
+Cada sesión trabaja además **un modo de fallo**. Los deterministas se provocan;
+los que dependen del modelo se observan como experimentos y se comparan con
+evidencia.
 
 ## Entorno
 
@@ -41,31 +53,51 @@ La preparación está documentada en [Instalación del Entorno](docs/instalacion
 
 ## Al finalizar el curso podrás
 
-- Formular tareas con criterio de terminación verificable por el propio agente.
-- Reconocer un criterio que el agente puede falsear.
+Trabajar con el agente:
+
+- Formular tareas con un criterio de terminación que el propio agente pueda
+  comprobar, y reconocer uno que puede falsear.
+- Administrar el contexto: saber qué carga, qué cuesta y cuándo limpiarlo.
+- Planificar antes de implementar, y rechazar un plan con evidencia.
+- Reproducir un fallo con un test antes de corregirlo.
+
+Construir tus herramientas:
+
 - Escribir un `CLAUDE.md` útil, y podarlo cuando deja de funcionar.
-- Diagnosticar y limpiar un contexto degradado.
-- Explorar y planificar antes de implementar, y corregir el plan.
-- Llevar una feature de rama a pull request con revisión asistida.
-- Recuperar una sesión que se torció, sin empezar de cero.
-- Reproducir un fallo con un test y depurarlo con evidencia.
-- Crear skills invocables como comandos y distinguirlos de memoria, hooks y subagentes.
-- Configurar hooks, permisos y sandbox.
-- Delegar en subagentes, conectar servidores MCP y ejecutar en CI.
+- Crear skills invocables, y sacar a un script lo que no debe variar.
+- Poner hooks donde algo tiene que ocurrir siempre, o no poder ocurrir nunca.
+- Conectar un servidor MCP, y decidir cuándo **no** conectarlo.
+- Delegar en un subagente con contexto limpio.
+- Acotar permisos, ejecutar sin persona delante y automatizar en CI.
+
+Y el criterio que ordena todo lo anterior:
+
+- Saber si algo va en `CLAUDE.md`, en un skill, en un hook o en un permiso.
+- Podar lo que construiste cuando deja de pagar lo que cuesta.
 
 ## Estructura General
 
-| Bloque | Sesiones | Horas | Enfoque |
+| Bloque | Sesiones | Horas | Qué construyes |
 |---|---:|---:|---|
-| Modelo mental y proyecto | 1–3 | 6h | Especificar, dar contexto, gestionar el contexto |
-| El ciclo de trabajo | 4–6 | 6h | Explorar, planificar, implementar, entregar y recuperarse |
-| Automatizar y escalar | 7–10 | 8h | Reproducir y depurar, extender, automatizar, delegar |
+| Fundamentos y proyecto | 1–3 | 6h | El modelo mental, la memoria del proyecto y su diseño |
+| Construir con herramientas propias | 4–6 | 6h | Los recursos de la API, tus primeros skills y hooks |
+| Verificar, delegar y entregar | 7–10 | 8h | MCP, regresión, subagente, permisos y CI |
 
-Cada bloque cierra con una versión comprobable del proyecto integrador.
+Así se reparten los 120 minutos de cada sesión:
+
+| Bloque | Minutos |
+|---|---:|
+| Teoría: la herramienta de hoy y el concepto que la sostiene | 20-25 |
+| Laboratorio 1: el trabajo de ingeniería | 45-50 |
+| Laboratorio 2: construir la herramienta que ese trabajo pidió | 35-40 |
+| Cierre, evidencia e integración en `main` | 10-15 |
+
+Los dos laboratorios se encadenan: el primero produce el problema y el segundo lo
+resuelve construyendo algo que reutilizas el resto del curso.
 
 ## Proyecto Integrador
 
-Cada estudiante construye su propio `curso-claude-code-api` a lo largo del curso. Es el resultado acumulado de las sesiones y el hilo conductor técnico. Está descrito en [proyecto-integrador](proyecto-integrador/README.md).
+Construyes tu propio `curso-claude-code-api` a lo largo del curso. Es el resultado acumulado de las sesiones y el hilo conductor técnico. Está descrito en [proyecto-integrador](proyecto-integrador/README.md).
 
 ## Desafíos Opcionales
 
@@ -85,66 +117,92 @@ que se aplican desde la primera sesión están en [Seguridad](docs/seguridad.md)
 
 ## Sesiones
 
+Cada sesión hace avanzar la API **y** sale con una herramienta nueva para tu
+`.claude/`. La herramienta no llega antes de tiempo: llega cuando el trabajo de
+esa sesión la hace necesaria.
+
 ### [Sesión 1: Especificar y Verificar](sesiones/sesion-01-especificar-y-verificar/README.md)
 
-Qué hace distinto a un agente de codificación. El bucle leer-editar-ejecutar-comprobar. Contexto, alcance y criterio de terminación. Criterios que el agente puede falsear. Preguntar al código ajeno y exigir la fuente. Qué modelo estás usando y por qué el consumo importa desde el primer día.
+Qué hace distinto a un agente de codificación. El bucle
+leer-editar-ejecutar-comprobar. Contexto, alcance y criterio de terminación.
+Criterios que el agente puede falsear. Preguntar al código ajeno y exigir la
+fuente.
 
 **Comandos nuevos:** `claude`, `claude -p`, `/help`, `/status`, `/diff`, `/model`
 
-### Sesión 2: Fundar el Proyecto y su Memoria _(aún no publicada)_
+### [Sesión 2: Fundar el Proyecto y su Memoria](sesiones/sesion-02-fundar-el-proyecto/README.md)
 
-Arranque de la API con FastAPI y PostgreSQL sobre Compose. `/init` y la jerarquía de memoria. Qué entra y qué no en un `CLAUDE.md`, y cómo podarlo cuando se vuelve tan largo que el agente lo ignora.
+Arranque de la API con FastAPI y PostgreSQL sobre Compose. Qué carga el agente al
+empezar y qué cuesta. Qué entra y qué no en un `CLAUDE.md`, y cómo podarlo.
 
+**Sales con:** el `CLAUDE.md` de tu proyecto.
 **Comandos nuevos:** `/init`, `/memory`, `/context`, `/config`
 
-### Sesión 3: Administrar el Contexto _(aún no publicada)_
+### Sesión 3: Diseñar antes de Implementar _(aún no publicada)_
 
-CRUD completo del proyecto. Ver qué ocupa el contexto y por qué el rendimiento cae. Limpiar, resumir y meter información sin ensuciar el hilo.
+Esquema, migraciones y el catálogo de estados. Separar la investigación de la
+ejecución: leer un plan, rechazarlo con evidencia y corregirlo antes de que se
+escriba una línea de código.
 
-**Comandos nuevos:** `/clear`, `/compact`, `/autocompact`, `/btw`, `@`, piping con `cat archivo | claude`
+**Sales con:** un plan revisable, y la decisión de dónde vive el seed.
+**Comandos nuevos:** `/plan`, `Shift+Tab`, `Ctrl+G`, `/goal`
 
-### Sesión 4: Explorar y Planificar _(aún no publicada)_
+### Sesión 4: El Primer Recurso _(aún no publicada)_
 
-Plan mode: separar la investigación de la ejecución. Leer y corregir un plan antes de aprobarlo. Dejar que Claude te entreviste para escribir una especificación. `/goal` como criterio a nivel de sesión. Medir modelo y esfuerzo sobre una tarea real: `opusplan`, coste comparado y el sobre-razonamiento del esfuerzo máximo.
+Proyectos, de punta a punta: contrato, tests en rojo, implementación y auditoría.
+Al terminar ves el patrón, y lo conviertes en un comando propio.
 
-**Comandos nuevos:** `/plan`, `Shift+Tab`, `Ctrl+G`, `/goal`, `/effort`, `/advisor`, `/cost`
+**Sales con:** tu primer skill.
+**Comandos nuevos:** `/skills`, `/reload-skills`
 
-### Sesión 5: Implementar y Entregar _(aún no publicada)_
+### Sesión 5: El Recurso con Relaciones _(aún no publicada)_
 
-Cierre del ciclo explorar → planificar → implementar → entregar. Commits acotados, ramas, pull request y revisión asistida de un diff.
+Tareas: claves foráneas, filtros combinados y orden estable. El skill de la
+sesión anterior te andamia el recurso, y descubres que su resultado varía entre
+ejecuciones.
 
-**Comandos nuevos:** `/add-dir`, `/cd`, `/install-github-app`
+**Sales con:** el skill con un script dentro, que ya no varía.
+**Comandos nuevos:** `/plugin`, `/doctor`
 
-### Sesión 6: Interrumpir y Recuperar _(aún no publicada)_
+### Sesión 6: Que No Se Te Olvide Nada _(aún no publicada)_
 
-Qué hacer cuando la sesión va mal: interrumpir, deshacer, ramificar la conversación y saber cuándo conviene empezar de cero en lugar de seguir corrigiendo. Retomar trabajo entre días.
+Cerrar la v1. Qué es un hook, qué eventos existen y en qué se diferencia de una
+instrucción: lo que persuade frente a lo que impide.
 
-**Comandos nuevos:** `Esc`, `/rewind`, `/branch`, `/resume`, `--continue`, `/recap`, `/export`, `/copy`
+**Sales con:** dos hooks — lint automático y una puerta que impide cerrar en rojo.
+**Comandos nuevos:** `/hooks`
 
-### Sesión 7: Reproducir y Depurar _(aún no publicada)_
+### Sesión 7: Probar contra la Base Real _(aún no publicada)_
 
-TDD asistido. Reproducir un fallo con un test antes de corregirlo. Exigir evidencia en lugar de afirmaciones. Iteración visual con capturas sobre la página estática.
+Los tests están en verde, pero ¿qué hay en la tabla? Conectar el agente a
+PostgreSQL y encontrar lo que la suite no ve. Qué amplía un MCP y por qué se
+evalúa como una dependencia de producción.
 
-**Comandos nuevos:** `/code-review`, pegado de imágenes
+**Sales con:** un servidor MCP conectado, y el criterio para decidir sobre otro.
+**Comandos nuevos:** `/mcp`, `claude mcp add`
 
-### Sesión 8: Extender con Skills _(aún no publicada)_
+### Sesión 8: Cuando Algo se Rompe _(aún no publicada)_
 
-`claude --help` como fuente de verdad. Convertir un prompt repetido en un skill
-invocable como comando. Skills bajo demanda frente al `CLAUDE.md` que se carga
-siempre, y evaluación de workflows reutilizables.
+TDD asistido sobre un fallo real. Reproducir antes de corregir, distinguir el
+rojo correcto del que no vale, y exigir evidencia en lugar de explicaciones.
 
-**Comandos nuevos:** `/skills`, `/reload-skills`, `/plugin`, `/doctor`, subcomandos de `claude`
+**Sales con:** un skill que convierte cualquier fallo en un test permanente.
+**Comandos nuevos:** `/review`, pegado de imágenes
 
-### Sesión 9: Acotar Permisos y Automatizar _(aún no publicada)_
+### Sesión 9: Dejar de Fiarte de Ti Mismo _(aún no publicada)_
 
-Permisos, auto mode y sandbox. Hooks como garantía determinista frente a instrucciones que son solo consejo. Stop hook: la puerta que bloquea el cierre sin verificar, y su límite. Qué no delegar nunca.
+Revisar tu propio código no funciona. Qué contexto hereda cada forma de delegar,
+por qué una copia de tu conversación no es una segunda opinión, y qué se le
+entrega a un revisor.
 
-**Comandos nuevos:** `/permissions`, `/hooks`, `/sandbox`; Auto mode como ruta opcional
+**Sales con:** un subagente revisor de solo lectura.
+**Comandos nuevos:** `/agents`, `/fork`
 
-### Sesión 10: Delegar y Ejecutar sin Interfaz _(aún no publicada)_
+### Sesión 10: Entregar, Automatizar y Podar _(aún no publicada)_
 
-Subagentes nombrados en contexto aislado frente a forks que heredan la
-conversación. Evaluación segura de servidores MCP. Modo no interactivo acotado,
-CI y cierre con análisis de las evidencias del curso.
+La entrega: pull request con su evidencia. La automatización: permisos mínimos,
+sandbox y la misma verificación corriendo sin nadie delante. Y el cierre que
+ninguna formación enseña: **qué quitar** de todo lo que construiste.
 
-**Comandos nuevos:** `/subtask`, `/fork`, `/mcp`, `/insights`, `/team-onboarding`, `claude -p --output-format json`
+**Sales con:** permisos acotados, un workflow de CI y un `.claude/` podado.
+**Comandos nuevos:** `/permissions`, `/sandbox`, `/usage`, `claude -p --output-format json`

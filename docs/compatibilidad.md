@@ -11,9 +11,9 @@ opcional para que una diferencia de plan o versión no bloquee el curso.
 - Dentro de Claude Code, `/help` es la fuente de verdad de tu instalación.
 - Actualiza antes del curso. No actualices entre dos pasos de un mismo lab.
 
-El instructor registra al comienzo de cada cohorte la versión usada. Si un
-comando no está disponible, aplica la alternativa indicada en la sesión y abre
-un issue con versión y sistema operativo.
+Anota tu versión antes de empezar. Si un comando no existe en tu instalación,
+aplica la alternativa que indica la sesión y abre un issue con tu versión y tu
+sistema operativo.
 
 ## Cuenta y Proveedor
 
@@ -49,6 +49,51 @@ No se usan como requisito comandos que solo existan en una instalación local o
 en un plugin no documentado. Si el curso crea un comando propio, el material lo
 etiqueta como **creado en el lab**.
 
+## Modelos y Nivel de Esfuerzo
+
+El curso se hace con `default`. Esta sección es de consulta: no hace falta para
+seguir ninguna sesión, y la sesión 4 _(aún no publicada)_
+mide la diferencia sobre una tarea real.
+
+Comprueba cuál tienes activo con `/status`; se cambia con `/model`.
+
+| Alias | Para qué |
+|---|---|
+| `haiku` | Tareas mecánicas y repetitivas |
+| `sonnet` | Trabajo habitual |
+| `opus` | Tareas difíciles y razonamiento largo |
+| `fable` | Tareas más largas que una sesión. No es el modelo por defecto |
+| `best` | El más capaz al que llegue tu cuenta |
+| `opusplan` | Planifica con el modelo fuerte, ejecuta con el rápido |
+| `default` | **No es un modelo**: quita el override y vuelve al de tu cuenta |
+
+Los alias apuntan a la versión recomendada y **cambian con el tiempo**. Sobre la
+API de Anthropic, hoy `opus` es Opus 5 y `sonnet` es Sonnet 5; sobre Bedrock,
+Vertex o Foundry resuelven a versiones distintas. Los sufijos `[1m]` piden la
+ventana de un millón de tokens: con `sonnet` ya resolviendo a Sonnet 5, que la
+trae de serie, `sonnet[1m]` no cambia nada. Comprueba el tuyo con `/model`.
+
+El **nivel de esfuerzo** (`low`, `medium`, `high`, `xhigh`, `max`) regula cuánto
+razona antes de actuar. **El valor por defecto es `high`**, y la escala está
+calibrada por modelo: el mismo nombre no significa lo mismo en dos modelos
+distintos. Se ve con `/effort`.
+
+El menú de `/effort` ofrece además `ultracode`, que **no es un nivel de
+esfuerzo**: es un ajuste de Claude Code que manda `xhigh` al modelo y encima le
+hace orquestar un flujo de trabajo por cada tarea de cierta entidad. Sabes que
+existe; el curso no lo usa.
+
+**`ultrathink` sí; `piensa más` no.** Escribir `ultrathink` en cualquier parte
+del prompt pide más razonamiento **solo en ese turno**, sin tocar el nivel de la
+sesión. Es una palabra que Claude Code reconoce y convierte en una instrucción.
+Otras frases que circulan —"think", "think hard", "think more"— **no** son
+palabras clave: viajan como texto normal del prompt.
+
+**Consumo.** Modelo caro y esfuerzo alto gastan más cuota y tardan más. El propio
+Claude Code advierte que el esfuerzo máximo puede derivar en sobre-razonamiento.
+Trabaja con el valor por defecto salvo que tengas un motivo, o llegarás a mitad
+del curso sin cuota.
+
 ## Editor
 
 El curso usa **VS Code con su terminal integrada**: Claude Code se ejecuta como
@@ -65,7 +110,7 @@ to IDE on startup if exactly one valid IDE is available"*. Busca `/ide` en
 registrando la evidencia con los comandos del lab: la integración cambia dónde
 ves el diff, no lo que hay que verificar.
 
-## Preflight de la Cohorte
+## Comprobación Previa
 
 Guarda la salida en `evidencias/preflight.txt`:
 

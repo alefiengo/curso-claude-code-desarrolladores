@@ -1,6 +1,6 @@
 # Proyecto Integrador
 
-El proyecto integrador es el hilo conductor del curso. **Cada estudiante construye el suyo** en su propia máquina y en su propio repositorio, `curso-claude-code-api`, a lo largo de las diez sesiones.
+El proyecto integrador es el hilo conductor del curso. **Construyes el tuyo** en tu propia máquina y en tu propio repositorio, `curso-claude-code-api`, a lo largo del curso.
 
 No se descarga hecho. Nace en la sesión 2 y crece con los laboratorios de cada sesión.
 
@@ -32,21 +32,30 @@ proyectos ──< tareas >── estados
 
 | Tabla | Contenido |
 |---|---|
-| `proyectos` | Agrupan tareas |
-| `tareas` | Título, descripción, proyecto y estado |
-| `estados` | Catálogo: `PENDIENTE`, `EN_CURSO`, `BLOQUEADA`, `HECHA` |
+| `proyectos` | Agrupan tareas. CRUD completo |
+| `tareas` | Título, descripción, proyecto y estado. CRUD con relaciones y filtros |
+| `estados` | Catálogo fijo: `PENDIENTE`, `EN_CURSO`, `BLOQUEADA`, `HECHA`. Sin CRUD: llega por migración |
 
-La relación da material para filtros y consultas. El catálogo obliga a validar contra valores permitidos.
+La relación da material para filtros y consultas. El catálogo obliga a validar
+contra valores permitidos, y su carga plantea una decisión de ingeniería real:
+dónde vive el seed para que exista en todos los entornos, no solo en el tuyo.
 
 ## Versiones
 
-El proyecto tiene tres versiones, una por bloque:
+El proyecto crece en incrementos que se planifican, se prueban y se verifican por
+separado:
 
-| Versión | Cierre | Lo que incluye |
-|---|---|---|
-| `v1` | Sesión 3 | API FastAPI con PostgreSQL en Compose, CRUD completo de las tres tablas, primeros tests y `CLAUDE.md` del proyecto |
-| `v2` | Sesión 6 | Feature planificada y entregada por pull request, con historial limpio y sesiones recuperables |
-| `v3` | Sesión 10 | `.claude/` completo: skill de verificación, hooks, `settings.json`, subagente revisor, evaluación MCP y workflow de CI acotado |
+| Sesión | Lo que se añade |
+|---:|---|
+| 2 | Esqueleto: FastAPI, Compose, `GET /health` y el `CLAUDE.md` del proyecto |
+| 3 | Esquema, migraciones y el catálogo de estados |
+| 4 | Proyectos: CRUD completo con sus tests |
+| 5 | Tareas: relaciones, filtros y orden estable |
+| 6 | v1 cerrada, con verificación automática |
+| 7 | Datos reales, comprobados contra la base |
+| 8 | Una regresión corregida y protegida |
+| 9 | El cambio revisado por un tercero |
+| 10 | Entregado, automatizado y podado |
 
 ## Arquitectura
 
@@ -70,21 +79,24 @@ La aplicación no cambia. Lo que crece es el instrumental alrededor:
 repositorio
     |
     +-- .claude/
-    |     +-- skills invocables
-    |     +-- skill de endpoints
-    |     +-- subagente revisor
-    |     +-- hooks y settings.json
+    |     +-- skills invocables, uno con script propio
+    |     +-- hooks: lint automático y puerta de cierre
+    |     +-- settings.json con permisos mínimos
+    |     +-- subagente revisor de solo lectura
     |
-    +-- integración MCP aprobada, si el entorno lo permite
-    +-- GitHub Action de revisión
+    +-- .mcp.json: consulta a la base desde el agente
+    +-- GitHub Action que verifica sin nadie delante
 ```
 
 ## Cómo se avanza
 
-Cada sesión deja el proyecto en un estado concreto, descrito en su validación.
-Los labs son acumulativos, no independientes. Si faltas, el contrato, el lab
-correspondiente y el último checkpoint válido forman la ruta de recuperación.
+Cada sesión deja el proyecto en un estado concreto, descrito en su validación, e
+integrado en `main`. Los labs son acumulativos, no independientes.
 
-Usa el [contrato de la API](contrato-api.md) como fuente funcional y los
-[checkpoints](checkpoints.md) para diagnosticar o recuperar una sesión. El curso
-cierra con el [proyecto final](proyecto-final.md).
+Si faltas a una sesión, la ruta de recuperación son su laboratorio y el
+[contrato de la API](contrato-api.md), que dice qué debe cumplir el resultado.
+Trabajas sobre `main`, que siempre está en verde.
+
+El [flujo de trabajo con Git](flujo-git.md) explica cómo se abre y se integra el
+trabajo de cada sesión. El curso cierra con el
+[proyecto final](proyecto-final.md).

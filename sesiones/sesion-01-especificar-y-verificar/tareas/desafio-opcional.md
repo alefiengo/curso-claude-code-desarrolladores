@@ -19,7 +19,7 @@ Un criterio de rendimiento obliga a poner un número donde la intuición pondrí
 "más rápido", y ese número decide también **cuándo parar**: sin él, el agente
 sigue optimizando o se detiene en cuanto algo mejora. Y un encargo sobre tu
 propio código quita la red que tenía el laboratorio: aquí nadie preparó un
-oráculo por ti, y descubrir que no existe es el resultado más útil del desafío.
+comprobación por ti, y descubrir que no existe es el resultado más útil del desafío.
 
 ## Parte 1: Un criterio numérico
 

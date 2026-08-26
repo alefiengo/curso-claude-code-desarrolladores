@@ -34,11 +34,11 @@ avanzas acompañado.
 
 ## Laboratorios
 
-| Lab | Tema | Riesgo o contraste |
+| Lab | Tema | Qué descubres |
 |---|---|---|
-| [01 – Bucle de verificación](labs/01-bucle-de-verificacion/README.md) | Leer, editar, ejecutar, comprobar | La misma tarea sin criterio: termina cuando le parece |
-| [02 – Criterio falseable](labs/02-criterio-falseable/README.md) | Contexto, alcance y criterio | El agente modifica los tests para cumplir la condición |
-| [03 – Preguntar al código ajeno](labs/03-preguntar-al-codigo/README.md) | Entender un repositorio desconocido | Una afirmación sin fuente que no se sostiene |
+| [01 – Bucle de verificación](labs/01-bucle-de-verificacion/README.md) | Leer, editar, ejecutar, comprobar | Sin una condición de terminación, el agente para cuando le parece |
+| [02 – Criterio falseable](labs/02-criterio-falseable/README.md) | Contexto, alcance y criterio | "Los tests pasan" puede ser cierto y no significar nada |
+| [03 – Preguntar al código ajeno](labs/03-preguntar-al-codigo/README.md) | Entender un repositorio desconocido | Cuánto cambia una respuesta cuando exiges la fuente |
 
 Los resultados que dependen del modelo se registran como experimento. La sesión
 evalúa la calidad de la evidencia, no que Claude responda igual para todos.
@@ -49,12 +49,24 @@ Antes del primer lab:
 mkdir -p ~/curso-claude/evidencias
 ```
 
-Esta es la única sesión que trabaja fuera del proyecto: los tres laboratorios
-usan carpetas desechables, porque todavía no existe la API. Por eso tu evidencia
-de hoy vive en `~/curso-claude/evidencias/`. La sesión 2 crea
-`curso-claude-code-api` con su propia carpeta `evidencias/`, y ahí se guarda todo
-a partir de entonces; si quieres un portafolio único, la sesión 2 te indica dónde
-copiar el archivo de hoy.
+Esta es la única sesión que trabaja fuera del proyecto, porque todavía no existe
+la API. Vas a usar dos sitios distintos dentro de `~/curso-claude/`:
+
+```text
+~/curso-claude/
+├── evidencias/     tu archivo s01.md. Se conserva.
+└── sesion-01/      una carpeta por lab. Se borra al terminar la sesión.
+    ├── lab-01/
+    ├── lab-02/
+    └── lab-03/
+```
+
+Cada lab crea su propia carpeta en su primer paso; no tienes que prepararlas
+ahora. Lo único que se guarda de hoy es `evidencias/s01.md`.
+
+Desde la sesión 2 esto cambia: el proyecto `curso-claude-code-api` trae su propia
+carpeta `evidencias/` y ahí se guarda lo de cada sesión. Lo de hoy se queda
+donde está: esta sesión trabaja fuera del proyecto y su evidencia también.
 
 ## Al finalizar esta sesión podrás
 
@@ -71,7 +83,7 @@ copiar el archivo de hoy.
 
 > Un agente rinde en proporción a lo limpio que esté su contexto y a los medios que tenga para verificarse.
 
-Esta sesión trabaja la segunda mitad. El contexto llega en la sesión 3.
+Esta sesión trabaja la segunda mitad. El contexto llega en la sesión 2.
 
 ### Bucle de verificación
 
@@ -107,10 +119,9 @@ De ahí salen las dos reglas que vas a usar durante todo el curso:
 | Un resultado bueno una vez no está probado | Un comando en verde sigue verde mientras no cambien código, dependencias ni entorno |
 
 Por eso el criterio de terminación es un **comando**, no una descripción. Y por
-eso los laboratorios de este curso te dicen *qué debe haber ocurrido* en lugar
-de qué texto vas a leer: cuando algo depende del modelo, el lab lo trata como
-experimento y cualquiera de los resultados posibles es válido, siempre que
-registres cuál te tocó.
+eso los laboratorios te dicen *qué debe haber ocurrido* en lugar de qué texto
+vas a leer: cuando algo depende del modelo, cualquiera de los resultados
+posibles es válido, siempre que registres cuál te tocó.
 
 La escalera de verificación de más abajo es, leída así, un recorrido desde lo
 menos determinista —una instrucción en el prompt— hasta lo más determinista: un
@@ -156,11 +167,11 @@ Pide la prueba, no la conclusión: la salida del comando, el archivo y la línea
 Lo de hoy es el primer peldaño. Los otros tres llegan más adelante:
 
 | Nivel | Mecanismo | Qué garantiza | Sesión |
-|---|---|---|---|
+|---|---|---|---:|
 | **En el prompt** | **"ejecuta el test y arregla lo que falle"** | **Evidencia producida por el agente** | **1** |
-| En la sesión | `/goal` | Evaluación probabilística: otro modelo revisa la condición | 4 |
-| Puerta determinista | Stop hook | Un script decide. Con límite: tras varios bloqueos seguidos, Claude Code lo anula | 9 |
-| Segunda opinión | Subagente revisor | Otro contexto juzga el resultado | 10 |
+| En un script | Un archivo que ejecutas tú | Un código de salida, que no se reinterpreta | 5 |
+| En un hook | El mismo script, disparado solo | Lo anterior, sin que nadie se acuerde de pedirlo | 6 |
+| En otro agente | Un revisor con contexto limpio | Puede encontrar que el criterio estaba mal | 9 |
 
 Ninguno es infalible, y no garantizan lo mismo. Cada sesión explica el límite del suyo.
 
@@ -182,54 +193,21 @@ claude --permission-mode manual
 cuál estás. El modo se llama **Manual** en la interfaz; su valor de
 configuración es `default`, que es el que verás en los archivos y en los hooks.
 
-Los seis modos, el clasificador y el sandbox se ven en la sesión 9.
+Los seis modos, el clasificador y el sandbox se ven en la sesión 10.
 
 ### Qué modelo estás usando
 
-Comprueba con `/status` cuál está activo. Se cambia con `/model`.
+Comprueba con `/status` cuál tienes activo. Se cambia con `/model`.
 
-| Alias | Para qué |
-|---|---|
-| `haiku` | Tareas mecánicas y repetitivas |
-| `sonnet` | Trabajo habitual |
-| `opus` | Tareas difíciles y razonamiento largo |
-| `fable` | Tareas más largas que una sesión. No es el modelo por defecto |
-| `best` | El más capaz al que llegue tu cuenta |
-| `opusplan` | Planifica con el modelo fuerte, ejecuta con el rápido |
-| `default` | **No es un modelo**: quita el override y vuelve al de tu cuenta |
+**El curso se hace con `default`**, que no es un modelo: quita cualquier override
+y te deja el de tu cuenta. No es prudencia, es lo que hace comparables las
+evidencias entre compañeros y lo que evita quedarte sin cuota a mitad del curso. Si
+cambias de modelo, anótalo en tu evidencia.
 
-**El curso se hace con `default`.** No es una recomendación de prudencia: es lo
-que hace comparables las evidencias entre compañeros y lo que evita gastar la
-cuota en la sesión 3. Si cambias de modelo, anota cuál en tu evidencia, porque
-la salida deja de ser comparable con la de los demás.
-
-Los alias apuntan a la versión recomendada y **cambian con el tiempo**. Sobre la
-API de Anthropic, hoy `opus` es Opus 5 y `sonnet` es Sonnet 5; sobre Bedrock,
-Vertex o Foundry resuelven a versiones distintas. Los sufijos `[1m]` piden la
-ventana de un millón de tokens: con `sonnet` ya resolviendo a Sonnet 5, que la
-trae de serie, `sonnet[1m]` no cambia nada. Comprueba el tuyo con `/model`.
-
-El **nivel de esfuerzo** (`low`, `medium`, `high`, `xhigh`, `max`) regula cuánto
-razona antes de actuar. **El valor por defecto es `high`**, y la escala está
-calibrada por modelo: el mismo nombre no significa lo mismo en dos modelos
-distintos. Se ve con `/effort`.
-
-El menú de `/effort` ofrece además `ultracode`, que **no es un nivel de
-esfuerzo**: es un ajuste de Claude Code que manda `xhigh` al modelo y encima le
-hace orquestar un flujo de trabajo por cada tarea de cierta entidad. Sabes que
-existe; el curso no lo usa.
-
-> **`ultrathink` sí; `piensa más` no.** Escribir `ultrathink` en cualquier parte
-> del prompt pide más razonamiento **solo en ese turno**, sin tocar el nivel de
-> la sesión. Es una palabra que Claude Code reconoce y convierte en una
-> instrucción. Otras frases que circulan —"think", "think hard", "think more"—
-> **no** son palabras clave: viajan como texto normal del prompt. Es un ejemplo
-> temprano de la regla de la sesión 7: lo que se repite en internet no es lo que
-> hace tu instalación.
-
-> **Consumo.** Modelo caro y esfuerzo alto gastan más cuota y tardan más. El propio Claude Code advierte que el esfuerzo máximo puede derivar en sobre-razonamiento. Trabaja con el valor por defecto salvo que tengas un motivo, o llegarás a mitad del curso sin cuota.
-
-Medir la diferencia y elegir con criterio es el trabajo de la **sesión 4**. Hoy solo necesitas saber qué estás usando y no dispararlo sin motivo.
+Hoy basta con eso: saber qué estás usando y no dispararlo sin motivo. La tabla de
+alias, los niveles de esfuerzo y la palabra `ultrathink` están en
+[compatibilidad](../../docs/compatibilidad.md#modelos-y-nivel-de-esfuerzo), para
+consultarlos cuando los necesites.
 
 ## Comandos Nuevos
 
@@ -347,8 +325,8 @@ responden cosas distintas:
 
 Ninguna basta sola: la ayuda de la CLI no lista todos los flags ni explica
 comportamientos que dependen del plan, y la documentación describe la última
-versión, que puede no ser la tuya. Es la misma regla que la sesión 7 convierte
-en método.
+versión, que puede no ser la tuya. Es una regla que vas a aplicar en las diez
+sesiones: nada sobre la herramienta se da por sabido sin comprobarlo.
 
 ## Preparación para la Siguiente Sesión
 

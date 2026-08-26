@@ -4,18 +4,22 @@
 
 Entender un repositorio desconocido apoyándote en el agente, y verificar cada afirmación contra el archivo que la respalda.
 
-## Riesgo que trabaja
+## Por qué este lab
 
-El paso 7 cambia deliberadamente de una pregunta factual a una pregunta de
-diseño. El objetivo es reconocer el cambio de tipo de evidencia, no forzar una
-respuesta incorrecta.
+Preguntar a un agente sobre código que no conoces es rápido, y por eso es fácil
+creerle sin más. Aquí vas a pedirle siempre el archivo y la línea de donde saca
+cada respuesta, y a comprobarlo tú.
+
+Al final harás una pregunta distinta: en vez de "qué hace este código", "por qué
+se diseñó así". La respuesta ya no se puede comprobar abriendo un archivo, y
+notar esa diferencia es lo que te llevas del lab.
 
 ## Requisitos
 
 - Claude Code instalado y autenticado.
 - Git configurado.
-- Conexión a internet para clonar, o la copia local del repositorio que
-  facilita quien imparte (ver paso 1).
+- Conexión a internet para clonar, o la copia que descargaste en el preflight
+  (ver paso 1).
 
 ## Paso a Paso
 
@@ -33,22 +37,32 @@ de código en 16 archivos**, más 6 000 de tests.
 
 Ese número importa más de lo que parece. Es demasiado para leerlo entero antes de
 preguntar, y demasiado para volcarlo en una conversación. Es exactamente la
-situación que hace útil a un agente, y el problema que trabaja la sesión 3.
+situación que hace útil a un agente, y el problema que trabaja la sesión 2.
 
 El tag `8.1.7` fija el contenido usado por el curso. `--depth 1` evita descargar
 el historial completo. Clonar un tag deja el repositorio en `detached HEAD`, y
 Git lo avisa: aquí da igual, porque no vas a confirmar nada.
 
-**Si el clon falla o la red va lenta**, el curso trae una copia del mismo tag.
-Pídesela a quien imparte y clónala igual, desde el archivo:
+**Si el clon falla o la red va lenta**, tienes dos salidas.
+
+La primera es la copia que descargaste en el preflight. Si seguiste la
+[instalación del entorno](../../../../docs/instalacion-entorno.md), ya tienes
+`click` en `~/curso-claude/material-lab-03/click`: cópiala y sigue igual.
 
 ```bash
-git clone --branch 8.1.7 click-8.1.7.bundle click
+cp -r ~/curso-claude/material-lab-03/click .
 cd click
+git log --oneline -1
 ```
 
-Es el mismo commit `874ca2b` y el mismo contenido. El lab funciona idéntico: lo
-único que cambia es de dónde salen los archivos.
+Debe decir `874ca2b`. Es el mismo commit y el mismo contenido: el lab funciona
+idéntico, solo cambia de dónde salen los archivos.
+
+La segunda es usar **otro proyecto Python que ya tengas en disco**, tuyo o
+clonado antes. Sirve cualquiera entre 5 000 y 20 000 líneas que no hayas leído a
+fondo. Lo único que pierdes es la comprobación concreta del paso 5, donde el lab
+sabe de antemano dónde vive la configuración de `pytest`; el método —preguntar,
+exigir la fuente, verificarla— es el mismo.
 
 ### 2. Abrir la sesión sobre el repositorio
 
@@ -164,9 +178,10 @@ No hace falta limpiar todavía.
 | Error | Causa | Solución |
 |---|---|---|
 | `fatal: could not read Username` | El remoto pide credenciales | Clonar por HTTPS público, sin usuario, tal como está en el paso 1 |
-| La clonación tarda mucho | Se omitió `--depth 1`, o hay 20 personas clonando a la vez | Cancelar y repetir con `--depth 1`; si sigue lento, usar la copia local del paso 1 |
-| No hay red, o GitHub no responde | El lab depende de un servicio externo | Usar la copia local del paso 1: no necesita red |
+| La clonación tarda mucho | Se omitió `--depth 1`, o hay mucha gente clonando a la vez | Cancelar y repetir con `--depth 1`; si sigue lento, usar la copia del preflight |
+| No hay red, o GitHub no responde | El clon viene de un servicio externo | Usar la copia del preflight, o cualquier proyecto Python que ya tengas en disco (paso 1) |
 | El agente responde sin citar archivo | La pregunta no exigía fuente | Preguntar explícitamente en qué archivo y línea lo vio |
 | El archivo citado no existe | La afirmación no se sostiene | Marcar ❌ y pedirle que lo compruebe de nuevo |
 | El repositorio es demasiado grande | Se eligió un proyecto extenso | Usar `click`, o uno de tamaño parecido: entre 5 000 y 20 000 líneas |
+| No existe `~/curso-claude/material-lab-03` | No hiciste esa descarga en el preflight | Clonar ahora con el comando del paso 1, o usar otro proyecto Python que ya tengas en disco |
 | Git avisa de `detached HEAD` | Se clonó un tag, no una rama | Es lo esperado en este lab. No confirmes nada aquí |

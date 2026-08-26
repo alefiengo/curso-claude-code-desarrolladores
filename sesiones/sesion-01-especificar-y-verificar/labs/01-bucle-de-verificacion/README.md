@@ -4,15 +4,19 @@
 
 Observar la diferencia entre una tarea que el agente puede comprobar y una que no, sobre el mismo problema.
 
-## Riesgo que trabaja
+## Por qué este lab
 
-Dos, en este orden:
+Vas a lanzar la misma tarea tres veces, cambiando una cosa cada vez:
 
-1. La misma tarea **sin criterio de terminación**. Claude puede verificarla o no:
-   observarás si la evidencia era parte del contrato o una decisión espontánea.
-2. La misma tarea en **modo no interactivo sin preautorizar herramientas**. Con
-   la configuración de permisos predeterminada debería bloquearse, porque no hay
-   nadie a quien preguntar; si no ocurre, auditarás la configuración existente.
+1. **Con una condición de terminación**, diciéndole exactamente qué debe cumplirse
+   para dar el trabajo por hecho.
+2. **Sin esa condición.** Claude puede comprobar su trabajo por su cuenta o no.
+   Aquí verás si la prueba venía de lo que pediste o de su criterio del momento.
+3. **Sin interfaz**, con `-p`, y sin autorizar herramientas de antemano. Como no
+   hay nadie a quien pedir permiso, lo normal es que se detenga.
+
+Al terminar sabrás pedir una tarea de forma que el propio agente compruebe si la
+cumplió.
 
 ## Requisitos
 
@@ -81,7 +85,7 @@ ejecutando: python3 -c "import calc; assert calc.suma(2,3)==5; print('OK')"
 Revisa cada solicitud de permiso antes de aceptarla. Una sesión interactiva es
 intencional en este primer lab: permite ver qué archivo quiere editar Claude y
 qué comando quiere ejecutar. Acepta solo si coincide con el alcance del lab. El
-modo no interactivo `-p` necesita permisos preconfigurados; la sesión 9 desarrolla
+modo no interactivo `-p` necesita permisos preconfigurados; la sesión 10 desarrolla
 este mecanismo con más profundidad.
 
 ### 3. Leer la respuesta
@@ -158,7 +162,7 @@ archivos, no conviene depender de una decisión que puede cambiar entre ejecucio
 
 ### 5. La misma tarea sin interfaz
 
-Hay un modo no interactivo que ejecuta la tarea, imprime y sale. Sirve para scripts y CI, y se trabaja a fondo en la sesión 10.
+Hay un modo no interactivo que ejecuta la tarea, imprime y sale. Sirve para scripts y CI, y se trabaja a fondo en la última sesión.
 
 Antes de continuar, revisa los cambios en la sesión abierta con `/diff` y sal
 con `/exit`. Después rompe el archivo una vez más y prueba así:
@@ -203,7 +207,7 @@ python3 -c "import calc; assert calc.suma(2,3)==5; print('OK')"
 
 `--allowedTools` declara qué puede usar sin preguntar. Aquí: leer, editar, y ejecutar `python3`. Nada más — ni instalar paquetes, ni tocar git.
 
-Es la primera aparición de una idea central del curso: **automatizar exige decidir de antemano qué se autoriza**. La sesión 9 la desarrolla.
+Es la primera aparición de una idea central del curso: **automatizar exige decidir de antemano qué se autoriza**. La sesión 10 la desarrolla.
 
 ## Validación
 

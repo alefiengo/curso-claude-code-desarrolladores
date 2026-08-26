@@ -4,11 +4,15 @@
 
 El curso avanza en tres bloques:
 
-1. **Fundamentos:** formular tareas verificables, arrancar el proyecto y darle contexto al agente, gestionar sesiones.
-2. **Flujo de trabajo:** planificar tareas largas, integrar el agente en git, verificar y depurar.
-3. **Extender y escalar:** comandos y skills propios, hooks y permisos, subagentes, MCP y CI.
+1. **Fundamentos y proyecto:** formular tareas verificables, dar memoria al
+   proyecto y diseñar antes de implementar.
+2. **Construir con herramientas propias:** los recursos de la API, tus primeros
+   skills y los hooks que evitan que se te olvide algo.
+3. **Verificar, delegar y entregar:** consultar la base con MCP, corregir un
+   fallo real, delegar la revisión y automatizar sin nadie delante.
 
-Cada bloque cierra con una versión del proyecto integrador.
+Cada sesión hace avanzar el proyecto **y** te deja una herramienta nueva en tu
+`.claude/`. Eso es lo que te llevas al trabajo.
 
 ## Antes de la primera sesión
 
@@ -49,13 +53,14 @@ opcionales añaden 30–45 minutos por sesión si decides realizarlos.
 
 ## El proyecto integrador
 
-Cada estudiante construye su propio `curso-claude-code-api` durante el curso. Los laboratorios lo hacen crecer sesión a sesión: al terminar tienes una API funcionando y un `.claude/` con las herramientas que construiste.
+Construyes tu propio `curso-claude-code-api` a lo largo del curso. Los laboratorios lo hacen crecer sesión a sesión: al terminar tienes una API funcionando y un `.claude/` con las herramientas que construiste.
 
 Es tuyo. Trabajas en tu máquina y en tu repositorio.
 
-Los labs son acumulativos. Antes de cada sesión comprueba el tag indicado en
-[Checkpoints y Recuperación](../proyecto-integrador/checkpoints.md). Si faltas,
-retoma desde el último estado válido; no etiquetes un estado roto para avanzar.
+Los labs son acumulativos. Antes de cada sesión comprueba que partes de un estado
+bueno —`main` limpio y en verde—, como explica el
+[flujo de trabajo con Git](../proyecto-integrador/flujo-git.md). Si faltas, el
+laboratorio de esa sesión y el contrato bastan para recuperarla.
 
 ## Evaluación
 
@@ -63,15 +68,19 @@ No hay notas. Cada sesión cierra con una lista de comprobación y una evidencia
 breve de proceso. El proyecto final se revisa con una rúbrica formativa. Consulta
 [Evaluación y Portafolio](evaluacion.md).
 
-El curso comienza con un [diagnóstico](diagnostico.md) y termina con una tarea
-equivalente de transferencia. Se comparan hábitos de trabajo, no velocidad de
-tecleo ni cantidad de código.
+El curso empieza con un [diagnóstico](diagnostico.md) y termina con una tarea
+equivalente. Lo que comparas son tus hábitos de trabajo, no tu velocidad
+tecleando ni cuánto código escribiste.
 
 Lo que importa no es que la feature funcione, sino cómo llegaste hasta ella.
 
 ## Cuando algo falla
 
 Consulta la [guía de problemas frecuentes](problemas-frecuentes.md) antes de pedir soporte.
+
+Las palabras que el curso usa con un significado preciso —criterio falseable,
+comprobación independiente, handoff, idempotente— están reunidas en el
+[glosario](glosario.md).
 
 ## Canales de soporte
 

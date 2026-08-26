@@ -1,7 +1,7 @@
 # Evaluación y Portafolio
 
-El curso no usa notas. Sí exige evidencia de que puedes dirigir, verificar y
-recuperar trabajo asistido por un agente.
+El curso no usa notas. Lo que sí te pide es evidencia de que sabes dirigir,
+verificar y recuperar trabajo hecho con un agente.
 
 El [diagnóstico inicial y la tarea de transferencia](diagnostico.md) permiten
 comparar conductas antes y después sin convertirlas en calificación.
@@ -29,8 +29,8 @@ Qué podía salir mal y cómo lo detecté.
 Dónde aplicaría esta técnica en un repositorio real.
 ```
 
-No se evalúa que Claude haya producido la misma solución para todos. Se evalúa
-que la decisión y la evidencia sean defendibles.
+Nadie espera que Claude te haya dado la misma solución que a los demás. Lo que
+cuenta es que tu decisión y tu evidencia se sostengan.
 
 ## Proyecto Final
 
@@ -57,11 +57,11 @@ Entregables:
 |---|---|---|---|
 | Especificación | Petición vaga | Alcance y aceptación claros | Riesgos, límites y casos borde explícitos |
 | Contexto | Carga indiscriminada | Selecciona fuentes relevantes | Mide, poda y justifica lo cargado |
-| Verificación | Confía en la respuesta | Ejecuta una comprobación pertinente | Oráculos independientes y varias capas |
+| Verificación | Confía en la respuesta | Ejecuta una comprobación pertinente | Comprobaciones independientes y en varias capas |
 | Control humano | Acepta el resultado | Revisa plan y diff | Detecta una decisión débil y la corrige |
 | Seguridad | Permisos amplios o secretos expuestos | Mínimo privilegio | Threat model y aislamiento proporcionales |
 | Recuperación | No hay punto de retorno | Rama o checkpoint recuperable | Demuestra rollback y reanudación |
 | Comunicación | Enumera cambios | Explica evidencia y límites | Permite reproducir y auditar la decisión |
 
-El objetivo de salida es alcanzar **Competente** en todas las dimensiones y
-**Sólido** en al menos verificación, control humano y una dimensión adicional.
+Al terminar deberías estar en **Competente** en todas las dimensiones, y en
+**Sólido** al menos en verificación, control humano y una más.

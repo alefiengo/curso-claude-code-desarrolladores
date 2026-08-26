@@ -4,16 +4,21 @@
 
 Convertir peticiones vagas en objetivos verificables, y reconocer cuándo un criterio puede ser falseado por el propio agente.
 
-## Riesgo que trabaja
+## Por qué este lab
 
-Dos fallos distintos, que se confunden con facilidad:
+"Los tests pasan" suena a garantía. Puede ser falso de dos maneras, y aquí ves
+las dos:
 
-1. **El oráculo no observa lo que se interviene.** Si los tests no cubren la función que vas a refactorizar, "los tests pasan" no dice nada sobre ella.
-2. **El oráculo es modificable.** Aunque sí la cubran, el agente puede reescribir el test para cumplir la condición.
+1. **Los tests no miran la función que cambiaste.** Si ninguno la cubre, que
+   pasen no dice absolutamente nada sobre ella.
+2. **El agente puede reescribir el test.** Aunque sí la cubra, cumplir la
+   condición cambiando la comprobación es más fácil que arreglar el código.
 
-El lab demuestra el primero de forma determinista y audita el segundo como un
-riesgo: Claude puede modificar el oráculo o no. El objetivo no es forzar un fallo
-concreto, sino reconocer qué garantías ofrece realmente el criterio.
+Lo primero lo vas a ver siempre. Lo segundo depende de cómo responda Claude esta
+vez: puede ocurrir o no, y ambas cosas te sirven. Anota lo que pase.
+
+Al terminar sabrás mirar un criterio de terminación y decir qué garantiza de
+verdad.
 
 ## Requisitos
 
@@ -138,7 +143,9 @@ Devuelve `0`.
 
 Esto importa: si refactorizas `resumen` y tu único criterio es "que los tests pasen", **la suite pasará aunque rompas `resumen` por completo**. El criterio no es falseable: es irrelevante.
 
-Antes de tocar nada, fija el comportamiento actual con un test de caracterización:
+Antes de tocar nada, fija el comportamiento actual con un **test de
+caracterización**: uno que registra lo que el código hace hoy, sin juzgar si
+está bien, para detectar si el refactor lo cambia sin querer.
 
 ```bash
 python3 -c "
@@ -190,8 +197,8 @@ comando deja fuera justo lo que no esperabas.
 ### 7. Comprobar si falseó el criterio
 
 Si en la salida aparece `test_medidas.py`, el agente **modificó aquello con lo
-que se le mide**. Cumplió la condición al pie de la letra sin conservar un
-oráculo independiente. Si no aparece, el resultado salió bien esta vez, pero el
+que se le mide**. Cumplió la condición al pie de la letra sin
+conservar una comprobación independiente. Si no aparece, el resultado salió bien esta vez, pero el
 criterio seguía concediendo ese permiso.
 
 > Un criterio que el agente puede reescribir no es un criterio.

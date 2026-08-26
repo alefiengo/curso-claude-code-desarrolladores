@@ -42,7 +42,7 @@ promete una respuesta concreta.
 
 - 10 sesiones de 2 horas.
 - Cada sesión tiene conceptos, laboratorios guiados y validación.
-- Modalidad práctica: cada estudiante en su máquina.
+- Modalidad práctica: trabajas en tu propia máquina.
 - Sin notas: evaluación formativa mediante listas de comprobación, evidencias de
   proceso y un proyecto final.
 - Diagnóstico inicial y tarea final de transferencia para medir cambio de conducta.
@@ -62,20 +62,21 @@ forman parte de la experiencia completa y se comunican antes de la inscripción.
 ## Mapa del Curso
 
 Qué trabaja cada sesión y con qué sales de ella: [temario](docs/temario.md).
+Las palabras que el curso usa con un significado preciso: [glosario](docs/glosario.md).
 
 
-| Sesión | Tema |
-|---:|---|
-| [1](sesiones/sesion-01-especificar-y-verificar/README.md) | Especificar y verificar |
-| 2 _(aún no publicada)_ | Fundar el proyecto y su memoria |
-| 3 _(aún no publicada)_ | Administrar el contexto |
-| 4 _(aún no publicada)_ | Explorar y planificar |
-| 5 _(aún no publicada)_ | Implementar y entregar |
-| 6 _(aún no publicada)_ | Interrumpir y recuperar |
-| 7 _(aún no publicada)_ | Reproducir y depurar |
-| 8 _(aún no publicada)_ | Extender con skills |
-| 9 _(aún no publicada)_ | Acotar permisos y automatizar |
-| 10 _(aún no publicada)_ | Delegar y ejecutar sin interfaz |
+| Sesión | Tema | Sales con |
+|---:|---|---|
+| [1](sesiones/sesion-01-especificar-y-verificar/README.md) | Especificar y verificar | — |
+| [2](sesiones/sesion-02-fundar-el-proyecto/README.md) | Fundar el proyecto y su memoria | `CLAUDE.md` |
+| 3 _(aún no publicada)_ | Diseñar antes de implementar | Un plan revisable |
+| 4 _(aún no publicada)_ | El primer recurso | Tu primer skill |
+| 5 _(aún no publicada)_ | El recurso con relaciones | Un skill con script |
+| 6 _(aún no publicada)_ | Que no se te olvide nada | Dos hooks |
+| 7 _(aún no publicada)_ | Probar contra la base real | Un MCP conectado |
+| 8 _(aún no publicada)_ | Cuando algo se rompe | Un skill de regresión |
+| 9 _(aún no publicada)_ | Dejar de fiarte de ti mismo | Un subagente revisor |
+| 10 _(aún no publicada)_ | Entregar, automatizar y podar | Permisos, CI y un `.claude/` podado |
 
 ## Licencia
 
