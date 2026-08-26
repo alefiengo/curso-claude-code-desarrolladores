@@ -1,100 +1,90 @@
-# Desafío Opcional: Memoria por Alcance
-
-Práctica para después de clase. No se entrega y no es requisito para la sesión 3.
+# Desafío Opcional: Regla con Alcance por Ruta
 
 ## Objetivo
 
-Comprobar cuándo se carga una memoria anidada y decidir qué reglas merecen vivir
-cerca del código en lugar de en la raíz.
+Mover convenciones de tests fuera del contexto global y comprobar que solo se
+cargan cuando Claude trabaja con archivos correspondientes.
 
 ## Tiempo Estimado
 
-30 a 40 minutos.
+25 a 35 minutos.
 
 ## Por Qué Importa
 
-Todo lo que pongas en el `CLAUDE.md` raíz se carga siempre, en cada
-conversación, hable de lo que hable. Una convención que solo aplica a los tests
-paga ese coste en las cien conversaciones que no tocan tests.
+Una regla útil para tests puede ser ruido —o incluso una mala decisión— cuando
+Claude trabaja en producción. `.claude/rules/` permite versionar instrucciones y
+activar algunas solo al leer rutas que coinciden con sus patrones.
 
-Una memoria anidada resuelve eso: vive junto al código al que aplica.
+## Parte 1: Identificar una Regla Local
 
-## Parte 1: Crear la memoria anidada
+Elige dos convenciones que apliquen exclusivamente a `tests/`. Por ejemplo:
 
-Añade `tests/CLAUDE.md` con **dos convenciones que serían erróneas** si se
-aplicaran a código de producción. Por ejemplo, decisiones sobre datos de prueba,
-uso de dobles, o nomenclatura de casos.
+- los tests de persistencia usan PostgreSQL real;
+- una regresión debe fallar por la capacidad ausente, no por montaje o sintaxis.
 
-Escríbelas como reglas, no como explicaciones:
+No copies reglas transversales como "no abrir `.env`": esas pertenecen a la raíz.
+
+## Parte 2: Crear la Regla
+
+Crea `.claude/rules/testing.md`:
 
 ```markdown
-# Convenciones de tests
+---
+paths:
+  - "tests/**/*.py"
+---
 
-- Los datos de prueba se construyen en el propio test, no en fixtures
-  compartidas entre archivos.
-- Un test que necesite red se marca y se excluye de la ejecución por defecto.
+# Reglas de pruebas
+
+- Los tests de persistencia se ejecutan contra PostgreSQL, no SQLite.
+- Antes de corregir una regresión, confirma que el test falla por el comportamiento ausente.
 ```
 
-Confírmalo:
+Confirma el artefacto:
 
 ```bash
-git add tests/CLAUDE.md
-git commit -m "Anade convenciones de tests con alcance propio"
+git add .claude/rules/testing.md
+git commit -m "Acota las reglas de pruebas a su ruta"
 ```
 
-## Parte 2: Comprobar cuándo se carga
+## Parte 3: Comprobar la Carga
 
-Una memoria anidada no se carga por el tema del que hables: se carga cuando
-Claude **lee un archivo** del directorio donde vive. Esa es la diferencia que
-comprueba esta parte.
+Abre una sesión nueva y ejecuta `/context` antes de leer tests. Anota si la regla
+aparece bajo **Memory files**. Usa `/memory` para inspeccionarla, pero no tomes el
+hecho de que pueda abrirse como prueba de que ya estaba en contexto.
 
-Abre dos conversaciones distintas, cada una en su sesión:
-
-| Conversación | Qué haces | Qué comprobar |
-|---|---|---|
-| A | Preguntas sin abrir ningún archivo de `tests/` | ¿Aparece `tests/CLAUDE.md` en `/context`? |
-| B | Pides a Claude que lea `tests/test_health.py` y luego preguntas | ¿Aparece ahora? |
-
-En la A, pregunta sin dejar que lea nada:
+Después pide:
 
 ```text
-¿Qué convenciones de test se aplican en este momento? Cita el archivo del que
-las tomas. No leas ningún archivo: responde solo con lo que ya tengas cargado.
+Lee tests/test_health.py y explica qué reglas específicas se aplican a este
+archivo. Cita el archivo de instrucciones; no edites nada.
 ```
 
-En la B, primero la lectura y después la misma pregunta:
+Vuelve a ejecutar `/context`. La regla debe aparecer después de que Claude lea
+una ruta coincidente; `/memory` permite revisar su contenido.
 
-```text
-Lee tests/test_health.py. Después dime qué convenciones de test se aplican en
-este momento y cita el archivo exacto del que las tomas.
-```
+## Parte 4: Probar el Límite
 
-Ejecuta `/context` en las dos y compara la lista de **Memory files**.
+Inicia otra sesión y pide que lea solo `app/main.py`. Comprueba que la regla de
+tests no se aplique como si fuera una convención general.
 
-Exige el archivo. Sin fuente, no sabes si la leyó o la infirió.
+Si aparece cargada desde el inicio, revisa:
 
-## Parte 3: Decidir el alcance
-
-Para cada regla de tu `CLAUDE.md` raíz, responde:
-
-- ¿Aplica a todo el repositorio, o solo a una carpeta?
-- Si es lo segundo, ¿cuánto contexto cuesta tenerla siempre cargada?
-
-Mueve al menos una regla a una memoria anidada, o justifica por escrito por qué
-todas las que quedan en la raíz son verdaderamente transversales.
+- que el frontmatter tenga `paths`;
+- que el patrón esté entre comillas;
+- que no exista una copia de la misma regla en el `CLAUDE.md` raíz;
+- que la sesión no haya leído tests antes de tu comprobación.
 
 ## Comprueba
 
-- ¿En qué conversación se cargó `tests/CLAUDE.md` y en cuál no? ¿Qué acción
-  concreta lo cargó?
-- ¿Qué regla moviste, y qué habría pasado si un cambio en producción la hubiera
-  aplicado por error?
-- ¿Qué diferencia hay entre poner una regla en la raíz y ponerla cerca del
-  archivo, más allá del coste de contexto?
-
-Anota las respuestas en `evidencias/s02.md`.
+- [ ] La regla contiene solo decisiones propias de tests.
+- [ ] El archivo está versionado bajo `.claude/rules/`.
+- [ ] `/context` permite identificar cuándo se cargó.
+- [ ] La regla se activa al leer `tests/test_health.py`.
+- [ ] No se trata como regla global al trabajar solo con `app/main.py`.
+- [ ] Anotaste el resultado en `evidencias/s02.md`.
 
 ## Limpieza
 
-Nada que limpiar. Si decides no conservar `tests/CLAUDE.md`, elimínalo con un
-commit que explique por qué la regla no justificaba su alcance.
+Conserva la regla si su alcance fue correcto. Si duplicaba el archivo raíz o no
+aportaba una decisión real, elimínala en un commit que explique el motivo.

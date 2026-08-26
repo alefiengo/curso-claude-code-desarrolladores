@@ -1,208 +1,253 @@
 # Plan del Curso
 
-## Resumen
+## Propósito
 
-Curso práctico de Claude Code para desarrolladores. 20 horas distribuidas en 10 sesiones de 2 horas.
+Este curso enseña a usar Claude Code como parte de un sistema de ingeniería, no
+como sustituto del criterio técnico.
 
-El objetivo es dominar la herramienta, no construir una API. Construyes una API
-porque las herramientas necesitan un sitio donde doler: un skill se entiende
-cuando te ahorra la quinta repetición, y un hook cuando llevas cuatro sesiones
-olvidando el lint.
+La competencia final es concreta:
 
-Cada sesión hace avanzar el proyecto **y** te deja una herramienta nueva en tu
-`.claude/`. Al terminar tienes las dos cosas: una API funcionando y un conjunto
-de herramientas que te llevas a tu trabajo el lunes siguiente.
+> Tomar un cambio real desde un ticket incompleto hasta una entrega verificable,
+> manteniendo control sobre contexto, alcance, evidencia y permisos.
 
-## El eje del curso
+La API del proyecto es el entorno de práctica. No se evalúa cuánto FastAPI
+recuerdas; se evalúa cómo entiendes, diriges, verificas y entregas el cambio.
 
-> Un agente rinde en proporción a **lo limpio que esté su contexto** y a **los medios que tenga para verificarse**.
+## El Modelo de Trabajo
 
-Todo lo demás son técnicas al servicio de una de esas dos cosas. La ventana de contexto se llena rápido y el rendimiento cae a medida que se llena; sin una comprobación que el agente pueda ejecutar, se detiene cuando le parece que terminó.
+Todas las sesiones repiten un mismo ciclo:
 
-### La escalera de verificación
+```text
+entender → acordar → cambiar → comprobar → revisar
+```
 
-El mismo concepto en cuatro grados de automatización, uno por bloque:
-
-El mismo criterio en cuatro grados. Lo que cambia es **quién decide** si se
-cumplió, y cuánto puede reinterpretarlo el agente:
-
-| Grado | Dónde vive el criterio | Quién decide | Sesión |
-|---|---|---|---:|
-| 1 | En el prompt | El modelo | 1 |
-| 2 | En un script que tú ejecutas | Un código de salida | 5 |
-| 3 | En un hook que se ejecuta solo | Un código de salida, sin que nadie lo pida | 6 |
-| 4 | En otro agente, con contexto limpio | Alguien que no tiene tus supuestos | 9 |
-
-El cuarto es el único que puede descubrir que **el criterio estaba mal**.
-
-Cada sesión trabaja además **un modo de fallo**. Los deterministas se provocan;
-los que dependen del modelo se observan como experimentos y se comparan con
-evidencia.
-
-## Entorno
-
-El entorno estándar es una terminal Linux. En Windows, el flujo es WSL 2 con Ubuntu 24.04, y los comandos se ejecutan desde Ubuntu, no desde PowerShell ni CMD.
-
-| Sistema | Docker | Python |
+| Momento | Decisión humana | Trabajo que puede hacer Claude |
 |---|---|---|
-| Linux | Docker Engine | uv |
-| Windows | WSL 2 + Ubuntu 24.04; Docker Engine dentro de WSL, o Docker Desktop según el equipo | uv dentro de WSL |
-| macOS | Docker Desktop | uv |
+| Entender | Qué problema importa y qué fuente es confiable | Explorar código, historial, logs y documentación |
+| Acordar | Qué resultado, límites y riesgos se aceptan | Detectar ambigüedades y proponer alternativas |
+| Cambiar | Cuánta autonomía corresponde al riesgo | Implementar y corregir con feedback |
+| Comprobar | Qué evidencia basta y qué sigue sin probarse | Ejecutar tests, lint, build y validaciones |
+| Revisar | Si el diff merece integrarse | Resumir, comparar contrato y señalar riesgos |
 
-La preparación está documentada en [Instalación del Entorno](docs/instalacion-entorno.md).
+El estudiante no memoriza una ceremonia. Aprende a reducir o ampliar cada
+momento según el trabajo. Un cambio de una línea puede ir directo a
+implementación. Una migración o una modificación multiarchivo necesita
+investigación y plan antes de editar.
 
-## Al finalizar el curso podrás
+## Principios Didácticos
 
-Trabajar con el agente:
+### El escenario aparece antes que el concepto
 
-- Formular tareas con un criterio de terminación que el propio agente pueda
-  comprobar, y reconocer uno que puede falsear.
-- Administrar el contexto: saber qué carga, qué cuesta y cuándo limpiarlo.
-- Planificar antes de implementar, y rechazar un plan con evidencia.
-- Reproducir un fallo con un test antes de corregirlo.
+Cada sesión empieza con una situación reconocible: un incidente, un cambio de
+contrato, una sesión degradada, un falso positivo o una automatización con más
+permisos de los necesarios. La teoría nombra lo que el estudiante acaba de
+necesitar.
 
-Construir tus herramientas:
+### Una sesión produce una decisión y una evidencia
 
-- Escribir un `CLAUDE.md` útil, y podarlo cuando deja de funcionar.
-- Crear skills invocables, y sacar a un script lo que no debe variar.
-- Poner hooks donde algo tiene que ocurrir siempre, o no poder ocurrir nunca.
-- Conectar un servidor MCP, y decidir cuándo **no** conectarlo.
-- Delegar en un subagente con contexto limpio.
-- Acotar permisos, ejecutar sin persona delante y automatizar en CI.
+El resultado no es "vi hooks". Es "elegí un hook porque la acción debía ocurrir
+siempre, lo probé con el caso permitido y con el bloqueado, y conservé la
+salida".
 
-Y el criterio que ordena todo lo anterior:
+### Las respuestas variables no se convierten en guiones falsos
 
-- Saber si algo va en `CLAUDE.md`, en un skill, en un hook o en un permiso.
-- Podar lo que construiste cuando deja de pagar lo que cuesta.
+Cuando interviene el modelo, el material describe invariantes: qué archivo debe
+haber cambiado, qué comando debe haber terminado, qué límite debe haberse
+respetado. No promete una redacción ni una secuencia exacta de herramientas.
 
-## Estructura General
+### La complejidad técnica paga una lección
 
-| Bloque | Sesiones | Horas | Qué construyes |
-|---|---:|---:|---|
-| Fundamentos y proyecto | 1–3 | 6h | El modelo mental, la memoria del proyecto y su diseño |
-| Construir con herramientas propias | 4–6 | 6h | Los recursos de la API, tus primeros skills y hooks |
-| Verificar, delegar y entregar | 7–10 | 8h | MCP, regresión, subagente, permisos y CI |
+Ninguna dependencia, comando o paso entra solo para hacer que el ejercicio
+parezca avanzado. PostgreSQL existe para practicar migraciones y datos reales.
+Git existe para revisar, recuperar y entregar. Si una pieza no cambia una
+decisión profesional, se elimina.
 
-Así se reparten los 120 minutos de cada sesión:
+### La autonomía crece junto con los controles
 
-| Bloque | Minutos |
-|---|---:|
-| Teoría: la herramienta de hoy y el concepto que la sostiene | 20-25 |
-| Laboratorio 1: el trabajo de ingeniería | 45-50 |
-| Laboratorio 2: construir la herramienta que ese trabajo pidió | 35-40 |
-| Cierre, evidencia e integración en `main` | 10-15 |
+Primero se dirige una tarea supervisada. Después se incorpora memoria de
+proyecto, recuperación, procedimientos reutilizables, guardrails, delegación y
+modo no interactivo. Más autonomía exige mejor verificación y límites más
+claros.
 
-Los dos laboratorios se encadenan: el primero produce el problema y el segundo lo
-resuelve construyendo algo que reutilizas el resto del curso.
+## Arquitectura de 20 Horas
+
+### Bloque 1 — Controlar una tarea y su contexto
+
+#### Sesión 1 — De un ticket a un cambio verificado
+
+Un webhook reintentado acredita dos veces el mismo pago. El estudiante recibe
+un incidente, reproduce el defecto, dirige una corrección mínima y audita suite,
+alcance y diff. Después toma una petición ambigua, cierra decisiones, confirma
+tests en rojo e implementa contra un contrato ya fijado.
+
+**Decisión central:** qué necesita una tarea para poder delegarse.
+
+**Evidencia:** contrato, rojo correcto, verde final, diff y riesgo residual.
+
+#### Sesión 2 — Dar contexto que sí cambia el resultado
+
+El estudiante dirige a Claude para crear desde cero la base del proyecto bajo
+un contrato explícito, audita alcance y gates, y observa qué puede descubrir el
+agente sin memoria. Después genera y depura un `CLAUDE.md`: elimina inventario,
+estado temporal y consejos genéricos; conserva comandos, decisiones no evidentes
+y límites reales. Finalmente lo prueba contra una propuesta que contradice
+cuatro reglas del equipo.
+
+**Decisión central:** qué merece cargarse en cada sesión.
+
+**Evidencia:** borrador auditado, `CLAUDE.md` cargado y revisión de una propuesta
+adversa con cuatro conflictos conocidos.
+
+#### Sesión 3 — Mantener señal durante un cambio largo
+
+Se implementa la v1 del contrato de la API mientras se observa qué llena el
+contexto. El estudiante separa una pregunta lateral, una exploración extensa y
+una decisión persistente; limpia o compacta solo cuando sabe qué debe conservar.
+
+**Decisión central:** cuándo continuar, compactar, delegar investigación o
+empezar una sesión limpia.
+
+**Evidencia:** v1 en verde y registro del contexto antes y después de una acción.
+
+### Bloque 2 — Diseñar, implementar y recuperar
+
+#### Sesión 4 — Explorar y planificar un cambio multiarchivo
+
+La v2 añade fechas límite, migración, serialización y filtros. Antes de editar,
+Claude explora el repositorio y propone un plan. El estudiante rechaza
+afirmaciones sin fuente, resuelve decisiones de rollback y convierte el
+resultado en contrato ejecutable.
+
+**Decisión central:** cuándo el coste de planificar es menor que el de corregir.
+
+**Evidencia:** especificación autocontenida, plan con archivos reales y tests en
+rojo por capacidad ausente.
+
+#### Sesión 5 — Implementar y entregar un cambio revisable
+
+Claude implementa la v2 contra el contrato ya fijado. El estudiante dirige por
+resultados, detecta si los tests se movieron, separa commits por intención y
+prepara una entrega que otra persona puede revisar sin leer la conversación.
+
+**Decisión central:** cuándo un cambio funciona pero todavía no está listo para
+integrarse.
+
+**Evidencia:** migración, suite, diff acotado, historial coherente y descripción
+de entrega.
+
+#### Sesión 6 — Interrumpir, recuperar y continuar
+
+Se prueban dos caminos sobre una misma desviación: corregir sobre el contexto
+contaminado o volver a un checkpoint. Después se cierra una sesión y otra
+persona —o una sesión nueva— retoma con un traspaso mínimo.
+
+**Decisión central:** cuándo sale más barato redirigir, rebobinar o empezar
+limpio.
+
+**Evidencia:** estado recuperado y continuidad lograda sin recontar toda la
+conversación.
+
+### Bloque 3 — Verificar, extender y automatizar
+
+#### Sesión 7 — Reproducir antes de explicar
+
+Una entrada Unicode atraviesa una validación aparentemente correcta. Claude debe
+reproducir el fallo antes de proponer la causa, distinguir un fallo útil de un
+test mal montado y cerrar con una regresión. Una comprobación visual muestra el
+límite de una captura frente a una prueba de comportamiento.
+
+**Decisión central:** qué evidencia demuestra el fallo y qué evidencia demuestra
+la corrección.
+
+**Evidencia:** reproducción mínima, regresión permanente y explicación respaldada
+por archivo y línea.
+
+#### Sesión 8 — Convertir repetición en una herramienta evaluada
+
+Un procedimiento de verificación ya se repitió varias veces y produce cierres
+distintos. El estudiante lo convierte en skill, decide qué queda en lenguaje
+natural y qué pasa a código, y lo evalúa con casos válidos, inválidos y adversos.
+
+**Decisión central:** cuándo una repetición merece una skill y cuándo solo
+necesita una instrucción más clara.
+
+**Evidencia:** skill versionado, casos de evaluación y prueba de que no edita el
+proyecto cuando solo debe verificar.
+
+#### Sesión 9 — Convertir reglas en guardrails
+
+El estudiante diferencia instrucciones, permisos, sandbox y hooks. Configura el
+mínimo privilegio necesario, prueba lo permitido y lo prohibido, y añade una
+puerta automática donde una recomendación no basta.
+
+**Decisión central:** qué debe persuadirse, qué debe ejecutarse siempre y qué no
+puede permitirse.
+
+**Evidencia:** matriz de permisos y hooks probados con casos positivos y
+negativos.
+
+#### Sesión 10 — Delegar y ejecutar sin nadie delante
+
+Una revisión se entrega a un subagente con contexto aislado. Una conexión MCP se
+evalúa por alcance, datos, permisos y coste antes de habilitarse. Finalmente el
+mismo contrato de verificación se ejecuta sin interfaz y produce salida
+estructurada para CI.
+
+**Decisión central:** qué contexto, herramientas y autoridad recibe una ejecución
+que no estás observando.
+
+**Evidencia:** hallazgos triados, conexión justificada o rechazada y ejecución no
+interactiva reproducible.
 
 ## Proyecto Integrador
 
-Construyes tu propio `curso-claude-code-api` a lo largo del curso. Es el resultado acumulado de las sesiones y el hilo conductor técnico. Está descrito en [proyecto-integrador](proyecto-integrador/README.md).
+El proyecto es una API de gestión de tareas con PostgreSQL. Su dominio es
+deliberadamente convencional para que las decisiones difíciles sean de
+ingeniería asistida: contrato, migración, contexto, verificación, entrega,
+permisos y automatización.
 
-## Desafíos Opcionales
+No se construye una aplicación distinta en cada sesión. El mismo repositorio
+acumula historia, decisiones y herramientas, de modo que también aparecen los
+problemas reales de continuidad y mantenimiento.
 
-Cada sesión incluye un desafío opcional para profundizar fuera del horario de clase. No se entregan y no son requisito para avanzar.
+Consulta [Proyecto integrador](proyecto-integrador/README.md).
 
-## Evaluación Formativa
+## Anatomía de una Sesión
 
-No hay calificación numérica. Cada sesión produce evidencia de proceso y el
-curso termina con un proyecto de transferencia evaluado mediante rúbrica. La
-evaluación se describe en [Evaluación y Portafolio](docs/evaluacion.md).
+| Tramo | Minutos orientativos | Resultado |
+|---|---:|---|
+| Apertura y demostración | 10 | Problema visible y pregunta de ingeniería |
+| Conceptos precisos | 15–20 | Modelo mental necesario para decidir |
+| Laboratorio 1 | 35–45 | Caso principal resuelto con guía |
+| Laboratorio 2 | 35–45 | Variación, límite o transferencia |
+| Revisión y cierre | 10–15 | Evidencia, riesgo residual y conexión con la siguiente sesión |
 
-## Compatibilidad y Seguridad
+Los tiempos exactos están en cada sesión y suman 120 minutos. Si una práctica no
+cabe tras pilotarla, se reduce el alcance; no se convierte en lectura acelerada.
 
-Claude Code cambia con frecuencia. La versión, los planes y las alternativas por
-capacidad se mantienen en [Compatibilidad](docs/compatibilidad.md). Las reglas
-que se aplican desde la primera sesión están en [Seguridad](docs/seguridad.md).
+## Evaluación
 
-## Sesiones
+No hay nota numérica. Se evalúan hábitos observables:
 
-Cada sesión hace avanzar la API **y** sale con una herramienta nueva para tu
-`.claude/`. La herramienta no llega antes de tiempo: llega cuando el trabajo de
-esa sesión la hace necesaria.
+- investiga antes de afirmar;
+- explicita decisiones que el ticket no tomó;
+- usa una comprobación pertinente;
+- interviene ante una desviación;
+- revisa todos los archivos modificados;
+- distingue evidencia de conclusión;
+- declara lo que sigue sin estar probado.
 
-### [Sesión 1: Especificar y Verificar](sesiones/sesion-01-especificar-y-verificar/README.md)
+El diagnóstico y la tarea final usan problemas equivalentes para comparar el
+proceso, no la cantidad de código. La rúbrica está en
+[Evaluación y portafolio](docs/evaluacion.md).
 
-Qué hace distinto a un agente de codificación. El bucle
-leer-editar-ejecutar-comprobar. Contexto, alcance y criterio de terminación.
-Criterios que el agente puede falsear. Preguntar al código ajeno y exigir la
-fuente.
+## Fuentes y Versionado
 
-**Comandos nuevos:** `claude`, `claude -p`, `/help`, `/status`, `/diff`, `/model`
+Claude Code cambia con frecuencia. Las afirmaciones sobre capacidades se
+contrastan con dos fuentes:
 
-### [Sesión 2: Fundar el Proyecto y su Memoria](sesiones/sesion-02-fundar-el-proyecto/README.md)
+- la ayuda de la versión instalada (`claude --help` y `/help`);
+- la [documentación oficial](https://code.claude.com/docs).
 
-Arranque de la API con FastAPI y PostgreSQL sobre Compose. Qué carga el agente al
-empezar y qué cuesta. Qué entra y qué no en un `CLAUDE.md`, y cómo podarlo.
-
-**Sales con:** el `CLAUDE.md` de tu proyecto.
-**Comandos nuevos:** `/init`, `/memory`, `/context`, `/config`
-
-### Sesión 3: Diseñar antes de Implementar _(aún no publicada)_
-
-Esquema, migraciones y el catálogo de estados. Separar la investigación de la
-ejecución: leer un plan, rechazarlo con evidencia y corregirlo antes de que se
-escriba una línea de código.
-
-**Sales con:** un plan revisable, y la decisión de dónde vive el seed.
-**Comandos nuevos:** `/plan`, `Shift+Tab`, `Ctrl+G`, `/goal`
-
-### Sesión 4: El Primer Recurso _(aún no publicada)_
-
-Proyectos, de punta a punta: contrato, tests en rojo, implementación y auditoría.
-Al terminar ves el patrón, y lo conviertes en un comando propio.
-
-**Sales con:** tu primer skill.
-**Comandos nuevos:** `/skills`, `/reload-skills`
-
-### Sesión 5: El Recurso con Relaciones _(aún no publicada)_
-
-Tareas: claves foráneas, filtros combinados y orden estable. El skill de la
-sesión anterior te andamia el recurso, y descubres que su resultado varía entre
-ejecuciones.
-
-**Sales con:** el skill con un script dentro, que ya no varía.
-**Comandos nuevos:** `/plugin`, `/doctor`
-
-### Sesión 6: Que No Se Te Olvide Nada _(aún no publicada)_
-
-Cerrar la v1. Qué es un hook, qué eventos existen y en qué se diferencia de una
-instrucción: lo que persuade frente a lo que impide.
-
-**Sales con:** dos hooks — lint automático y una puerta que impide cerrar en rojo.
-**Comandos nuevos:** `/hooks`
-
-### Sesión 7: Probar contra la Base Real _(aún no publicada)_
-
-Los tests están en verde, pero ¿qué hay en la tabla? Conectar el agente a
-PostgreSQL y encontrar lo que la suite no ve. Qué amplía un MCP y por qué se
-evalúa como una dependencia de producción.
-
-**Sales con:** un servidor MCP conectado, y el criterio para decidir sobre otro.
-**Comandos nuevos:** `/mcp`, `claude mcp add`
-
-### Sesión 8: Cuando Algo se Rompe _(aún no publicada)_
-
-TDD asistido sobre un fallo real. Reproducir antes de corregir, distinguir el
-rojo correcto del que no vale, y exigir evidencia en lugar de explicaciones.
-
-**Sales con:** un skill que convierte cualquier fallo en un test permanente.
-**Comandos nuevos:** `/review`, pegado de imágenes
-
-### Sesión 9: Dejar de Fiarte de Ti Mismo _(aún no publicada)_
-
-Revisar tu propio código no funciona. Qué contexto hereda cada forma de delegar,
-por qué una copia de tu conversación no es una segunda opinión, y qué se le
-entrega a un revisor.
-
-**Sales con:** un subagente revisor de solo lectura.
-**Comandos nuevos:** `/agents`, `/fork`
-
-### Sesión 10: Entregar, Automatizar y Podar _(aún no publicada)_
-
-La entrega: pull request con su evidencia. La automatización: permisos mínimos,
-sandbox y la misma verificación corriendo sin nadie delante. Y el cierre que
-ninguna formación enseña: **qué quitar** de todo lo que construiste.
-
-**Sales con:** permisos acotados, un workflow de CI y un `.claude/` podado.
-**Comandos nuevos:** `/permissions`, `/sandbox`, `/usage`, `claude -p --output-format json`
+La primera confirma disponibilidad local. La segunda explica semántica,
+restricciones y cambios. Ninguna reemplaza a la otra.

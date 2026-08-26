@@ -1,192 +1,169 @@
 # Temario
 
-Qué trabaja cada sesión y con qué sales de ella. El desarrollo completo está en
-el [plan del curso](../curso.md) y en cada sesión.
+Diez sesiones de dos horas. El recorrido aumenta la autonomía de Claude Code al
+mismo ritmo que aumenta la capacidad del estudiante para darle contexto,
+verificarlo y limitarlo.
 
-Diez sesiones de dos horas. Cada una hace avanzar el proyecto **y** te deja una
-herramienta nueva. La herramienta no llega antes de tiempo: llega cuando el
-trabajo de esa sesión la hace necesaria.
+## Bloque 1 — Controlar la Tarea y el Contexto
 
----
+### 1. De un ticket a un cambio verificado
 
-## Bloque 1 — Fundamentos y proyecto
+**Situación:** un webhook reintentado acredita dos veces el mismo pago.
 
-Sesiones 1 a 3. De qué es un agente a un proyecto con memoria propia y un diseño
-que se revisó antes de escribirse.
+**Conceptos:** ciclo del agente, contrato de tarea, alcance, verificación por
+capas, intervención temprana y revisión del diff.
 
-### 1. Especificar y verificar
+**Práctica:** corregir el incidente con una regresión protegida; convertir "no
+aceptes pagos inválidos" en decisiones, tests y una validación independiente.
 
-**El problema:** "arregla los errores" no es una tarea; es un deseo. Y sin forma
-de comprobarlo, el agente decide por su cuenta cuándo ha terminado.
+**Sales con:** un cambio aceptado por evidencia, no por la afirmación del agente.
 
-**Sales sabiendo:** escribir un prompt con contexto, alcance y criterio de
-terminación; detectar un criterio que el agente puede falsear —modificar los
-tests con los que se le mide— y cerrarlo; y exigir la fuente de cada afirmación
-antes de darla por buena.
+### 2. Contexto de proyecto que sí aporta
 
-### 2. Fundar el proyecto y su memoria
+**Situación:** sin instrucciones, Claude redescubre el proyecto; con demasiadas,
+recibe ruido y reglas contradictorias.
 
-**El problema:** un proyecto que solo arranca en la máquina donde se creó, y un
-`CLAUDE.md` tan largo que el agente lo ignora.
+**Conceptos:** contexto, instrucciones persistentes, memoria automática, alcance
+por directorio y coste de información siempre cargada.
 
-**Sales sabiendo** qué carga el agente cuando abres una sesión y qué te cuesta;
-qué entra en la memoria del proyecto y qué sobra porque el código ya lo dice.
+**Práctica:** dirigir a Claude para fundar la API desde un contrato, auditar el
+primer diff y probar un `CLAUDE.md` contra una propuesta que contradice sus
+reglas.
 
-**Sales con:** el `CLAUDE.md` de tu proyecto, podado hasta que cada línea se
-gane el sitio.
+**Sales con:** una memoria breve donde cada línea cambia una decisión real.
 
-### 3. Diseñar antes de implementar
+### 3. Mantener señal durante una tarea larga
 
-**El problema:** un plan generado suena razonable aunque cite archivos que no
-existen. Y una carga inicial de datos que vive en el sitio equivocado funciona en
-tu máquina y en ninguna otra.
+**Situación:** la conversación acumula archivos, comandos y caminos descartados
+mientras se implementa la primera versión de la API.
 
-**Sales sabiendo** separar la investigación de la ejecución, y rechazar un plan
-con evidencia del repositorio en lugar de aprobarlo porque suena bien.
+**Conceptos:** presupuesto de contexto, sesión limpia, compactación, preguntas
+laterales y persistencia de decisiones.
 
-**Sales con:** el esquema, las migraciones y un plan revisado antes de que se
-escribiera una línea de código.
+**Práctica:** construir la v1 por contrato y medir qué ocupa contexto antes de
+decidir qué conservar.
 
----
+**Sales con:** v1 en verde y criterio para continuar, compactar o empezar limpio.
 
-## Bloque 2 — Construir con herramientas propias
+## Bloque 2 — Diseñar, Implementar y Recuperar
 
-Sesiones 4 a 6. El trabajo repetido se convierte en comandos, y lo que no debe
-olvidarse deja de depender de tu memoria.
+### 4. Explorar y planificar un cambio multiarchivo
 
-### 4. El primer recurso
+**Situación:** añadir fechas límite afecta contrato, base, migración,
+serialización, filtros y rollback.
 
-**El problema:** acabas de escribir un recurso completo —contrato, tests en rojo,
-implementación, auditoría— y ves que el siguiente es exactamente igual.
+**Conceptos:** exploración separada de implementación, plan como hipótesis,
+fuentes del repositorio y coste de planificar.
 
-**Sales sabiendo** qué es un skill, qué lleva dentro, y en qué se diferencia de
-`CLAUDE.md`: uno se carga cuando lo llamas, el otro siempre.
+**Práctica:** descubrir los archivos reales, rechazar un plan con afirmaciones
+infundadas y dejar la v2 expresada como tests en rojo.
 
-**Sales con:** tu primer skill, y el recurso de proyectos funcionando.
+**Sales con:** especificación autocontenida, plan revisado y contrato ejecutable.
 
-### 5. El recurso con relaciones
+### 5. Implementar y entregar un cambio revisable
 
-**El problema:** el skill funciona, pero da un resultado distinto cada vez. Dos
-ejecuciones del mismo verificador no se pueden comparar.
+**Situación:** una implementación puede estar en verde y aun así mezclar alcance,
+mover las pruebas o producir una historia imposible de revisar.
 
-**Sales sabiendo** qué parte de una herramienta debe ser código y cuál puede
-seguir siendo lenguaje natural.
+**Conceptos:** dirección por resultados, integridad de la comprobación, commits
+por intención y evidencia de entrega.
 
-**Sales con:** el skill con un script dentro, cuyo veredicto ya no varía; y las
-tareas con sus relaciones, filtros y orden estable.
+**Práctica:** implementar la v2, auditar tests y migración, segmentar commits y
+preparar una descripción de cambio independiente de la conversación.
 
-### 6. Que no se te olvide nada
+**Sales con:** una entrega que otra persona puede entender, ejecutar y cuestionar.
 
-**El problema:** llevas cuatro sesiones olvidando pasar el linter, y el agente da
-por verificado lo que no ejecutó.
+### 6. Interrumpir, recuperar y continuar
 
-**Sales sabiendo** qué es un hook, cuándo se dispara cada evento y en qué se
-diferencia de una instrucción: una persuade, el otro impide.
+**Situación:** Claude sigue una hipótesis equivocada y la tarea debe continuar en
+otro momento o en otra sesión.
 
-**Sales con:** dos hooks —uno que reacciona a cada edición y otro que impide
-cerrar el turno en rojo— y la v1 cerrada.
+**Conceptos:** interrupción, redirección, checkpoint, rewind, Git como red de
+seguridad y traspaso de trabajo.
 
----
+**Práctica:** comparar corrección y recuperación; retomar desde evidencia mínima
+sin reinyectar toda la conversación.
 
-## Bloque 3 — Verificar, delegar y entregar
+**Sales con:** una estrategia de recuperación y un traspaso probado.
 
-Sesiones 7 a 10. Comprobar lo que los tests no ven, pedir una opinión que no sea
-la tuya, y dejarlo funcionando sin nadie delante.
+## Bloque 3 — Verificar, Extender y Automatizar
 
-### 7. Probar contra la base real
+### 7. Reproducir antes de explicar
 
-**El problema:** la suite está en verde. ¿Y qué hay en la tabla? Un `DELETE` pudo
-dejar filas huérfanas que ningún test mira.
+**Situación:** una entrada Unicode atraviesa una validación y la primera causa
+plausible no basta.
 
-**Sales sabiendo** qué es un servidor MCP, qué amplía —las herramientas del
-agente **y** los datos que alcanza— y por qué se evalúa como una dependencia con
-acceso a producción.
+**Conceptos:** reproducción, hipótesis, rojo correcto, causa raíz, regresión y
+límite de la evidencia visual.
 
-**Sales con:** un MCP conectado a tu base, y el criterio para decidir sobre otro
-que no vas a conectar.
+**Práctica:** reproducir, corregir y proteger el fallo; contrastar captura con
+comportamiento ejecutable.
 
-### 8. Cuando algo se rompe
+**Sales con:** una corrección respaldada por una regresión permanente.
 
-**El problema:** ante un reporte, la primera explicación plausible basta para que
-el agente proponga un arreglo. Si lo aceptas, corriges un síntoma.
+### 8. Convertir repetición en una herramienta evaluada
 
-**Sales sabiendo** reproducir antes de corregir, y distinguir el rojo que
-demuestra el fallo del que solo dice que tu test está mal montado.
+**Situación:** el mismo procedimiento de verificación se repite y cambia entre
+ejecuciones.
 
-**Sales con:** un skill que convierte cualquier fallo en un test permanente.
+**Conceptos:** skills bajo demanda, descubrimiento, instrucciones frente a
+código, efectos permitidos y evaluación de una herramienta de IA.
 
-### 9. Dejar de fiarte de ti mismo
+**Práctica:** construir un skill de verificación y someterlo a casos válidos,
+inválidos y adversos.
 
-**El problema:** revisas tu propio código y no ves nada. Y preguntarle a una copia
-de tu conversación es preguntárselo a quien ya escribió la solución.
+**Sales con:** un skill versionado cuya utilidad y límites fueron probados.
 
-**Sales sabiendo** qué contexto hereda cada forma de delegar, y qué se le entrega
-a un revisor: la especificación y el diff, nunca tu conclusión.
+### 9. Convertir reglas en guardrails
 
-**Sales con:** un subagente revisor de solo lectura.
+**Situación:** "no hagas X" es una instrucción; una ejecución automática necesita
+una garantía más fuerte.
 
-### 10. Entregar, automatizar y podar
+**Conceptos:** permisos, sandbox, hooks, mínimo privilegio, caso negativo y
+diferencia entre persuadir, disparar y bloquear.
 
-**El problema:** en modo automático no hay nadie a quien preguntar, así que el
-permiso se concedió antes o la ejecución falla. Y tu `.claude/` acumula nueve
-sesiones de herramientas que nadie ha revisado.
+**Práctica:** configurar solo la autoridad necesaria y demostrar tanto lo que se
+permite como lo que se rechaza.
 
-**Sales sabiendo** acotar permisos y probarlos con el caso negativo, ejecutar sin
-persona delante, y —lo que casi nadie enseña— **qué quitar**: qué skill no has
-vuelto a invocar, qué hook te cuesta en cada edición, qué MCP ocupa contexto sin
-usarse.
+**Sales con:** permisos y hooks auditables, no una configuración aceptada por fe.
 
-**Sales con:** permisos mínimos, un workflow de CI y un `.claude/` más pequeño
-que al empezar la sesión.
+### 10. Delegar y ejecutar sin nadie delante
 
----
+**Situación:** una segunda opinión contaminada por la conversación no es
+independiente, y una ejecución en CI no puede detenerse a pedir permiso.
 
-## El hilo que une las diez
+**Conceptos:** contexto aislado, revisión adversaria, alcance de MCP, ejecución
+no interactiva, salida estructurada y límites operativos.
 
-> Un agente rinde en proporción a **lo limpio que esté su contexto** y a **los
-> medios que tenga para verificarse**.
+**Práctica:** delegar una revisión, evaluar una conexión externa y ejecutar la
+verificación en un flujo automatizado.
 
-Eso se ve en la **escalera de verificación**, que recorre el curso entero. El
-criterio de "esto está terminado" va bajando desde el texto hasta el código:
+**Sales con:** una entrega revisada y un proceso no interactivo con autoridad
+explícita.
 
-| Peldaño | Dónde vive el criterio | Quién decide si se cumple | Sesión |
-|---|---|---|---:|
-| 1 | En el prompt | El modelo, releyendo la tarea | 1 |
-| 2 | En un script que tú ejecutas | El código de salida | 5 |
-| 3 | En un hook que corre solo | El código de salida, sin que lo pidas | 6 |
-| 4 | En un revisor con contexto propio | Otro agente, sin tus supuestos | 9 |
+## La Decisión que Conecta Todo
 
-Cada peldaño es más difícil de falsear que el anterior. El cuarto es el único que
-puede descubrir que **el criterio estaba mal**. Ninguno es perfecto, y el curso
-dice de cada uno **qué sigue sin garantizar**.
+Las extensiones no son una lista para instalar. Cada una responde a un problema
+diferente:
 
-## La pregunta que aprendes a responder
-
-Ante cualquier problema nuevo en tu trabajo:
-
-| Si esto... | Entonces va en... |
+| Necesidad | Mecanismo candidato |
 |---|---|
-| Debe pasar **siempre** | Un hook |
-| Lo haces **cuando lo pides** | Un skill |
-| **No puede** pasar nunca | Un permiso `deny` |
-| El agente lo tiene que saber **siempre** | `CLAUDE.md` |
-| Necesita **contexto limpio** | Un subagente |
-| Necesita **datos de fuera** | Un servidor MCP |
+| Información que Claude debe tener en cada sesión | `CLAUDE.md` o regla acotada |
+| Procedimiento o conocimiento reutilizable bajo demanda | Skill |
+| Acción que debe dispararse en un evento | Hook |
+| Acción que nunca debe autorizarse | Regla de permiso o política |
+| Investigación o revisión que necesita contexto aislado | Subagente |
+| Datos o acciones de un sistema externo | MCP o una CLI existente |
 
-Salir sabiendo responder esa tabla es lo que distingue a alguien que usa un
-agente de alguien que lo acumula.
+La pregunta profesional no es "¿cómo configuro todo?". Es "¿cuál es el mínimo
+mecanismo que resuelve este riesgo y cómo demuestro que funciona?".
 
-## Lo que construyes
+## Proyecto y Evaluación
 
-Una API REST de gestión de tareas, con base de datos y una página mínima para
-probarla. Crece contigo: al terminar tienes el proyecto funcionando y un
-`.claude/` con las herramientas que construiste. Los detalles están en el
-[proyecto integrador](../proyecto-integrador/README.md).
+El [proyecto integrador](../proyecto-integrador/README.md) es una API de tareas
+que acumula contrato, migraciones, defectos, historia Git y automatización. Cada
+sesión deja una evidencia revisable.
 
-El proyecto es el andamio. Lo que te llevas al trabajo es el `.claude/`.
-
-## Cómo se evalúa
-
-**No hay notas.** Cada sesión cierra con una lista de comprobación y una
-evidencia de proceso —una decisión y lo que la respalda—. El proyecto final usa
-una rúbrica sin calificación, y los desafíos opcionales no se entregan.
+El curso usa evaluación formativa. El diagnóstico inicial y la transferencia
+final comparan hábitos: investigar, acordar, comprobar, intervenir y revisar.
+Consulta [Evaluación y portafolio](evaluacion.md).

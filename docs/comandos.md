@@ -4,18 +4,16 @@ Este mapa orienta. `claude --help` y `/help` mandan en la versión instalada.
 
 | Momento | Comandos o controles | Sesión |
 |---|---|---:|
-| Abrir y diagnosticar | `claude`, `claude -p`, `claude doctor`, `/help`, `/status` | 1 |
-| Revisar cambios y modelo | `/diff`, `/model` | 1 |
-| Memoria y contexto | `/init`, `/memory`, `/context`, `/config`, `/clear`, `/compact`, `@ruta` | 2 |
-| Plan y objetivo | `/plan`, `Shift+Tab`, `Ctrl+G`, `/goal` | 3 |
-| Skills propios | `/skills`, `/reload-skills` | 4 |
-| Extensiones y diagnóstico | `/plugin`, `/doctor` | 5 |
-| Hooks | `/hooks` | 6 |
-| Integraciones externas | `/mcp`, `claude mcp add`, `claude mcp list` | 7 |
-| Depuración y revisión | `/review`, imágenes, `/rewind` | 8 |
-| Delegación | `/agents`, `/fork`, `/subtask` | 9 |
-| Control y automatización | `/permissions`, `/sandbox`, `/usage`, `claude -p --output-format json` | 10 |
-| Recuperación (transversal) | `Esc`, `Esc Esc`, `/rewind`, `/resume`, `--continue`, `/export` | 2-10 |
+| Dirigir el primer cambio | `claude`, `@ruta`, `/status`, `Shift+Tab`, `Esc`, `/diff`, `/exit` | 1 |
+| Contexto de proyecto | `/init`, `/memory`, `/context` | 2 |
+| Administrar contexto | `/clear`, `/compact`, `/btw`, `@ruta` | 3 |
+| Explorar y planificar | `Shift+Tab`, `Ctrl+G`, `/goal` | 4 |
+| Preparar una entrega | `/add-dir`, `/cd`, `/reload-skills` | 5 |
+| Recuperar y continuar | `Esc Esc`, `/rewind`, `/branch`, `/resume`, `--continue` | 6 |
+| Depurar y revisar | `/code-review`, imágenes | 7 |
+| Construir skills | `/skills`, `/reload-skills`, `/plugin`, `/doctor` | 8 |
+| Aplicar guardrails | `/permissions`, `/hooks`, `/sandbox` | 9 |
+| Delegar y automatizar | `/subtask`, `/fork`, `/mcp`, `claude -p --output-format json` | 10 |
 
 ## Etiquetas del Curso
 

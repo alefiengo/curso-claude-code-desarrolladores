@@ -1,82 +1,98 @@
-# Claude Code para Desarrolladores
+# Claude Code para Desarrollo Profesional
 
-Curso práctico de 20 horas para dominar Claude Code como herramienta de desarrollo: formular tareas verificables, dar contexto al agente, integrarlo en el flujo de git, extenderlo con comandos propios y llevarlo a CI.
+Aprende a completar cambios reales con Claude Code sin entregar el control de la
+ingeniería: entender un repositorio, acordar el resultado, implementar, verificar
+y entregar un diff que otra persona pueda revisar.
 
-## Por dónde empezar
+No es un curso de "prompts mágicos" ni un catálogo de comandos. Trabajas con
+tickets, código existente, tests, Git, revisiones, permisos y automatización.
 
-### → [Empezar aquí](docs/empezar-aqui.md)
+## Desde el Minuto Cero
 
-Esa página es la única que necesitas para arrancar: preparar la máquina, qué
-leer antes de la primera clase y cómo recorrer una sesión. Todo lo demás en
-este repositorio es material de consulta.
+La primera práctica parte de un incidente: un webhook reintentado acredita dos
+veces el mismo pago. Recibes el ticket, el código y una regresión en rojo. Tu
+trabajo es dirigir a Claude Code hasta una corrección mínima, comprobar el
+resultado y decidir si el diff merece aceptarse.
 
-Si ya tienes el entorno listo, ve directo a la
-[Sesión 1](sesiones/sesion-01-especificar-y-verificar/README.md).
+En esa primera sesión ya practicas el ciclo que ordena todo el curso:
 
-**El material se publica sesión a sesión.** Si en `sesiones/` solo ves la
-primera, es lo esperado: las demás aparecen conforme se imparten. Actualiza tu
-copia con `git pull` antes de cada clase.
+```text
+entender → acordar → cambiar → comprobar → revisar
+```
 
-## El eje
+Las sesiones siguientes aumentan el alcance: de un archivo a un proyecto, de
+una tarea a una entrega y de una ejecución supervisada a una automatización con
+límites.
 
-Un agente rinde en proporción a **lo limpio que esté su contexto** y a **los medios que tenga para verificarse**. Todo lo que enseña el curso sirve a una de esas dos cosas.
+## La Promesa
 
-Cada sesión analiza un modo de fallo. Cuando el comportamiento depende del
-modelo, el laboratorio lo trata como un experimento y registra la evidencia; no
-promete una respuesta concreta.
+Al terminar podrás:
 
-## Al finalizar el curso podrás
+- convertir un ticket incompleto en una tarea delegable y verificable;
+- explorar un repositorio desconocido sin llenar la conversación de ruido;
+- decidir cuándo investigar, cuándo planificar y cuándo implementar directo;
+- dar a Claude contexto persistente que aporte información y no repita el README;
+- intervenir, recuperar y continuar cuando una ejecución se desvía;
+- depurar desde una reproducción y cerrar con una regresión;
+- revisar alcance, evidencia y diff antes de aceptar;
+- convertir trabajo repetido en skills y obligaciones en hooks;
+- acotar permisos y conexiones externas con pruebas negativas;
+- delegar revisiones con contexto aislado y ejecutar flujos sin interfaz.
 
-- Formular tareas que el agente pueda comprobar por sí mismo.
-- Documentar un proyecto para que el agente trabaje bien en él.
-- Gestionar el contexto y las sesiones de trabajo.
-- Planificar y delegar tareas largas sin perder el control.
-- Integrar el agente en el flujo de ramas, commits y pull requests.
-- Verificar y depurar lo que produce.
-- Crear comandos y skills propios.
-- Acotar permisos y automatizar de calidad con hooks y permisos.
-- Delegar en subagentes y conectar servidores MCP.
-- Ejecutar Claude Code sin interfaz en integración continua.
+## Qué Hace Diferente al Curso
+
+| Curso superficial | Este curso |
+|---|---|
+| Enseña comandos aislados | Enseña decisiones dentro de un flujo de trabajo |
+| Usa ejemplos de juguete | Usa incidentes, contratos, cambios multiarchivo y entregas |
+| Celebra que el agente escribió código | Exige evidencia y revisión del diff |
+| Presenta una respuesta ideal | Trabaja con salidas variables y resultados comprobables |
+| Configura todo desde el principio | Añade contexto y automatización cuando aparece una necesidad real |
+| Termina en una demo | Termina en una entrega reproducible y auditable |
+
+## Recorrido
+
+| Sesión | Problema profesional | Evidencia de salida |
+|---:|---|---|
+| [1](sesiones/sesion-01-especificar-y-verificar/README.md) | Un ticket ambiguo o sin comprobación | Cambio aceptado con suite, alcance y diff revisados |
+| [2](sesiones/sesion-02-fundar-el-proyecto/README.md) | Claude no conoce el repositorio o recibe instrucciones inútiles | `CLAUDE.md` breve, probado contra tareas reales |
+| 3 _(aún no publicada)_ | Una tarea larga degrada el contexto mientras crece el cambio | API v1 y una estrategia de contexto medida |
+| 4 _(aún no publicada)_ | El agente implementa antes de entender dependencias y riesgos | Especificación, plan revisado y contrato en rojo |
+| 5 _(aún no publicada)_ | El código funciona, pero el cambio no es revisable | Implementación v2, commits coherentes y entrega con evidencia |
+| 6 _(aún no publicada)_ | Una línea de trabajo se desvía o debe continuar otro día | Recuperación comprobada y traspaso mínimo |
+| 7 _(aún no publicada)_ | Una explicación plausible reemplaza a la reproducción | Fallo reproducido, causa corregida y regresión permanente |
+| 8 _(aún no publicada)_ | El mismo procedimiento se vuelve a escribir y varía cada vez | Skill evaluado con casos de éxito y fallo |
+| 9 _(aún no publicada)_ | Una instrucción se confunde con una garantía | Permisos mínimos y hooks probados con casos negativos |
+| 10 _(aún no publicada)_ | Una ejecución aislada o automática puede exceder sus límites | Revisión delegada y flujo no interactivo auditable |
+
+Consulta el [temario detallado](docs/temario.md) para ver las decisiones y los
+artefactos de cada sesión.
 
 ## Formato
 
-- 10 sesiones de 2 horas.
-- Cada sesión tiene conceptos, laboratorios guiados y validación.
-- Modalidad práctica: trabajas en tu propia máquina.
-- Sin notas: evaluación formativa mediante listas de comprobación, evidencias de
-  proceso y un proyecto final.
-- Diagnóstico inicial y tarea final de transferencia para medir cambio de conducta.
+- 20 horas: 10 sesiones en vivo de 2 horas.
+- Al menos 70 % del tiempo se trabaja sobre código y evidencia.
+- Dos laboratorios encadenados por sesión.
+- Un proyecto integrador que crece mediante cambios revisables.
+- Evaluación formativa: no se premia memorizar comandos ni aceptar más código.
 
-## Dedicación
+## Perfil de Entrada
 
-| Componente | Tiempo |
-|---|---:|
-| Clases en vivo | 20 h |
-| Diagnóstico + transferencia, fuera de clase | 1 h 20 min |
-| Proyecto final | 4–6 h |
-| Desafíos opcionales | 30–45 min por sesión |
+Necesitas manejar Git y una terminal, y poder leer y depurar Python básico. No
+necesitas experiencia previa con Claude Code, FastAPI ni MCP.
 
-Las 20 horas anunciadas corresponden a clase. El proyecto y el diagnóstico
-forman parte de la experiencia completa y se comunican antes de la inscripción.
+Si nunca usaste la herramienta, llegas en igualdad de condiciones: la primera
+sesión explica el modelo mental mientras resuelves un cambio real.
 
-## Mapa del Curso
+## Empezar
 
-Qué trabaja cada sesión y con qué sales de ella: [temario](docs/temario.md).
-Las palabras que el curso usa con un significado preciso: [glosario](docs/glosario.md).
+1. Sigue [Empezar aquí](docs/empezar-aqui.md).
+2. Completa la comprobación del entorno antes de la clase.
+3. Abre la [Sesión 1](sesiones/sesion-01-especificar-y-verificar/README.md).
 
-
-| Sesión | Tema | Sales con |
-|---:|---|---|
-| [1](sesiones/sesion-01-especificar-y-verificar/README.md) | Especificar y verificar | — |
-| [2](sesiones/sesion-02-fundar-el-proyecto/README.md) | Fundar el proyecto y su memoria | `CLAUDE.md` |
-| 3 _(aún no publicada)_ | Diseñar antes de implementar | Un plan revisable |
-| 4 _(aún no publicada)_ | El primer recurso | Tu primer skill |
-| 5 _(aún no publicada)_ | El recurso con relaciones | Un skill con script |
-| 6 _(aún no publicada)_ | Que no se te olvide nada | Dos hooks |
-| 7 _(aún no publicada)_ | Probar contra la base real | Un MCP conectado |
-| 8 _(aún no publicada)_ | Cuando algo se rompe | Un skill de regresión |
-| 9 _(aún no publicada)_ | Dejar de fiarte de ti mismo | Un subagente revisor |
-| 10 _(aún no publicada)_ | Entregar, automatizar y podar | Permisos, CI y un `.claude/` podado |
+El [plan completo](curso.md), el [glosario](docs/glosario.md) y el
+[mapa de comandos](docs/comandos.md) son referencias; no necesitas leerlos de
+corrido.
 
 ## Licencia
 

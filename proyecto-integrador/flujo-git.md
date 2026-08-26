@@ -83,15 +83,6 @@ Trabajando con un agente aparece un problema propio: te deja setenta líneas en 
 solo cambio. Eso no se revisa. La sesión 10 construye un comando que propone cómo
 partirlo; hasta entonces, se hace a mano y con criterio.
 
-## Sin Tags
-
-Un tag apunta a un commit fijo. En cuanto haces una corrección posterior, el tag
-señala un estado que ya no es el bueno, y hay que borrarlo y recrearlo.
-
-`main` no tiene ese problema: es una referencia móvil que absorbe correcciones
-sin ceremonia. Por eso el curso no usa tags, y el punto de retorno es siempre el
-mismo: **el último `main` en verde**.
-
 ## Recuperar sin Perder Trabajo
 
 Cuando algo se tuerce:

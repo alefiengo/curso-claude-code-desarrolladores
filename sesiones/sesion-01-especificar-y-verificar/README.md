@@ -1,29 +1,26 @@
-# Sesión 1: Especificar y Verificar
+# Sesión 1: De un Ticket a un Cambio Verificado
+
+En esta sesión no vas a aprender una lista de comandos. En los primeros 40
+minutos vas a tomar un incidente de facturación, hacer que Claude Code encuentre
+la causa, corregirlo y revisar la evidencia antes de aceptar el cambio.
 
 ## Objetivo
 
-Formular tareas que Claude Code pueda comprobar por sí mismo, y reconocer cuándo un criterio no sirve.
+Completar un cambio pequeño con Claude Code sin ceder el criterio de ingeniería:
+definir el resultado, controlar el alcance, verificar el comportamiento y
+revisar el diff.
 
 ## Duración
 
 2 horas.
 
-Así se reparten los 120 minutos de la clase:
-
 | Bloque | Minutos |
 |---|---:|
-| Comprobar el entorno y repasar seguridad | 10 |
-| Cómo trabaja el agente: conceptos de la sesión | 15 |
-| [Lab 01 — Bucle de verificación](labs/01-bucle-de-verificacion/README.md) | 25 |
-| [Lab 02 — Criterio falseable](labs/02-criterio-falseable/README.md) | 35 |
-| [Lab 03 — Preguntar al código ajeno](labs/03-preguntar-al-codigo/README.md) | 25 |
-| Guardar evidencias y cierre | 10 |
-
-**Los tres laboratorios son el centro de la sesión**: ocupan 85 de los 120
-minutos. Hazlos en orden; el Lab 02 da por hecho lo que trabajaste en el 01.
-
-Si haces la sesión por tu cuenta, cuenta con algo más de tiempo: en clase
-avanzas acompañado.
+| Apertura: del incidente al diff | 10 |
+| Conceptos: el ciclo de trabajo y el contrato de tarea | 20 |
+| [Lab 01 — Resolver un incidente real](labs/01-bucle-de-verificacion/README.md) | 40 |
+| [Lab 02 — Convertir una petición ambigua en contrato](labs/02-criterio-falseable/README.md) | 40 |
+| Evidencia, transferencia y cierre | 10 |
 
 ## Materiales
 
@@ -34,306 +31,233 @@ avanzas acompañado.
 
 ## Laboratorios
 
-| Lab | Tema | Qué descubres |
+| Lab | Situación profesional | Qué descubres |
 |---|---|---|
-| [01 – Bucle de verificación](labs/01-bucle-de-verificacion/README.md) | Leer, editar, ejecutar, comprobar | Sin una condición de terminación, el agente para cuando le parece |
-| [02 – Criterio falseable](labs/02-criterio-falseable/README.md) | Contexto, alcance y criterio | "Los tests pasan" puede ser cierto y no significar nada |
-| [03 – Preguntar al código ajeno](labs/03-preguntar-al-codigo/README.md) | Entender un repositorio desconocido | Cuánto cambia una respuesta cuando exiges la fuente |
+| [01 — Resolver un incidente real](labs/01-bucle-de-verificacion/README.md) | Un webhook reintentado duplica un pago | Claude puede cerrar el ciclo completo si recibe una comprobación ejecutable |
+| [02 — Convertir una petición ambigua en contrato](labs/02-criterio-falseable/README.md) | "No aceptes pagos inválidos" no define qué significa inválido | Las decisiones que faltan en el encargo reaparecen como decisiones accidentales en el código |
 
-Los resultados que dependen del modelo se registran como experimento. La sesión
-evalúa la calidad de la evidencia, no que Claude responda igual para todos.
+Los dos labs trabajan sobre el mismo repositorio. El primero corrige un defecto
+con una prueba de regresión ya escrita. El segundo te obliga a definir el
+comportamiento antes de permitir que cambie el código.
 
-Antes del primer lab:
+Antes de empezar:
 
 ```bash
 mkdir -p ~/curso-claude/evidencias
 ```
 
-Esta es la única sesión que trabaja fuera del proyecto, porque todavía no existe
-la API. Vas a usar dos sitios distintos dentro de `~/curso-claude/`:
-
-```text
-~/curso-claude/
-├── evidencias/     tu archivo s01.md. Se conserva.
-└── sesion-01/      una carpeta por lab. Se borra al terminar la sesión.
-    ├── lab-01/
-    ├── lab-02/
-    └── lab-03/
-```
-
-Cada lab crea su propia carpeta en su primer paso; no tienes que prepararlas
-ahora. Lo único que se guarda de hoy es `evidencias/s01.md`.
-
-Desde la sesión 2 esto cambia: el proyecto `curso-claude-code-api` trae su propia
-carpeta `evidencias/` y ahí se guarda lo de cada sesión. Lo de hoy se queda
-donde está: esta sesión trabaja fuera del proyecto y su evidencia también.
-
 ## Al finalizar esta sesión podrás
 
-- Explicar qué hace un agente de codificación que un asistente de chat no hace.
-- Escribir un prompt con contexto, alcance y criterio de terminación.
-- Detectar un criterio que el agente puede falsear, y cerrarlo.
-- Obtener información sobre un repositorio y verificarla contra el archivo.
-- Revisar lo que cambió antes de aceptarlo.
-- Saber qué modelo estás usando y por qué no conviene subirlo sin motivo.
+- Distinguir una conversación útil de una tarea delegable.
+- Convertir un ticket en un contrato de tarea breve y comprobable.
+- Pedir investigación, implementación y evidencia sin dictar la solución.
+- Interrumpir y redirigir una ejecución que se sale de alcance.
+- Evaluar salida de tests, diff y archivos modificados antes de aceptar.
+- Explicar qué sigue sin estar probado aunque todo esté en verde.
 
 ## Conceptos Clave
 
-### El eje del curso
+### Claude Code ejecuta un ciclo, no una respuesta
 
-> Un agente rinde en proporción a lo limpio que esté su contexto y a los medios que tenga para verificarse.
-
-Esta sesión trabaja la segunda mitad. El contexto llega en la sesión 2.
-
-### Bucle de verificación
+Cuando recibe una tarea sobre un repositorio, Claude Code puede inspeccionar
+archivos, ejecutar comandos, editar y volver a comprobar. El ciclo útil es:
 
 ```text
-leer → editar → ejecutar → comprobar → responder
+entender → acordar → cambiar → comprobar → revisar
 ```
 
-El paso que distingue a un agente es **ejecutar y leer la salida**. Un chat te devuelve texto y la comprobación la haces tú.
+El valor no está en que escriba código rápido. Está en que pueda recorrer ese
+ciclo usando el mismo repositorio, las mismas herramientas y las mismas señales
+de calidad que usa el equipo.
 
-### Determinista y no determinista
+Tu responsabilidad cambia. Ya no decides cada línea, pero sigues decidiendo:
 
-Un proceso **reproducible** da la misma salida cada vez que le das la misma
-entrada, **con el mismo código, las mismas dependencias y el mismo entorno**.
-`pytest` lo es bajo esas condiciones: los mismos tests sobre el mismo código dan
-el mismo resultado y el mismo código de salida. `ruff` lo es. Git lo es.
+- qué problema vale la pena resolver;
+- qué resultado cuenta como correcto;
+- qué no debe tocarse;
+- qué evidencia basta para aceptar el cambio.
 
-Esa letra pequeña importa. Un test que lee el reloj, la red, un número aleatorio
-o el estado que dejó otro test **puede fallar sin que nadie haya tocado el
-código**. Eso tiene nombre —un test *inestable*, o *flaky*— y es un defecto del
-test, no del código que prueba. Cuando lo encuentres, la respuesta no es
-repetirlo hasta que pase: es fijar lo que variaba.
+### Una tarea profesional es un contrato, no un prompt perfecto
 
-El modelo **no**. La misma petición dos veces puede darte dos redacciones, dos
-órdenes de pasos, o dos decisiones distintas sobre cómo estructurar un archivo.
-No es un defecto que se vaya a arreglar: es cómo funciona.
+No necesitas una fórmula mágica. Necesitas cinco decisiones explícitas:
 
-De ahí salen las dos reglas que vas a usar durante todo el curso:
-
-| Porque el modelo no es determinista | Porque las herramientas sí son reproducibles |
+| Parte | Pregunta que responde |
 |---|---|
-| No esperes un texto literal concreto | Sí puedes exigir un código de salida concreto |
-| No verifiques comparando la respuesta | Verifica ejecutando el comando |
-| Un resultado bueno una vez no está probado | Un comando en verde sigue verde mientras no cambien código, dependencias ni entorno |
+| Resultado | ¿Qué comportamiento debe cambiar? |
+| Fuentes | ¿Dónde están el ticket, el contrato y los patrones del repositorio? |
+| Alcance | ¿Qué puede cambiar y qué queda fuera? |
+| Restricciones | ¿Qué compatibilidad, seguridad o diseño debe conservarse? |
+| Verificación | ¿Qué comando o evidencia demuestra el resultado? |
 
-Por eso el criterio de terminación es un **comando**, no una descripción. Y por
-eso los laboratorios te dicen *qué debe haber ocurrido* en lugar de qué texto
-vas a leer: cuando algo depende del modelo, cualquiera de los resultados
-posibles es válido, siempre que registres cuál te tocó.
+Un encargo puede ser corto y contener las cinco. También puede ocupar una página
+y no contener ninguna.
 
-La escalera de verificación de más abajo es, leída así, un recorrido desde lo
-menos determinista —una instrucción en el prompt— hasta lo más determinista: un
-script con código de salida que decide por ti.
-
-### Las tres partes de un prompt
-
-| Parte | Qué aporta |
-|---|---|
-| Contexto | Qué problema real existe y dónde |
-| Alcance | Qué archivos entran y cuáles no |
-| Criterio | Cómo sabrá que terminó |
-
-### Criterio de terminación
-
-Una condición que el agente puede comprobar por sí mismo.
-
-| Sirve | No sirve |
-|---|---|
-| `python3 -m unittest discover -q` pasa | "que quede bien" |
-| El comando imprime una salida exacta | "que sea profesional" |
-| `timeit` baja de un umbral | "que siga buenas prácticas" |
-
-La pregunta que resuelve casi todo: **¿cómo sabrá el agente que terminó?**
-
-### Criterio falseable
-
-Si le pides refactorizar y el criterio es "que los tests pasen", puede modificar los tests. Un criterio que el agente puede reescribir no es un criterio.
-
-Se cierra acotando lo intocable:
+Este es el contrato del primer lab:
 
 ```text
-...manteniendo el comportamiento. No modifiques test_medidas.py.
-Termina cuando los tests pasen sin haberlos tocado.
+Resuelve @ticket.md. Reproduce primero el fallo. Corrige la causa con el cambio
+mínimo y no modifiques ticket.md ni test_billing.py. Quedan fuera persistencia,
+concurrencia y validación de firmas. Termina cuando la suite pase y muestra el
+diff y los comandos ejecutados.
 ```
 
-### Evidencia frente a afirmación
+El contrato define el resultado y los límites. No le dice al agente qué `if`
+escribir ni en qué línea. Acotar el problema no significa dictar la solución.
 
-Pide la prueba, no la conclusión: la salida del comando, el archivo y la línea. Una afirmación sin fuente no es un hecho.
+### La verificación tiene capas
 
-### Escalera de verificación
+"Listo" es una afirmación. Una salida en verde es evidencia, pero solo de lo que
+esa comprobación alcanza a mirar.
 
-Lo de hoy es el primer peldaño. Los otros tres llegan más adelante:
+| Capa | Pregunta |
+|---|---|
+| Comportamiento | ¿La prueba que reproduce el problema ahora pasa? |
+| Regresión | ¿Sigue pasando lo que funcionaba antes? |
+| Alcance | ¿Solo cambiaron los archivos autorizados? |
+| Calidad del cambio | ¿El diff resuelve la causa sin complejidad accidental? |
 
-| Nivel | Mecanismo | Qué garantiza | Sesión |
-|---|---|---|---:|
-| **En el prompt** | **"ejecuta el test y arregla lo que falle"** | **Evidencia producida por el agente** | **1** |
-| En un script | Un archivo que ejecutas tú | Un código de salida, que no se reinterpreta | 5 |
-| En un hook | El mismo script, disparado solo | Lo anterior, sin que nadie se acuerde de pedirlo | 6 |
-| En otro agente | Un revisor con contexto limpio | Puede encontrar que el criterio estaba mal | 9 |
+Por eso una suite verde no cierra por sí sola el trabajo. Puede no cubrir el
+caso importante, puede haber sido debilitada o puede pasar mientras el diff
+introduce otra cosa. La revisión combina resultados ejecutables con inspección
+del cambio.
 
-Ninguno es infalible, y no garantizan lo mismo. Cada sesión explica el límite del suyo.
+En el Lab 01 la prueba ya existe y no puede tocarse. En el Lab 02 primero
+acuerdas el contrato, después conviertes ese contrato en tests y recién entonces
+implementas. El orden importa: el código no debería inventar el requisito que
+se usará para juzgarlo.
 
-### Permisos
+### Dirigir es intervenir temprano
 
-En los planes Pro, Max y Team, una sesión **arranca en auto mode**: en lugar de
-preguntarte, un segundo modelo —el clasificador— revisa cada acción y la aprueba
-o la para. Vas a ver muchas menos preguntas de las que esperas, y eso no
-significa que no esté pasando nada.
+No mires una ejecución equivocada hasta el final. Si Claude interpreta mal el
+ticket, quiere tocar un archivo fuera de alcance o persigue un enfoque innecesario,
+presiona `Esc`, explica la desviación y continúa desde ahí.
 
-Hoy quieres verlo todo, así que trabaja en **modo Manual**, donde el agente se
-detiene antes de cada edición y cada comando:
+Una corrección útil contiene evidencia:
 
-```bash
-claude --permission-mode manual
+```text
+Detente. test_billing.py forma parte de la comprobación y no debe cambiar.
+Revierte ese archivo y resuelve el comportamiento en billing.py.
 ```
 
-`Shift+Tab` cicla entre modos dentro de la sesión, y la barra de estado dice en
-cuál estás. El modo se llama **Manual** en la interfaz; su valor de
-configuración es `default`, que es el que verás en los archivos y en los hooks.
+Interrumpir no es un fracaso del flujo. Es el mecanismo normal para mantener una
+tarea dentro de sus límites.
 
-Los seis modos, el clasificador y el sandbox se ven en la sesión 10.
+### La evidencia que debes pedir
 
-### Qué modelo estás usando
+Al cerrar una tarea, pide un reporte que puedas auditar en menos de un minuto:
 
-Comprueba con `/status` cuál tienes activo. Se cambia con `/model`.
+1. causa encontrada, con archivo y línea;
+2. archivos modificados y motivo;
+3. comandos ejecutados y resultado;
+4. riesgos o casos que siguen fuera de alcance.
 
-**El curso se hace con `default`**, que no es un modelo: quita cualquier override
-y te deja el de tu cuenta. No es prudencia, es lo que hace comparables las
-evidencias entre compañeros y lo que evita quedarte sin cuota a mitad del curso. Si
-cambias de modelo, anótalo en tu evidencia.
-
-Hoy basta con eso: saber qué estás usando y no dispararlo sin motivo. La tabla de
-alias, los niveles de esfuerzo y la palabra `ultrathink` están en
-[compatibilidad](../../docs/compatibilidad.md#modelos-y-nivel-de-esfuerzo), para
-consultarlos cuando los necesites.
+Después abre el diff. El reporte reduce el tiempo de revisión; no reemplaza la
+revisión.
 
 ## Comandos Nuevos
 
-| Comando | Uso |
+| Comando o control | Uso |
 |---|---|
-| `claude` | Sesión interactiva sobre el directorio actual |
-| `claude -p "..."` | No interactivo: ejecuta, imprime y sale |
-| `/help` | Comandos disponibles en tu versión |
-| `/status` | Versión, modelo, cuenta y conectividad |
-| `/diff` | Cambios sin confirmar y diffs por turno |
-| `/model` | Ver y cambiar el modelo de la sesión |
+| `claude` | Abrir una sesión sobre el directorio actual |
+| `@archivo` | Incluir un archivo concreto como fuente de la tarea |
+| `/status` | Comprobar el modo de permisos activo |
+| `Shift+Tab` | Cambiar el modo de permisos de la sesión |
+| `Esc` | Interrumpir la acción actual para redirigirla |
+| `/diff` | Revisar los cambios de la sesión |
+| `/exit` | Cerrar la sesión interactiva |
+
+Git y la suite del repositorio siguen siendo la fuente de verdad:
+
+```bash
+git status --short
+git diff --check
+python3 -m unittest -v
+```
 
 ## Validación General
 
 ```bash
-cd ~/curso-claude/sesion-01
-python3 -c "import sys; sys.path.insert(0,'lab-01'); import calc; print(calc.suma(2,3))"
-cd lab-02 && python3 -m unittest discover -q && git diff --stat HEAD~1 HEAD
+cd ~/curso-claude/sesion-01/webhook-ledger
+python3 -m unittest -v
+python3 acceptance_validation.py
+git diff --check
+git status --short
 ```
 
 La sesión está completa si:
 
-- [ ] `lab-01/calc.py` devuelve `5` para `suma(2, 3)`.
-- [ ] `lab-02` tiene tests y todos pasan.
-- [ ] El último commit de `lab-02` no modifica el archivo de tests.
-- [ ] Tienes anotadas las respuestas del lab 03 con su archivo citado y su marca de verificación.
-- [ ] Guardaste `~/curso-claude/evidencias/s01.md` con una decisión y su evidencia.
-
-## Guardar la Evidencia
-
-Antes de borrar nada, escribe tu evidencia de la sesión:
-
-```bash
-code ~/curso-claude/evidencias/s01.md
-```
-
-No es un resumen de lo que hiciste. Es **una decisión y lo que la respalda**:
-
-```markdown
-# Sesión 1
-
-## Decisión
-Reformulé "arregla los errores" como un criterio con salida exacta.
-
-## Evidencia
-El comando `python3 -c "...contar_por_sensor(ms)"` imprime
-`{'cocina': 1, 'patio': 2}`, que es lo que el prompt exigía.
-
-## Qué observé
-En el paso 4 del Lab 01, sin criterio, el agente [sí / no] ejecutó una
-comprobación por su cuenta.
-
-## Lo que sigo sin poder garantizar
-...
-```
-
-Ese archivo es tuyo y lo relees antes de la sesión 2. Es lo único de hoy que se
-conserva.
+- [ ] El mismo `event_id` aplicado dos veces cambia el saldo una sola vez.
+- [ ] Un evento inválido produce `ValueError` sin modificar el estado.
+- [ ] La suite y la validación independiente terminan sin error.
+- [ ] Puedes justificar cada archivo modificado.
+- [ ] Conservaste el ticket, el contrato y la validación sin cambios durante la implementación.
+- [ ] Guardaste una evidencia breve con resultado, comandos y riesgo residual.
 
 ## Limpieza
 
-**Esto borra los tres laboratorios de hoy**, con sus repositorios Git y el clon
-de `click`. Comprueba primero que tu evidencia está guardada fuera de esa
-carpeta:
+El repositorio de la sesión es descartable. Conserva primero la evidencia:
 
 ```bash
 ls ~/curso-claude/evidencias/s01.md
 ```
 
-Si el archivo aparece, ya puedes borrar el resto:
+Si aparece, puedes borrar el laboratorio:
 
 ```bash
 rm -rf ~/curso-claude/sesion-01
-ls ~/curso-claude
 ```
-
-Debe quedar `evidencias` y, si ya la clonaste, `material`. No hay nada más que
-conservar: el trabajo de hoy era el aprendizaje, no el código.
 
 ## Desafío Opcional
 
-El [desafío opcional](tareas/desafio-opcional.md) aplica el criterio de terminación a un problema de rendimiento y a código propio.
+El [desafío opcional](tareas/desafio-opcional.md) aplica el mismo ciclo a un
+ticket pequeño de un repositorio propio.
 
 ## Cierre
 
-Checklist:
+Guarda `~/curso-claude/evidencias/s01.md` con este contenido mínimo:
 
-- [ ] Puedo explicar qué hace el agente que un chat no hace.
-- [ ] Puedo escribir un prompt con contexto, alcance y criterio.
-- [ ] Puedo detectar un criterio que el agente podría falsear.
-- [ ] Pido la fuente antes de dar por buena una afirmación.
-- [ ] Reviso el diff antes de aceptar.
+```markdown
+# Sesión 1
+
+## Cambio aceptado
+Qué comportamiento cambió y por qué.
+
+## Evidencia
+Comandos ejecutados y resultado.
+
+## Revisión del diff
+Qué archivo cambió y por qué el alcance es correcto.
+
+## Riesgo residual
+Qué sigue fuera de alcance o sin probar.
+```
 
 Preguntas de repaso:
 
-- ¿Qué paso del bucle distingue a un agente de un chat?
-- ¿Por qué "que quede más limpio" no es un criterio?
-- Si el criterio es "que los tests pasen", ¿qué puede salir mal?
-- ¿Cuándo conviene **no** detallar cómo debe implementarse algo?
-- ¿Qué harías si el agente cita un archivo que no dice lo que afirma?
-- ¿Qué modelo está activo en tu sesión, y qué pasa si trabajas siempre con el más caro?
+- ¿Qué diferencia una tarea delegable de una petición vaga?
+- ¿Qué demuestra una suite verde y qué no demuestra?
+- ¿Por qué se confirma la prueba antes de implementar?
+- ¿Cuándo debes interrumpir al agente?
+- ¿Qué cuatro datos necesitas para revisar un cierre sin releer toda la sesión?
 
 ## Versión
 
-Material probado con **Claude Code 2.1.233**. Comprueba la tuya con
-`claude --version`.
+Material revisado el **26 de agosto de 2026** contra la documentación oficial de
+Claude Code sobre el ciclo del agente, verificación, contexto y dirección de
+sesiones. Comprueba la instalación local con `claude --version` y `/help`.
 
-Si un comando no existe o se comporta distinto, hacen falta **dos** fuentes, y
-responden cosas distintas:
+Si la interfaz difiere, consulta:
 
-| Fuente | Qué responde |
-|---|---|
-| `claude --help`, `/help` | Si algo existe en **tu** instalación y con qué nombre |
-| [La documentación oficial](https://code.claude.com/docs) | Qué significa, qué cambió y qué depende de tu plan |
-
-Ninguna basta sola: la ayuda de la CLI no lista todos los flags ni explica
-comportamientos que dependen del plan, y la documentación describe la última
-versión, que puede no ser la tuya. Es una regla que vas a aplicar en las diez
-sesiones: nada sobre la herramienta se da por sabido sin comprobarlo.
+- [Cómo funciona Claude Code](https://code.claude.com/docs/en/how-claude-code-works)
+- [Prácticas recomendadas](https://code.claude.com/docs/en/best-practices)
 
 ## Preparación para la Siguiente Sesión
 
-La sesión 2 crea la API del curso y escribe su `CLAUDE.md`. Necesitas:
+La sesión 2 crea el proyecto integrador y diseña el contexto que Claude recibirá
+en cada sesión. Antes de llegar, comprueba:
 
 ```bash
-docker pull postgres:18-alpine
 docker run --rm hello-world
 uv --version
+git config --get user.email
 ```

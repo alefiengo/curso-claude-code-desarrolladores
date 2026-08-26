@@ -2,7 +2,11 @@
 
 El proyecto integrador es el hilo conductor del curso. **Construyes el tuyo** en tu propia máquina y en tu propio repositorio, `curso-claude-code-api`, a lo largo del curso.
 
-No se descarga hecho. Nace en la sesión 2 y crece con los laboratorios de cada sesión.
+Nace en la sesión 2 desde un repositorio mínimo que solo contiene el contrato y
+la política de exclusión. Cada estudiante dirige a Claude para generar la base,
+audita el plan y el diff, demuestra los criterios de aceptación y confirma su
+propio resultado. Los laboratorios siguientes lo hacen crecer desde ese primer
+checkpoint verificado.
 
 ## La Aplicación
 
@@ -48,14 +52,14 @@ separado:
 | Sesión | Lo que se añade |
 |---:|---|
 | 2 | Esqueleto: FastAPI, Compose, `GET /health` y el `CLAUDE.md` del proyecto |
-| 3 | Esquema, migraciones y el catálogo de estados |
-| 4 | Proyectos: CRUD completo con sus tests |
-| 5 | Tareas: relaciones, filtros y orden estable |
-| 6 | v1 cerrada, con verificación automática |
-| 7 | Datos reales, comprobados contra la base |
-| 8 | Una regresión corregida y protegida |
-| 9 | El cambio revisado por un tercero |
-| 10 | Entregado, automatizado y podado |
+| 3 | v1: esquema, migraciones, proyectos, tareas y gestión del contexto |
+| 4 | Contrato v2, plan revisado y tests en rojo para fechas límite |
+| 5 | v2 implementada, migrada y preparada como entrega revisable |
+| 6 | Recuperación, checkpoint y continuidad de la v2 |
+| 7 | Regresión de títulos invisibles y comprobación visual mínima |
+| 8 | Skill de verificación evaluado y de solo lectura |
+| 9 | Permisos mínimos y hooks probados con casos negativos |
+| 10 | Revisión aislada, ejecución no interactiva y CI |
 
 ## Arquitectura
 

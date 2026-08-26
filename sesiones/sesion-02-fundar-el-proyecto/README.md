@@ -1,216 +1,270 @@
-# Sesión 2: Fundar el Proyecto y su Memoria
+# Sesión 2: Contexto de Proyecto que Sí Aporta
+
+Un repositorio puede explicar qué archivos tiene. No puede explicar por sí solo
+qué decisiones tomó el equipo, qué fuente manda cuando dos documentos difieren
+o qué atajo está prohibido aunque funcione.
+
+En esta sesión fundas el proyecto integrador y construyes el contexto persistente
+que Claude recibirá cada vez que trabaje en él.
 
 ## Objetivo
 
-Crear una base reproducible para la API y escribir memoria de proyecto que aporte
-decisiones, no información que Claude puede descubrir leyendo el repositorio.
-
-**Sales con:** el `CLAUDE.md` de tu proyecto, podado hasta que cada línea se gane
-el sitio. Es la primera herramienta que construyes, y se carga en todas tus
-conversaciones a partir de hoy.
+Dirigir a Claude para crear una línea base reproducible desde un contrato y
+escribir un `CLAUDE.md` breve que reduzca errores reales de onboarding, sin
+convertirlo en una copia del repositorio.
 
 ## Duración
 
 2 horas.
 
-Así se reparten los 120 minutos de la clase:
-
 | Bloque | Minutos |
 |---|---:|
-| Repaso y contrato del proyecto | 15 |
-| [Lab 01 — Base verificable](labs/01-base-verificable/README.md) | 45 |
-| [Lab 02 — Memoria útil](labs/02-memoria-util/README.md) | 45 |
-| Guardar evidencias y cierre | 15 |
-
-Los dos laboratorios ocupan 90 de los 120 minutos. El Lab 02 trabaja sobre lo
-que crea el Lab 01, así que van en orden.
+| Apertura: qué puede descubrir y qué necesita que le cuentes | 10 |
+| Conceptos: contexto persistente, alcance y garantía | 10 |
+| [Lab 01 — Inicializar un proyecto bajo contrato](labs/01-base-verificable/README.md) | 45 |
+| [Lab 02 — Convertir decisiones en contexto de proyecto](labs/02-memoria-util/README.md) | 45 |
+| Evidencia y cierre | 10 |
 
 ## Materiales
 
 - [Contrato del proyecto](../../proyecto-integrador/contrato-api.md)
-- [Compatibilidad](../../docs/compatibilidad.md)
+- [Seguridad](../../docs/seguridad.md)
 - [Referencia rápida](referencia-rapida.md)
 - [Desafío opcional](tareas/desafio-opcional.md)
 
 ## Laboratorios
 
-| Lab | Resultado | Qué descubres |
+| Lab | Situación profesional | Qué descubres |
 |---|---|---|
-| [01 – Base verificable](labs/01-base-verificable/README.md) | FastAPI, uv, tests y Compose | Los tres comandos pueden dar verde sobre algo que no arranca |
-| [02 – Memoria útil](labs/02-memoria-util/README.md) | `CLAUDE.md` breve y comprobado | Cuánto de lo que genera `/init` el repositorio ya lo dice |
+| [01 — Inicializar un proyecto bajo contrato](labs/01-base-verificable/README.md) | Debes delegar la creación de un servicio nuevo sin aceptar alcance ni éxito por declaración | Un prompt de tarea dirige la generación; Git y las comprobaciones automáticas deciden si se acepta |
+| [02 — Convertir decisiones en contexto de proyecto](labs/02-memoria-util/README.md) | Una propuesta rápida contradice cuatro reglas del proyecto | Un `CLAUDE.md` útil dirige la revisión; no garantiza que el agente obedezca |
 
 ## Al finalizar esta sesión podrás
 
-- Dar al agente un contrato técnico sin dictar la implementación.
-- Validar una base de proyecto desde una máquina limpia.
-- Distinguir reglas duraderas de hechos que el código ya expresa.
-- Inspeccionar qué memoria y configuración entran en contexto.
-- Podar un `CLAUDE.md` generado antes de confirmarlo.
+- Separar hechos descubribles de decisiones que el equipo debe declarar.
+- Dirigir la inicialización de un proyecto vacío con alcance y criterios
+  falsables.
+- Auditar archivos nuevos y límites negativos antes del primer commit.
+- Elegir qué pertenece al `CLAUDE.md` raíz y qué necesita otro alcance.
+- Usar `/init` como borrador y auditarlo antes de conservarlo.
+- Comprobar con `/context` qué instrucciones se cargaron y usar `/memory` para
+  inspeccionar sus fuentes y la memoria automática.
+- Probar el contexto con un caso diseñado para contradecirlo.
+- Distinguir contexto, documentación y guardrails: reglas que se cumplen
+  aunque el modelo decida otra cosa, porque las aplica un permiso o un hook.
+- Dejar `main` en un estado reproducible para las sesiones siguientes.
 
 ## Conceptos Clave
 
-### Contrato antes que estructura
+### El contexto ya existe antes de tu primer mensaje
 
-La estructura de carpetas puede cambiar; los invariantes no. En esta sesión los
-invariantes son: una ruta de salud, comandos únicos para instalar y verificar,
-secretos fuera de Git y un servicio PostgreSQL con healthcheck.
+Una sesión no empieza vacía. Claude Code carga instrucciones del sistema,
+información del entorno, memoria de proyecto, memoria automática y definiciones
+de herramientas. Después se suman la conversación, los archivos que lee y las
+salidas de comandos.
 
-### Memoria de proyecto
+`/context` muestra qué ocupa la ventana actual. `/memory` permite inspeccionar
+los archivos de instrucciones y la memoria automática. Responden preguntas
+distintas:
 
-`CLAUDE.md` se carga con frecuencia. Debe contener información cara de inferir:
-comandos canónicos, límites, convenciones no obvias y errores conocidos. Una
-lista del árbol o de dependencias repite lo que Claude puede leer.
+| Pregunta | Herramienta |
+|---|---|
+| ¿Qué ocupa contexto ahora? | `/context` |
+| ¿Qué instrucciones y auto memory puedo inspeccionar? | `/memory` |
 
-### Jerarquía
+Que `/memory` permita abrir un archivo no prueba que esté activo en ese momento.
+Para comprobar la carga, usa **Memory files** dentro de `/context`.
 
-Claude puede cargar memoria de usuario, organización, repositorio y directorios
-anidados. Una regla cercana al archivo puede especializar una general. Antes de
-añadir texto, decide su alcance y propietario.
+La consecuencia profesional no es "usar pocos tokens". Es mantener alta la
+proporción entre señal y ruido: cada instrucción cargada siempre debe justificar
+la atención que compite con la tarea actual.
 
-Se cargan **todas**, concatenadas de la raíz del sistema hacia tu directorio de
-trabajo: no se sustituyen entre ellas. Lo más cercano se lee al final.
+### Repositorio, documentación e instrucciones no son lo mismo
 
-### Hay dos memorias, y solo escribes una
-
-| | `CLAUDE.md` | Auto memory |
+| Lugar | Para qué sirve | Ejemplo |
 |---|---|---|
-| Quién lo escribe | Tú | Claude |
-| Qué guarda | Instrucciones y reglas | Aprendizajes y correcciones tuyas |
-| Dónde vive | En el repositorio | En tu máquina, fuera del proyecto |
-| Viaja con el equipo | Sí, por Git | No |
+| Código y configuración | Estado ejecutable del proyecto | Dependencias, rutas, versión de Python |
+| Documentación | Explicación detallada y fuentes de verdad | Contrato de la API, decisiones de arquitectura |
+| `CLAUDE.md` | Orientación breve que debe estar disponible en cada sesión | Comando canónico, fuente que manda, límite no obvio |
 
-**Auto memory está activa por omisión.** Cuando ves *"Saved 2 memories"* o
-*"Recalled 2 memories"* en la interfaz, Claude está escribiendo o leyendo en
-`~/.claude/projects/<proyecto>/memory/`. El índice de ese directorio,
-`MEMORY.md`, se carga al principio de cada sesión igual que tu `CLAUDE.md`.
+Una lista de dependencias no pertenece a `CLAUDE.md`: `pyproject.toml` ya la
+responde. Un tutorial de instalación tampoco: vive mejor en el README.
 
-Esto importa para lo que vas a hacer hoy: puedes podar tu `CLAUDE.md` hasta
-dejarlo perfecto y seguir teniendo instrucciones entrando por una puerta que no
-has mirado. Se audita con `/memory`, y se apaga por proyecto con
-`autoMemoryEnabled` si prefieres que la única memoria sea la que versionas.
+El prompt que crea la base tampoco debe copiarse entero a `CLAUDE.md`. "En esta
+entrega implementa solo `/health`" es alcance temporal; "el contrato de
+comportamiento vive en `docs/contrato-api.md`" sí puede seguir siendo útil en
+cualquier tarea. La diferencia no es el formato, sino cuánto dura la decisión.
 
-### Ninguna de las dos obliga
+Los comandos canónicos sí pueden merecer una línea aunque también aparezcan en
+el README. Se usan en casi todas las tareas, una variante incorrecta puede dar
+un resultado distinto y el coste de redescubrirlos se repite. La regla correcta
+no es "si está en el repositorio, bórralo"; es esta:
 
-`CLAUDE.md` no forma parte del prompt de sistema: se entrega como un mensaje de
-usuario justo después. Claude lo lee y lo intenta seguir, pero no hay garantía de
-cumplimiento estricto. Es la distinción que trabaja la sesión 6: una instrucción
-persuade; un hook ejecuta código tuyo en un momento fijo, y según el evento puede
-además impedir la acción.
+> Conserva lo que Claude debe tener presente con frecuencia y cuyo
+> redescubrimiento cuesta tiempo o introduce riesgo.
 
-De ahí sale un umbral útil. Apunta a **menos de 200 líneas** por archivo:
-más largo consume contexto y baja la adherencia. Y si crece, la respuesta no es
-recortar a ciegas sino `.claude/rules/`, donde cada archivo cubre un tema y puede
-declarar `paths:` para cargarse **solo** cuando Claude toca los archivos que le
-corresponden.
+### Qué merece contexto persistente
+
+Un `CLAUDE.md` de proyecto suele ganar su lugar con cuatro tipos de información:
+
+| Tipo | Ejemplo del curso |
+|---|---|
+| Fuente de verdad | El comportamiento vive en `docs/contrato-api.md` |
+| Comando canónico | `uv run pytest -q` ejecuta la suite del entorno bloqueado |
+| Restricción no obvia | Las pruebas de persistencia usan PostgreSQL, no SQLite |
+| Límite de trabajo | No abrir, mostrar, editar ni confirmar `.env` |
+
+No lo llenes con frases genéricas como "escribe código limpio", estados
+temporales como "hoy solo existe `/health`" ni recorridos multi-paso que solo se
+usan en una tarea concreta.
+
+### Elegir el alcance correcto
+
+Antes de escribir una regla, decide cuándo debe cargar y quién la comparte:
+
+| Necesidad | Lugar adecuado |
+|---|---|
+| Aplica a cualquier tarea del repositorio | `CLAUDE.md` raíz |
+| Solo aplica cuando se trabaja en ciertas rutas | `.claude/rules/` con `paths:` |
+| Es personal y no debe viajar con el equipo | `CLAUDE.local.md` ignorado |
+| Es un procedimiento bajo demanda | Skill, que se trabaja en la sesión 8 |
+| Debe cumplirse aunque el modelo decida otra cosa | Permiso o hook, sesión 9 |
+
+Dividir un archivo mediante imports mejora organización, pero no reduce contexto:
+lo importado también se carga. Para reducir carga necesitas alcance condicional
+o contenido bajo demanda.
+
+### `/init` propone; el equipo decide
+
+`/init` explora el repositorio y genera una base. Puede encontrar comandos,
+estructura y patrones. No conoce acuerdos que nunca se escribieron, y puede
+convertir hechos temporales o detalles obvios en instrucciones permanentes.
+
+Trata su salida como cualquier otro cambio generado:
+
+1. revisa cada línea;
+2. exige una fuente o un riesgo concreto;
+3. mueve lo que tenga otro alcance;
+4. elimina lo genérico, duplicado o temporal;
+5. prueba el resultado con una tarea adversa.
+
+### Una instrucción no es una garantía
+
+`CLAUDE.md` entra como contexto que el modelo intenta seguir. No es una política
+de seguridad. Una instrucción vaga, contradictoria o perdida entre ruido puede
+ignorarse.
+
+En el Lab 02 usarás una propuesta que pide SQLite, editar tests, leer `.env` y
+cerrar con una comprobación incompleta. El resultado sirve para evaluar si el
+contexto orienta bien la revisión. Si Claude omite un conflicto, no "falló el
+curso": encontraste el límite de una instrucción. Los límites que no admiten
+excepciones se convierten en permisos o hooks más adelante.
 
 ## Comandos Nuevos
 
 | Comando | Uso |
 |---|---|
-| `/init` | Generar una propuesta inicial de memoria |
-| `/memory` | Listar y abrir los archivos de memoria; activar o desactivar la auto memory |
-| `/context` | Ver qué ocupa la ventana actual, y qué memoria se cargó de verdad |
-| `/config` | Consultar o ajustar configuración interactiva |
+| `/init` | Generar o mejorar una propuesta de instrucciones de proyecto |
+| `/context` | Ver la distribución del contexto y los archivos cargados |
+| `/memory` | Inspeccionar instrucciones y memoria automática |
 
 ## Validación General
 
-Desde `curso-claude-code-api`:
+Desde `~/curso-claude/curso-claude-code-api`:
 
 ```bash
 uv sync --frozen
 uv run pytest -q
 uv run ruff check .
 docker compose config -q
+git check-ignore .env
 git status --short
 ```
 
-`uv sync --frozen` instala exactamente lo que dice `uv.lock` y falla si el
-archivo no está al día. Sin él, `uv run` puede actualizar el lock por su cuenta:
-pasaría en tu máquina y no en la de quien clone el repositorio.
+La sesión está completa si:
 
-- [ ] Tests y lint pasan.
-- [ ] `compose.yaml` es válido.
-- [ ] `.env` no está rastreado y `.env.example` sí.
-- [ ] `CLAUDE.md` contiene decisiones comprobadas y no un inventario del repo.
-- [ ] Sabes qué guarda tu auto memory, y decidiste si la dejas activa.
-- [ ] Guardaste `evidencias/s02.md`.
+- [ ] Claude creó la base desde el contrato, sin recibir una solución preconstruida.
+- [ ] El plan se aprobó antes de editar y el diff respetó el alcance permitido.
+- [ ] El `uv.lock` generado coincide con el proyecto y pasan tests y lint.
+- [ ] PostgreSQL llegó a estado `healthy` al menos una vez.
+- [ ] `CLAUDE.md` declara fuentes, comandos y límites relevantes para cualquier tarea.
+- [ ] No contiene inventario, tutorial, estado temporal ni consejo genérico.
+- [ ] `/context` confirma que el archivo está cargado.
+- [ ] La revisión de la propuesta detectó sus cuatro incompatibilidades, o registraste cuál omitió Claude.
+- [ ] `.env` está ignorado y no aparece en el historial.
+- [ ] Guardaste `evidencias/s02.md` y `main` está limpio.
 
-## Cierre en Git
+## Limpieza
 
-Esta sesión es la excepción a la regla de ramas: **el commit fundacional va
-directo a `main`**. Todavía no hay un `main` en verde del que salir ni contra el
-que comparar, así que la rama no protegería nada. Desde la sesión 3, cuando ya
-exista ese punto de partida, el código de la API va en su rama, según el
-[flujo de trabajo con Git](../../proyecto-integrador/flujo-git.md).
+Conserva la API y su historial. Detén los procesos locales:
 
-Comprueba que el trabajo quedó confirmado y que `main` está en verde:
+```bash
+docker compose down
+docker compose ps
+```
+
+No uses `-v`: el volumen se reutiliza en la sesión 3.
+
+## Desafío Opcional
+
+El [desafío opcional](tareas/desafio-opcional.md) mueve convenciones de tests a
+una regla con alcance por ruta y comprueba cuándo entra en contexto.
+
+## Cierre
+
+Guarda `evidencias/s02.md`:
+
+```markdown
+# Sesión 2
+
+## Descubrible en el repositorio
+Un hecho que Claude encontró sin memoria y su fuente.
+
+## Primera delegación
+Una decisión del plan que aprobaste o corregiste y qué prueba usaste.
+
+## Decisión que necesitaba el equipo
+Una regla que no podía inferirse con seguridad.
+
+## Línea eliminada de /init
+Qué quitaste y por qué no merecía carga permanente.
+
+## Prueba del contexto
+Qué conflictos encontró Claude en la propuesta y cuál omitió, si hubo uno.
+
+## Límite
+Qué parte requiere un guardrail y no solo una instrucción.
+```
+
+Preguntas de repaso:
+
+- ¿Qué dato útil dejaste fuera de `CLAUDE.md` porque ya tenía un lugar mejor?
+- ¿Qué decisión no podía deducirse del código?
+- ¿Qué diferencia hay entre que `/memory` liste un archivo y que `/context` lo muestre cargado?
+- ¿Qué regla de tu archivo debería convertirse en guardrail si el riesgo aumenta?
+
+## Versión
+
+Material revisado el **26 de agosto de 2026** con Claude Code **2.1.246** y la
+documentación oficial de memoria y contexto. Comprueba tu versión con
+`claude --version` y la disponibilidad local con `/help`.
+
+- [Memoria de proyecto](https://code.claude.com/docs/en/memory)
+- [Depurar configuración](https://code.claude.com/docs/en/debug-your-config)
+- [Ventana de contexto](https://code.claude.com/docs/en/context-window)
+
+## Preparación para la Sesión 3
+
+Llega con el proyecto limpio y la base disponible:
 
 ```bash
 git switch main
 git status --short
 uv run pytest -q
-git log --oneline
-```
-
-`git status --short` debe estar vacío. Ese `main` en verde es el punto de partida
-de la sesión 3.
-
-## Limpieza
-
-La API se conserva: es el proyecto integrador. Solo se detiene lo que quedó
-levantado.
-
-```bash
-cd ~/curso-claude/curso-claude-code-api
-docker compose down
-docker compose ps
-```
-
-`docker compose ps` no debe listar servicios en ejecución. El volumen de datos se
-conserva para la sesión 3.
-
-## Desafío Opcional
-
-El [desafío opcional](tareas/desafio-opcional.md) crea una memoria anidada solo
-para `tests/` y comprueba cuándo se carga. No se entrega y no es requisito para
-la sesión 3.
-
-## Cierre
-
-Checklist:
-
-- [ ] `GET /health` responde 200 con `{"status":"ok"}`.
-- [ ] Los tres comandos del contrato pasan desde una terminal limpia.
-- [ ] `.env` está ignorado y `.env.example` versionado.
-- [ ] Cada línea de mi `CLAUDE.md` es decisión, comando o riesgo.
-- [ ] Sé qué memoria está cargada y cuánto contexto ocupa.
-
-Preguntas de repaso:
-
-- ¿Qué línea de tu `CLAUDE.md` no podría deducirse leyendo código?
-- ¿Qué regla moverías a una memoria anidada si el proyecto creciera?
-- ¿Cómo reconstruirías el entorno sin recordar comandos manuales?
-
-## Versión
-
-Material probado con **Claude Code 2.1.233**. Si un comando no existe o se
-comporta distinto, `claude --help` y `/help` mandan sobre estos apuntes.
-
-## Preparación para la Sesión 3
-
-Comprueba que la base de datos arranca:
-
-```bash
 docker compose up -d --wait db
 docker compose ps
-docker compose logs db --tail 5
 ```
 
-`--wait` no devuelve el control hasta que el servicio esté `healthy`, así que el
-`ps` de la línea siguiente no puede pillarlo todavía arrancando. El servicio `db`
-debe aparecer como `healthy`. Si no, resuélvelo antes de la
-sesión 3: el esquema y las migraciones se construyen encima.
-
-La sesión 3 diseña el esquema de la base y sus migraciones antes de escribir una
-línea de código. Llega con `main` en verde y con la conversación de hoy cerrada:
-lo que decidiste ya está en tu `CLAUDE.md`, no en un hilo abierto.
+La sesión 3 implementa la v1 y observa cómo cambia el contexto durante una tarea
+larga. Cierra la conversación de hoy: las decisiones duraderas ya están en el
+repositorio.

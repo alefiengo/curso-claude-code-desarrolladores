@@ -31,8 +31,11 @@ Si nunca has usado Claude Code, o solo lo has usado como chat, ejecuta `/powerup
 
 - Manejarte con git y la terminal.
 - Dominar al menos un lenguaje de programación.
+- Poder leer y depurar Python básico, aunque no sea tu lenguaje principal.
 
-No hace falta que sepas Python ni FastAPI. Son el medio del curso, no la materia.
+No hace falta experiencia con FastAPI ni PostgreSQL. El curso no enseña Python
+desde cero: el código se explica cuando aporta a la decisión, pero debes poder
+seguir una función, un test y un traceback.
 
 ## Estructura de cada sesión
 
@@ -72,7 +75,9 @@ El curso empieza con un [diagnóstico](diagnostico.md) y termina con una tarea
 equivalente. Lo que comparas son tus hábitos de trabajo, no tu velocidad
 tecleando ni cuánto código escribiste.
 
-Lo que importa no es que la feature funcione, sino cómo llegaste hasta ella.
+Que el cambio funcione es necesario, pero no suficiente. También importa cómo
+definiste el resultado, qué evidencia usaste, cómo controlaste el alcance y qué
+riesgo dejaste explícito.
 
 ## Cuando algo falla
 

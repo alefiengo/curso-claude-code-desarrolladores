@@ -1,287 +1,207 @@
-# Lab 02: Criterio Falseable
+# Lab 02: Convertir una Petición Ambigua en Contrato
 
 ## Objetivo
 
-Convertir peticiones vagas en objetivos verificables, y reconocer cuándo un criterio puede ser falseado por el propio agente.
+Transformar una petición incompleta en comportamiento verificable, fijar los
+tests antes de implementar y comprobar el resultado con una validación
+independiente.
 
 ## Por qué este lab
 
-"Los tests pasan" suena a garantía. Puede ser falso de dos maneras, y aquí ves
-las dos:
+"No aceptes pagos inválidos" parece claro hasta que alguien tiene que escribir
+el código. ¿Cero es válido? ¿Un booleano cuenta como entero? ¿Se registra el
+evento rechazado? ¿Qué error recibe quien llama?
 
-1. **Los tests no miran la función que cambiaste.** Si ninguno la cubre, que
-   pasen no dice absolutamente nada sobre ella.
-2. **El agente puede reescribir el test.** Aunque sí la cubra, cumplir la
-   condición cambiando la comprobación es más fácil que arreglar el código.
-
-Lo primero lo vas a ver siempre. Lo segundo depende de cómo responda Claude esta
-vez: puede ocurrir o no, y ambas cosas te sirven. Anota lo que pase.
-
-Al terminar sabrás mirar un criterio de terminación y decir qué garantiza de
-verdad.
+Si esas decisiones no están en el encargo, no desaparecen: el agente las toma
+por ti. Aquí vas a descubrir las ambigüedades antes de editar, convertir las
+respuestas en un contrato y separar dos momentos: escribir la comprobación y
+escribir la solución.
 
 ## Requisitos
 
-- Lab 01 completado.
-- Python 3 y Git disponibles.
+- Haber completado el Lab 01.
+- El repositorio `~/curso-claude/sesion-01/webhook-ledger` limpio.
+- El último commit debe ser la corrección de idempotencia.
 
 ## Paso a Paso
 
-### 1. Preparar el archivo de trabajo
+### 1. Incorporar la solicitud y la plantilla
 
 ```bash
-mkdir -p ~/curso-claude/sesion-01/lab-02 && cd ~/curso-claude/sesion-01/lab-02
+cd ~/curso-claude/sesion-01/webhook-ledger
+git status --short
 export MATERIAL=$CURSO/sesiones/sesion-01-especificar-y-verificar/labs/02-criterio-falseable/material
-cp $MATERIAL/medidas.py .
-code medidas.py
-git init -q
-printf '__pycache__/\n' > .gitignore
-git add medidas.py .gitignore && git commit -qm "Estado inicial"
+cp $MATERIAL/change_request.md .
+cp $MATERIAL/contract_template.md .
+cp $MATERIAL/acceptance_validation.py .
+git add change_request.md contract_template.md acceptance_validation.py
+git commit -m "Añade solicitud de validación de pagos"
 ```
 
-El `.gitignore` no es un detalle: Python deja archivos `.pyc` en `__pycache__/`
-cada vez que se importa un módulo. Sin ignorarlos, los `git add -A` de este lab
-los confirman y **cada `git diff --stat` sale con ruido binario**, justo en el
-laboratorio donde vas a auditar diffs.
-
-`$CURSO` es la copia del material que clonaste en el
-[preflight](../../../../docs/instalacion-entorno.md). `medidas.py`
-tiene cuatro funciones y varios defectos deliberados; con el archivo abierto en
-el editor puedes seguir lo que hace el agente en cada paso.
-
-El repositorio te va a servir para comprobar qué archivos tocó el agente.
-
-### 2. Ver el problema con tus propios ojos
+Lee la solicitud:
 
 ```bash
-python3 -c "
-import medidas as m
-ms = [m.registrar('cocina', 22), m.registrar('patio', 35), m.registrar('patio', 31)]
-print(m.contar_por_sensor(ms))
-"
+cat change_request.md
 ```
 
-Salida:
+Contiene una intención, pero todavía no define un comportamiento implementable.
 
-```text
-{'cocina': 1, 'patio': 1}
-```
+### 2. Pedir investigación, no código
 
-Debería decir `{'cocina': 1, 'patio': 2}`. Hay dos mediciones de `patio`.
-
-### 3. Reformular "arregla los errores"
-
-La petición original no sirve: no dice qué error, ni cómo se sabrá que quedó resuelto.
-
-Reformulada con las tres partes:
-
-```text
-contar_por_sensor en medidas.py devuelve 1 para todos los sensores en lugar
-de contar las mediciones de cada uno. Corrígelo sin cambiar la firma.
-Termina cuando este comando imprima {'cocina': 1, 'patio': 2}:
-python3 -c "import medidas as m; ms=[m.registrar('cocina',22),m.registrar('patio',35),m.registrar('patio',31)]; print(m.contar_por_sensor(ms))"
-```
-
-| Parte | Dónde está |
-|---|---|
-| Contexto | "devuelve 1 para todos los sensores en lugar de contar" |
-| Alcance | "en medidas.py", "sin cambiar la firma" |
-| Criterio | "termina cuando este comando imprima …" |
-
-Lo que lo hace verificable es **una salida exacta**, no "que cuente bien".
-
-Lánzala:
+Abre Claude:
 
 ```bash
 claude
 ```
 
-Pega la reformulación en la sesión.
-
-Comprueba:
-
-```bash
-python3 -c "
-import medidas as m
-ms = [m.registrar('cocina', 22), m.registrar('patio', 35), m.registrar('patio', 31)]
-print(m.contar_por_sensor(ms))
-"
-git add -A && git commit -qm "Corrige contar_por_sensor"
+```text
+Lee @change_request.md y @billing.py. No edites nada todavía.
+Enumera las decisiones de comportamiento que faltan para poder implementar sin
+adivinar. Hazme como máximo cinco preguntas, ordenadas por impacto.
 ```
 
-### 4. Reformular "añade tests"
+La respuesta puede variar. Lo importante es que detecte decisiones sobre tipos,
+límites, error observable y efectos laterales.
 
-"Añade tests" deja que el agente elija qué cubrir. Nombra cuatro casos, pero deja
-fuera deliberadamente la función que vas a refactorizar después:
+Si empieza a editar, presiona `Esc`: todavía no existe un contrato.
+
+### 3. Cerrar las decisiones
+
+Usa estas decisiones de producto para completar `contract_template.md`:
+
+| Tema | Decisión |
+|---|---|
+| Identificador | Cadena con al menos un carácter que no sea espacio |
+| Importe | Entero mayor que cero; `True` y `False` no son importes |
+| Error | `ValueError` para cualquier entrada inválida |
+| Estado | Un rechazo no cambia saldo ni eventos procesados |
+| Compatibilidad | Los casos válidos y la idempotencia anterior se conservan |
+| Fuera de alcance | Persistencia, concurrencia, firma y formato HTTP |
+
+Puedes editar la plantilla tú o pedirle a Claude que la complete con esas
+decisiones. Revísala antes de continuar.
+
+El contrato está listo si otra persona puede derivar los mismos casos de prueba
+sin preguntarte nada más.
+
+### 4. Convertir el contrato en tests y detenerse en rojo
 
 ```text
-medidas.py no tiene ningún test. Crea test_medidas.py con unittest cubriendo:
-registrar devuelve las claves esperadas, buscar sin coincidencias, buscar con
-dos coincidencias y contar_por_sensor con un sensor repetido.
-No modifiques medidas.py.
-Termina cuando `python3 -m unittest discover -q` pase y muestre 4 tests.
+Convierte @contract_template.md en tests dentro de test_billing.py.
+En esta fase no modifiques billing.py.
+
+Cubre cada invariante del contrato, ejecuta `python3 -m unittest -v` y detente
+cuando los tests nuevos fallen por el comportamiento que aún falta. Explica por
+qué ese rojo es el esperado.
 ```
 
-Comprueba:
+Un rojo útil falla porque falta la capacidad descrita. Un error de importación,
+una sintaxis rota o un nombre inventado no demuestra el requisito.
+
+Revisa los tests añadidos:
 
 ```bash
-python3 -m unittest discover -v 2>&1 | tail -5
-git add -A && git commit -qm "Añade tests"
+git diff -- test_billing.py
+python3 -m unittest -v
 ```
 
-### 5. Comprobar qué cubre realmente la suite
+Comprueba que hay casos para identificador, importe, ausencia de efectos y
+compatibilidad. Si falta uno, corrige los tests antes de implementar.
 
-Los cuatro tests cubren `registrar`, `buscar` y `contar_por_sensor`. **Ninguno toca `resumen`**, que es justo la función que vas a refactorizar en el paso siguiente.
+### 5. Fijar la comprobación
 
-Compruébalo:
+Cuando los tests representan el contrato:
 
 ```bash
-grep -c "resumen" test_medidas.py
-```
-
-Devuelve `0`.
-
-Esto importa: si refactorizas `resumen` y tu único criterio es "que los tests pasen", **la suite pasará aunque rompas `resumen` por completo**. El criterio no es falseable: es irrelevante.
-
-Antes de tocar nada, fija el comportamiento actual con un **test de
-caracterización**: uno que registra lo que el código hace hoy, sin juzgar si
-está bien, para detectar si el refactor lo cambia sin querer.
-
-```bash
-python3 -c "
-import medidas as m
-ms = [m.registrar('cocina', 22), m.registrar('patio', 35)]
-print(repr(m.resumen(ms)))
-"
-```
-
-Copia esa salida exacta y pídele el test:
-
-```text
-Añade a test_medidas.py un test de caracterización para resumen que compare
-su salida exacta con este valor, para la entrada
-[registrar('cocina',22), registrar('patio',35)]:
-<pega aquí la salida del comando anterior>
-No modifiques medidas.py.
-Termina cuando `python3 -m unittest discover -q` pase y muestre 5 tests.
-```
-
-```bash
-python3 -m unittest discover -v 2>&1 | tail -3
-git add -A && git commit -qm "Fija el comportamiento de resumen"
-```
-
-Ahora la suite sí observa lo que vas a intervenir.
-
-### 6. Auditar un criterio falseable
-
-`resumen` mezcla el conteo y el formateo en un solo bucle. Pide refactorizarlo **con el criterio insuficiente a propósito**:
-
-```text
-Refactoriza resumen en medidas.py separando el conteo del formateo.
-Termina cuando los tests pasen.
-```
-
-Cuando termine, revisa qué archivos cambió. Hacen falta **los dos** comandos:
-
-```bash
-git diff --stat
+git add test_billing.py contract_template.md
+git commit -m "Define contrato y regresiones de pagos inválidos"
 git status --short
 ```
 
-`git diff --stat` solo ve archivos que Git ya sigue. Si al "separar el conteo del
-formateo" el agente creó un módulo nuevo, ese archivo no aparece en el diff y sí
-en `git status --short`, marcado con `??`. Auditar lo que cambió con un solo
-comando deja fuera justo lo que no esperabas.
+A partir de este commit, la implementación no puede cambiar ni el contrato ni
+los tests para conseguir verde.
 
-### 7. Comprobar si falseó el criterio
+### 6. Implementar contra el contrato
 
-Si en la salida aparece `test_medidas.py`, el agente **modificó aquello con lo
-que se le mide**. Cumplió la condición al pie de la letra sin
-conservar una comprobación independiente. Si no aparece, el resultado salió bien esta vez, pero el
-criterio seguía concediendo ese permiso.
-
-> Un criterio que el agente puede reescribir no es un criterio.
-
-Vuelve al estado anterior y repite con el criterio cerrado. Otra vez hacen falta
-dos comandos, por la misma razón:
-
-```bash
-git restore -- .           # deshace cambios en archivos seguidos
-git clean -nd              # LISTA lo que borraría, sin borrar nada
-```
-
-**Lee esa lista antes de seguir.** `git clean` borra sin pasar por la papelera:
-lo que desaparezca ahí no se recupera. Deben aparecer solo archivos que creó el
-agente en este paso. Si ves algo tuyo, no continúes: sácalo de la carpeta
-primero.
-
-Cuando la lista sea la esperada, ejecuta el borrado:
-
-```bash
-git clean -fd              # elimina los archivos nuevos que creó el agente
-git status --short         # debe quedar vacío
-```
-
-`-n` es "dry run" y `-f` es "force". Previsualizar antes de una operación
-irreversible es el mismo hábito que este lab entrena con los diffs.
+Continúa en la misma sesión:
 
 ```text
-Refactoriza resumen en medidas.py separando el conteo del formateo,
-manteniendo la salida idéntica. No modifiques test_medidas.py.
-Termina cuando `python3 -m unittest discover -q` pase con 5 tests sin haber
-tocado los tests. Muestra también `git diff --stat` como evidencia.
+Implementa @contract_template.md en billing.py.
+No modifiques contract_template.md, test_billing.py ni acceptance_validation.py.
+Haz el cambio mínimo y conserva la idempotencia del ticket anterior.
+
+Termina cuando pasen:
+- `python3 -m unittest -v`
+- `python3 acceptance_validation.py`
+
+Después muestra los archivos modificados, los resultados y cualquier riesgo que
+siga fuera de alcance.
 ```
 
-Comprueba de nuevo:
+Interrumpe si cambia la comprobación o amplía el dominio.
+
+### 7. Auditar el resultado
+
+Sal de Claude y ejecuta:
 
 ```bash
-git diff --stat
 git status --short
+git diff --exit-code HEAD -- contract_template.md test_billing.py acceptance_validation.py
+git diff --check
+python3 -m unittest -v
+python3 acceptance_validation.py
+git diff -- billing.py
 ```
 
-Ahora `test_medidas.py` no debe aparecer en el diff. Si `git status --short`
-muestra archivos `??`, decide si forman parte del refactor —un módulo nuevo puede
-ser legítimo— o si son residuo. En cualquier caso, tienes que verlos antes de
-confirmar.
+La validación independiente no sustituye tus tests. Confirma desde otro archivo
+las decisiones principales del contrato y detecta si los tests generados
+olvidaron una de ellas.
 
-### 8. Guardar el resultado
+### 8. Aceptar el cambio
+
+Antes de confirmar, responde:
+
+- ¿Cada decisión del contrato tiene una comprobación?
+- ¿Una entrada inválida deja el objeto exactamente como estaba?
+- ¿El cambio preserva la idempotencia?
+- ¿El diff contiene algo que el ticket no pidió?
+
+Si las respuestas están respaldadas por código o salida ejecutable:
 
 ```bash
-git add -A && git commit -qm "Refactoriza resumen"
+git add billing.py
+git commit -m "Rechaza eventos de pago inválidos"
+git status --short
 ```
 
 ## Validación
 
 ```bash
-cd ~/curso-claude/sesion-01/lab-02
-python3 -m unittest discover -q
-git log --oneline
-git diff --stat HEAD~1 HEAD
+cd ~/curso-claude/sesion-01/webhook-ledger
+python3 -m unittest -v
+python3 acceptance_validation.py
+git log --oneline -3
+git status --short
 ```
 
-La práctica está completa si:
-
-- [ ] `python3 -m unittest discover -q` pasa y muestra 5 tests.
-- [ ] `contar_por_sensor` devuelve `{'cocina': 1, 'patio': 2}` para el caso del paso 2.
-- [ ] El último commit no modifica `test_medidas.py`.
-- [ ] Revisaste los archivos nuevos con `git status --short`, no solo el diff.
-- [ ] Puedes explicar por qué "termina cuando los tests pasen" era un criterio insuficiente.
+- [ ] La solicitud vaga terminó convertida en un contrato explícito.
+- [ ] Los tests se confirmaron antes de modificar la implementación.
+- [ ] El rojo inicial correspondía al comportamiento ausente.
+- [ ] Suite y validación independiente pasan.
+- [ ] Contrato, tests y validación no cambiaron durante la implementación.
+- [ ] El repositorio termina limpio.
 
 ## Limpieza
 
-No limpies todavía. La validación general de la sesión necesita `lab-01` y
-`lab-02`. La limpieza conjunta está al final del README de la sesión.
+No borres todavía. El README de la sesión pide guardar evidencia antes de
+eliminar `~/curso-claude/sesion-01`.
 
 ## Problemas Frecuentes
 
-| Error | Causa | Solución |
+| Problema | Causa probable | Acción |
 |---|---|---|
-| `No tests ran` | Los tests no siguen el patrón `test*.py` | Comprobar el nombre del archivo generado y renombrarlo |
-| El agente no falsea el criterio en el paso 6 | Resolvió el refactor sin tocar los tests | No es un fallo. Lee `git diff` y anótalo: la lección es que **no estaba garantizado** |
-| El test de caracterización falla nada más crearlo | La salida pegada no coincide con la real | Volver a ejecutar el comando del paso 5 y copiar la salida exacta, incluidos los saltos de línea |
-| `git restore -- .` no revierte | Los cambios ya estaban confirmados | No borres commits. Crea una rama desde el commit `Fija el comportamiento de resumen` y repite allí |
-| Tras revertir sigue habiendo un archivo del intento anterior | `git restore` solo toca archivos seguidos por Git | `git status --short`, luego `git clean -nd` para ver la lista y `git clean -fd` para borrar |
-| El diff parece limpio pero el refactor creó un módulo | `git diff` no muestra archivos sin seguir | Comprobar siempre también `git status --short` |
-| El agente modifica `medidas.py` al añadir tests | El prompt no lo prohibía | Revisar que la reformulación incluya "No modifiques medidas.py" |
-| `ModuleNotFoundError: No module named 'medidas'` | El comando se ejecuta fuera de la carpeta | `cd ~/curso-claude/sesion-01/lab-02` |
+| Claude propone código en el paso 2 | Confundió investigación con implementación | Interrumpe y repite que todavía faltan decisiones |
+| Los tests nuevos pasan antes de implementar | No representan una capacidad ausente | Compáralos con cada fila del contrato y añade el caso que falta |
+| La suite da error en vez de fallo | El test no puede ejecutar el comportamiento | Corrige montaje, importación o sintaxis antes de seguir |
+| La validación independiente falla y la suite pasa | Los tests generados omitieron una invariante | Conserva la validación; añade el caso faltante a la suite y corrige el código |
+| Cambiaron tests durante la implementación | La comprobación dejó de ser independiente | Restaura los archivos desde `HEAD` y repite la implementación |

@@ -52,8 +52,8 @@ Cada sesión sigue siempre la misma forma. Ábrela y recórrela en este orden:
 1. **Objetivo y Duración** — qué vas a poder hacer al terminar.
 2. **Conceptos Clave** — léelos, pero no los memorices. Son lo que da sentido a
    los laboratorios; vuelves a ellos cuando algo no encaja.
-3. **Laboratorios** — aquí está el trabajo real. Cada lab tiene su propia
-   página con pasos numerados.
+3. **Laboratorios** — aquí está el trabajo real. Cada lab parte de una situación
+   profesional y termina con evidencia revisable.
 4. **Validación General** — la lista que confirma que la sesión quedó hecha.
 5. **Cierre** — evidencias y preguntas de repaso.
 
@@ -66,15 +66,15 @@ tiempo, haz los labs y vuelve después a los conceptos.
 code $CURSO/sesiones/sesion-01-especificar-y-verificar/README.md
 ```
 
-Son tres laboratorios:
+Son dos laboratorios encadenados sobre el mismo repositorio:
 
 | Lab | Qué hace | Min |
 |---|---|---:|
-| [01 — Bucle de verificación](../sesiones/sesion-01-especificar-y-verificar/labs/01-bucle-de-verificacion/README.md) | Una tarea con criterio de terminación y otra sin él, sobre el mismo error | 25 |
-| [02 — Criterio falseable](../sesiones/sesion-01-especificar-y-verificar/labs/02-criterio-falseable/README.md) | Reformular "arregla los errores" en algo comprobable | 35 |
-| [03 — Preguntar al código](../sesiones/sesion-01-especificar-y-verificar/labs/03-preguntar-al-codigo/README.md) | Entender un repositorio ajeno exigiendo archivo y línea | 25 |
+| [01 — Resolver un incidente real](../sesiones/sesion-01-especificar-y-verificar/labs/01-bucle-de-verificacion/README.md) | Corregir un webhook que aplica dos veces el mismo pago y auditar el diff | 40 |
+| [02 — Convertir una petición en contrato](../sesiones/sesion-01-especificar-y-verificar/labs/02-criterio-falseable/README.md) | Cerrar decisiones, fijar tests e implementar contra evidencia independiente | 40 |
 
-Empieza por el Lab 01 y hazlos en orden: el 02 da por hecho lo del 01.
+Empieza por el Lab 01 y hazlos en orden: el segundo continúa desde el commit del
+primero.
 
 ---
 

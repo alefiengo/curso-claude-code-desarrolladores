@@ -5,8 +5,11 @@ opcional para que una diferencia de plan o versión no bloquee el curso.
 
 ## Línea Base
 
-- Material revisado contra **Claude Code 2.1.233** y la documentación disponible
-  el **17 de agosto de 2026**.
+- Base general revisada contra **Claude Code 2.1.233** y la documentación
+  disponible el **17 de agosto de 2026**.
+- Las sesiones 1 y 2, ya reconstruidas, se volvieron a verificar con **Claude
+  Code 2.1.246** y la documentación disponible el **26 de agosto de 2026**. La
+  versión declarada en cada sesión manda sobre esta referencia general.
 - Ejecuta `claude --version`, `claude doctor` y `claude --help` antes de la sesión 1.
 - Dentro de Claude Code, `/help` es la fuente de verdad de tu instalación.
 - Actualiza antes del curso. No actualices entre dos pasos de un mismo lab.
@@ -96,10 +99,14 @@ del curso sin cuota.
 
 ## Editor
 
-El curso usa **VS Code con su terminal integrada**: Claude Code se ejecuta como
-un comando más de la terminal. Todos los labs funcionan igual en cualquier otro
-editor, o sin editor: lo único que se da por supuesto es que puedes abrir un
-archivo y dividir la terminal en dos paneles.
+**La sesión 1 se hace entera en la terminal**, sin editor: solo necesitas poder
+abrir una segunda ventana o pestaña de tu terminal. Desde la sesión 2 el curso
+usa **VS Code con su terminal integrada**, y Claude Code se ejecuta como un
+comando más dentro de ella.
+
+Todos los labs funcionan igual en cualquier otro editor. Lo único que se da por
+supuesto a partir de la sesión 2 es que puedes abrir un archivo y dividir la
+terminal en dos paneles.
 
 Aparte de eso existe la integración con el editor, que conecta la sesión con el
 IDE abierto. `claude --help` la documenta como `--ide`: *"Automatically connect

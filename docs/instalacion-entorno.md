@@ -12,16 +12,19 @@ Al terminar debes poder ejecutar los cinco comandos de la [verificación final](
 | Windows | VS Code + Remote-WSL | Ubuntu, dentro de WSL 2 | Docker Engine en WSL, o Docker Desktop | uv dentro de WSL |
 | macOS | VS Code | La del sistema | Docker Desktop | uv |
 
-**El curso usa VS Code como entorno único.** No es una preferencia estética: con
-veinticinco personas en una clase en vivo, que todos vean la misma pantalla
-convierte "no me funciona" en algo diagnosticable. Todo lo que hagas cabe en una
-ventana: el editor, la terminal integrada donde corre Claude Code, y el panel de
-Git para revisar diffs.
+**La sesión 1 se hace entera desde la terminal.** Nada de editor: vas a leer
+archivos con `cat`, comprobar cambios con `git diff` y hablar con Claude Code en
+la misma ventana. Es a propósito, porque lo que se aprende ese día es el bucle
+del agente, y cuantas menos cosas haya en pantalla, más claro se ve.
 
-Los comandos del curso se ejecutan siempre desde una terminal Linux, macOS o WSL.
-Nunca desde PowerShell ni CMD. En Windows, la terminal integrada de VS Code
-**ya está** dentro de Ubuntu cuando abres la carpeta con Remote-WSL: es la forma
-más fiable de cumplir esa regla, porque no tienes que acordarte de nada.
+**Desde la sesión 2 el curso usa VS Code**, cuando ya hay un proyecto con varios
+archivos que conviene tener delante. Todo cabe en una ventana: el editor, la
+terminal integrada donde corre Claude Code y el panel de Git para revisar diffs.
+
+Los comandos se ejecutan siempre desde una terminal Linux, macOS o WSL. **Nunca
+desde PowerShell ni CMD.** En Windows, la terminal integrada de VS Code ya está
+dentro de Ubuntu cuando abres la carpeta con Remote-WSL, así que no tienes que
+acordarte de cambiar de sitio.
 
 ---
 
@@ -155,29 +158,6 @@ docker pull postgres:18-alpine
 ```
 
 Hazlo con tiempo: descargarla en clase consume varios minutos.
-
-### Descarga previa del repositorio del Lab 03
-
-El Lab 03 de la sesión 1 trabaja sobre `click`, un proyecto que no has leído
-antes. Clónalo ahora y guárdalo aparte, para no depender de la red ese día:
-
-```bash
-mkdir -p ~/curso-claude/material-lab-03
-git clone --branch 8.1.7 --depth 1 \
-  https://github.com/pallets/click ~/curso-claude/material-lab-03/click
-```
-
-Comprueba que quedó en el commit correcto:
-
-```bash
-git -C ~/curso-claude/material-lab-03/click log --oneline -1
-```
-
-Debe imprimir `874ca2b`. Esa carpeta se copia en el lab; no trabajes dentro de
-ella. Si el clon falla, el lab explica cómo seguir con otro proyecto que ya
-tengas en disco.
-
----
 
 ## 4. Python con uv
 
@@ -341,7 +321,6 @@ distintas. Conviene tener el mapa antes de empezar:
 ```text
 ~/curso-claude/
 ├── material/            este repositorio. Es $CURSO. No trabajes aquí dentro.
-├── material-lab-03/     el clon de click para el Lab 03 de la sesión 1.
 ├── evidencias/          lo que escribes tú. Se conserva.
 └── sesion-01/           carpetas desechables de los labs. Se borran al terminar.
 ```

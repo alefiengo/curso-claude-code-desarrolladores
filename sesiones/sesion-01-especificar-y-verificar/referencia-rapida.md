@@ -1,128 +1,91 @@
 # Referencia Rápida: Sesión 1
 
-Es la más larga de las diez, y es la única que conviene tener a mano durante todo
-el curso: además de los comandos de arranque contiene el método para escribir un
-prompt, y eso se aplica en las diez sesiones. Las referencias siguientes son
-cortas porque solo recogen lo que su sesión añade.
+## El Ciclo
 
-El mapa acumulativo de comandos vive en [comandos](../../docs/comandos.md).
-
-## Verificar la Instalación
-
-```bash
-claude --version
-claude doctor
-claude --help
+```text
+entender → acordar → cambiar → comprobar → revisar
 ```
 
-## Abrir una Sesión
+No aceptes el cierre por la redacción. Acéptalo por la evidencia y el diff.
 
-```bash
-claude                      # sesión interactiva sobre el directorio actual
-claude "tu prompt"          # sesión interactiva con prompt inicial
-claude -p "tu prompt"       # no interactivo: ejecuta, imprime y sale
-claude -p "..." --allowedTools "Read Edit Bash(python3 *)"   # preautoriza herramientas
-```
+## Contrato de Tarea
 
-## Dentro de la Sesión
-
-| Comando | Uso |
+| Parte | Debe dejar claro |
 |---|---|
-| `/help` | Comandos disponibles en tu versión |
-| `/exit` | Salir de la sesión |
+| Resultado | Comportamiento observable que debe cambiar |
+| Fuentes | Ticket, archivo, contrato o patrón que contiene la verdad |
+| Alcance | Archivos o componentes que pueden cambiar |
+| Restricciones | Compatibilidad, seguridad y decisiones que se conservan |
+| Verificación | Comando o evidencia que prueba el resultado |
 
-`Ctrl+D` también sale.
-
-## Anatomía de un Prompt
-
-```text
-[CONTEXTO]  Qué problema real existe y dónde.
-[ALCANCE]   Qué archivos entran. Qué NO tocar.
-[CRITERIO]  Cómo sabrá que terminó.
-```
-
-Ejemplo:
+Plantilla breve:
 
 ```text
-contar_por_sensor en medidas.py devuelve 1 para todos los sensores en lugar
-de contar las mediciones de cada uno. Corrígelo sin cambiar la firma.
-Termina cuando este comando imprima {'cocina': 1, 'patio': 2}:
-python3 -c "import medidas as m; ms=[...]; print(m.contar_por_sensor(ms))"
+[RESULTADO] Resuelve...
+[FUENTES] Usa @ticket.md y el patrón de...
+[ALCANCE] Puedes cambiar... No cambies...
+[RESTRICCIONES] Conserva... Queda fuera...
+[VERIFICACIÓN] Termina cuando... Al cerrar muestra...
 ```
 
-## Modo No Interactivo
+## Durante la Ejecución
 
-Sin interfaz no hay a quién pedir permiso: las herramientas se preautorizan o la tarea se bloquea.
+| Control | Uso |
+|---|---|
+| `Esc` | Interrumpir y redirigir sin perder la conversación |
+| `/diff` | Revisar los cambios producidos en la sesión |
+| `/exit` | Salir de Claude Code |
+
+Interrumpe cuando el agente:
+
+- cambia una comprobación que debía conservar;
+- toca archivos fuera de alcance;
+- elige una interpretación que no acordaste;
+- afirma que terminó sin ejecutar la verificación;
+- convierte una corrección pequeña en un rediseño.
+
+Redirección útil:
+
+```text
+Detente. [hecho observable]. [límite que debe respetarse].
+Continúa desde [fuente o comprobación concreta].
+```
+
+## Antes de Aceptar
 
 ```bash
---allowedTools "Read Edit Bash(python3 *)"
+git status --short                    # todo lo modificado, incluido lo nuevo
+git diff --check                      # errores básicos del patch
+git diff -- ARCHIVO                   # cambio real
+python3 -m unittest -v                # comportamiento y regresión
 ```
 
-Declara solo lo que la tarea necesita.
+Comprueba cuatro capas:
 
-## Criterios de Terminación
+- [ ] El caso que motivó el cambio pasa.
+- [ ] Los casos anteriores siguen pasando.
+- [ ] Solo cambiaron archivos justificados.
+- [ ] El diff resuelve la causa sin complejidad accidental.
 
-| Sirve | No sirve |
-|---|---|
-| `python3 -m unittest discover -q` pasa | "que quede bien" |
-| El comando imprime una salida exacta | "que sea profesional" |
-| `timeit` baja de un umbral en ms | "que siga buenas prácticas" |
-| El endpoint responde 201 | "que esté optimizado" |
+## Reporte de Cierre
 
-Prueba rápida: si el agente no puede comprobarlo solo, no es un criterio.
+Pide siempre:
 
-## Formas de Medir
+1. causa con archivo y línea;
+2. archivos modificados y motivo;
+3. comandos ejecutados y resultado;
+4. riesgo residual o trabajo fuera de alcance.
 
-| Quieres | Comando |
-|---|---|
-| Que pasen los tests | `python3 -m unittest discover -q` |
-| Una salida concreta | `python3 -c "..."` |
-| Un umbral de tiempo | `python3 -m timeit -s "setup" "codigo"` |
-| Que no cambie el comportamiento | Tests previos, y prohibir tocarlos |
-
-## Blindar un Criterio
-
-Si el agente puede reescribir la condición, no es un criterio:
-
-```text
-...manteniendo el comportamiento. No modifiques test_medidas.py.
-Termina cuando los tests pasen sin haberlos tocado.
-```
-
-Comprobar qué tocó:
-
-```bash
-git diff --stat
-```
-
-## Verificar una Afirmación
-
-```text
-¿En qué archivo y línea lo viste?
-```
-
-Sin fuente, no es un hecho.
-
-## Checklist Antes de Enviar un Prompt
-
-- [ ] ¿Está claro qué problema se resuelve, no solo qué hacer?
-- [ ] ¿Dije qué archivos entran y cuáles no?
-- [ ] ¿Hay un criterio que el agente pueda comprobar por sí mismo?
-- [ ] ¿Puede el agente modificar aquello con lo que se mide?
-- [ ] ¿Dejé el cómo abierto, salvo restricciones reales?
+El reporte sirve para orientar la revisión. No sustituye el diff ni los
+comandos.
 
 ## Errores Comunes
 
-| Error | Síntoma |
+| Error | Corrección |
 |---|---|
-| Pedir texto, no resultados | Copias y pegas mucho |
-| Sin criterio de terminación | Se declara satisfecho antes que tú |
-| Criterio falseable | Los tests pasan pero el comportamiento cambió |
-| Aceptar sin leer | Descubres el fallo tres sesiones después |
-| Dictar la implementación | Le quitas la parte donde aporta |
-
-## Limpieza de la Sesión
-
-```bash
-rm -rf ~/curso-claude/sesion-01
-```
+| "Arregla esto" | Define resultado y fuente |
+| "Que quede bien" | Nombra una señal observable |
+| "Que pasen los tests" | Confirma que los tests cubren el caso y no deben cambiar |
+| Dictar cada línea | Da restricciones y deja abierta la implementación |
+| Esperar hasta el final para corregir | Interrumpe al detectar la primera desviación |
+| Confiar en "todo listo" | Revisa salida, estado de Git y diff |
