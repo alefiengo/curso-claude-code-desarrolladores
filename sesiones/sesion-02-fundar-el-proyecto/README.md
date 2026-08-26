@@ -6,8 +6,8 @@ Crear una base reproducible para la API y escribir memoria de proyecto que aport
 decisiones, no información que Claude puede descubrir leyendo el repositorio.
 
 **Sales con:** el `CLAUDE.md` de tu proyecto, podado hasta que cada línea se gane
-el sitio. Es la primera pieza de tu `.claude/`, y la única que se carga en todas
-las conversaciones a partir de hoy.
+el sitio. Es la primera herramienta que construyes, y se carga en todas tus
+conversaciones a partir de hoy.
 
 ## Duración
 
@@ -93,10 +93,11 @@ has mirado. Se audita con `/memory`, y se apaga por proyecto con
 
 `CLAUDE.md` no forma parte del prompt de sistema: se entrega como un mensaje de
 usuario justo después. Claude lo lee y lo intenta seguir, pero no hay garantía de
-cumplimiento estricto. Es exactamente la distinción que trabaja la sesión 9: una
-instrucción persuade, un hook impide.
+cumplimiento estricto. Es la distinción que trabaja la sesión 6: una instrucción
+persuade; un hook ejecuta código tuyo en un momento fijo, y según el evento puede
+además impedir la acción.
 
-De ahí salen dos números útiles. Apunta a **menos de 200 líneas** por archivo:
+De ahí sale un umbral útil. Apunta a **menos de 200 líneas** por archivo:
 más largo consume contexto y baja la adherencia. Y si crece, la respuesta no es
 recortar a ciegas sino `.claude/rules/`, donde cada archivo cubre un tema y puede
 declarar `paths:` para cargarse **solo** cuando Claude toca los archivos que le
@@ -107,8 +108,8 @@ corresponden.
 | Comando | Uso |
 |---|---|
 | `/init` | Generar una propuesta inicial de memoria |
-| `/memory` | Ver y editar memorias cargadas |
-| `/context` | Ver qué ocupa la ventana actual |
+| `/memory` | Listar y abrir los archivos de memoria; activar o desactivar la auto memory |
+| `/context` | Ver qué ocupa la ventana actual, y qué memoria se cargó de verdad |
 | `/config` | Consultar o ajustar configuración interactiva |
 
 ## Validación General
@@ -116,11 +117,16 @@ corresponden.
 Desde `curso-claude-code-api`:
 
 ```bash
+uv sync --frozen
 uv run pytest -q
 uv run ruff check .
 docker compose config -q
 git status --short
 ```
+
+`uv sync --frozen` instala exactamente lo que dice `uv.lock` y falla si el
+archivo no está al día. Sin él, `uv run` puede actualizar el lock por su cuenta:
+pasaría en tu máquina y no en la de quien clone el repositorio.
 
 - [ ] Tests y lint pasan.
 - [ ] `compose.yaml` es válido.
@@ -131,8 +137,10 @@ git status --short
 
 ## Cierre en Git
 
-Esta sesión no toca el comportamiento de la API: crea el esqueleto y su memoria.
-Eso se trabaja directamente sobre `main`, según el
+Esta sesión es la excepción a la regla de ramas: **el commit fundacional va
+directo a `main`**. Todavía no hay un `main` en verde del que salir ni contra el
+que comparar, así que la rama no protegería nada. Desde la sesión 3, cuando ya
+exista ese punto de partida, el código de la API va en su rama, según el
 [flujo de trabajo con Git](../../proyecto-integrador/flujo-git.md).
 
 Comprueba que el trabajo quedó confirmado y que `main` está en verde:
@@ -193,12 +201,14 @@ comporta distinto, `claude --help` y `/help` mandan sobre estos apuntes.
 Comprueba que la base de datos arranca:
 
 ```bash
-docker compose up -d db
+docker compose up -d --wait db
 docker compose ps
 docker compose logs db --tail 5
 ```
 
-El servicio `db` debe aparecer como `healthy`. Si no, resuélvelo antes de la
+`--wait` no devuelve el control hasta que el servicio esté `healthy`, así que el
+`ps` de la línea siguiente no puede pillarlo todavía arrancando. El servicio `db`
+debe aparecer como `healthy`. Si no, resuélvelo antes de la
 sesión 3: el esquema y las migraciones se construyen encima.
 
 La sesión 3 diseña el esquema de la base y sus migraciones antes de escribir una

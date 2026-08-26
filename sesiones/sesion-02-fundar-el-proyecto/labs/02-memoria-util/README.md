@@ -83,8 +83,13 @@ sobre él.
 Pregunta a Claude cuáles son los comandos canónicos y contrástalos con README y
 `pyproject.toml`. Corrige cualquier discrepancia en su fuente propietaria.
 
-`/context` lista bajo **Memory files** lo que de verdad se cargó. Si tu archivo
-no aparece ahí, Claude no lo está viendo, y ninguna poda lo va a arreglar.
+Los dos comandos no dicen lo mismo, y la diferencia importa. `/memory` lista
+**ubicaciones**: te enseña dónde pueden vivir los archivos de memoria, incluidas
+rutas que todavía no existen, y te deja abrirlas. `/context` lista bajo **Memory
+files** lo que de verdad **se cargó** en esta sesión.
+
+Si tu archivo aparece en `/memory` pero no en `/context`, Claude no lo está
+viendo, y ninguna poda lo va a arreglar.
 
 Ahora mira la otra puerta. En `/memory`, abre la carpeta de auto memory:
 

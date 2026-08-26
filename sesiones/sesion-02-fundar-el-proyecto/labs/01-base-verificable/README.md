@@ -50,10 +50,10 @@ git add .gitignore && git commit -m "Inicia el repositorio"
 verificado, y cada sesión arranca desde ahí. La regla completa está en el
 [flujo de trabajo con Git](../../../../proyecto-integrador/flujo-git.md).
 
-Los cambios de código van en su propia rama y se integran al cerrar la sesión.
-Lo que no toca el comportamiento de la API —la memoria del proyecto, un skill, la
-configuración— se trabaja directamente sobre `main`. Esta sesión es de ese
-segundo tipo.
+A partir de la sesión 3, los cambios de código van en su propia rama y se
+integran al cerrar. Hoy no: este es el commit fundacional y va directo a `main`,
+porque todavía no existe un estado verificado del que salir ni contra el que
+comparar. Una rama aquí no protegería nada.
 
 Crea `docs/` y `evidencias/`. Copia el
 [contrato del curso](../../../../proyecto-integrador/contrato-api.md) como
@@ -164,12 +164,13 @@ No hace falta levantar todavía la API dentro de Compose, pero **sí la base**.
 Es la única forma de saber si arranca:
 
 ```bash
-docker compose up -d db
+docker compose up -d --wait db
 docker compose ps
 ```
 
-Espera a que la columna de estado diga `healthy`. Si dice `unhealthy`, se
-reinicia en bucle o el contenedor sale solo, lee la causa antes de seguir:
+`--wait` no devuelve el control hasta que el servicio esté `healthy`, así que no
+te lo encuentras a medio arrancar. Si en su lugar el comando **falla o se
+queda esperando**, la base no llega a estar sana: lee la causa antes de seguir.
 
 ```bash
 docker compose logs db | tail -20
