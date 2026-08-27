@@ -15,7 +15,7 @@ sí lo es.
 
 Se introduce en la [sesión 1](../sesiones/sesion-01-especificar-y-verificar/README.md).
 
-### Criterio falseable
+### Criterio manipulable
 
 Un criterio de terminación que el agente puede cumplir sin hacer el trabajo,
 normalmente cambiando aquello con lo que se le mide. Si la condición es "que los
@@ -165,7 +165,9 @@ Tres capas distintas, que se confunden con facilidad:
 | Sandbox | Acota qué puede alcanzar el proceso | Que lo permitido sea inofensivo |
 | Hook | Ejecuta código tuyo en un evento | Que tu script sea correcto |
 
-Una instrucción persuade; un hook impide. Se trabajan en la
+Una instrucción orienta. Un hook ejecuta una acción en un evento y, solo en los
+eventos y condiciones que admiten bloqueo, puede impedir una operación. Los
+permisos, el sandbox y los hooks se trabajan en la
 sesión 9 _(aún no publicada)_.
 
 ### Skill

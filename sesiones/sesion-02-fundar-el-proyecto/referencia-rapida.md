@@ -50,20 +50,20 @@ Para cada instrucción pregunta:
 2. ¿Aplica a cualquier tarea?
 3. ¿Puede comprobarse si se siguió?
 4. ¿Seguirá siendo cierta en tres meses?
-5. ¿Necesita orientación o enforcement?
+5. ¿Necesita orientación o una garantía técnica?
 
 ## Comandos
 
 ```text
 /init       genera o mejora una propuesta; no la confirma por ti
 /context    muestra qué ocupa la ventana y qué memoria se cargó
-/memory     abre instrucciones y permite auditar auto memory
+/memory     lista y abre instrucciones cargadas; permite auditar auto memory
 ```
 
 ## Comprobar la Línea Base
 
 ```bash
-uv sync --frozen
+uv sync --locked
 uv lock --check
 uv run pytest -q
 uv run ruff check .

@@ -7,13 +7,19 @@ sola regla:
 > borra.
 
 ```text
-main ────●────●────●────●────●───►   siempre en verde
-          \  /      \  /
-           ●         ●               una rama por sesión
+                    sesión 3 en adelante
+                   ┌──────────────────────┐
+main ────●────●────●────●────●────●────●───►   siempre en verde
+                    \  /      \  /
+                     ●         ●               una rama por cambio
 ```
 
-Cada sesión arranca desde `main`, trabaja en su rama y la integra al terminar. La
-sesión siguiente parte de ahí.
+**La sesión 2 confirma directamente en `main`.** Fundas el proyecto, no hay nada
+que revisar contra una base anterior y el historial queda lineal.
+
+**Desde la sesión 3** cada cambio arranca en su propia rama desde `main`, se
+revisa y se integra al terminar. La sesión siguiente parte de ahí. Ese es el
+flujo que usa el resto del curso.
 
 ## Por Qué la Rama Corta Importa Más con un Agente
 
@@ -22,26 +28,34 @@ seguridad**.
 
 Un agente puede tomar una dirección equivocada y hacerlo con convicción: tocar
 seis archivos, reescribir un test, cambiar una decisión que no le pediste. Si eso
-pasa en una rama, la respuesta es una línea:
+pasa en una rama, puedes conservar el intento y volver a una base limpia:
 
 ```bash
-git switch main && git branch -D la-rama
+git status --short        # debe quedar vacío tras conservar el intento seguro
+git switch main
+git branch -m la-rama intento/la-rama-desviada
 ```
 
-Si pasa en `main`, la respuesta es una tarde.
+La rama renombrada conserva la evidencia y no contamina `main`. Crea después una
+rama nueva desde la base verde.
 
 ## Qué Va en Rama y Qué No
+
+Desde la sesión 3:
 
 | Tipo de cambio | Dónde se trabaja |
 |---|---|
 | Código de la API | Rama propia, integrada al cerrar la sesión |
-| Memoria, skills, hooks, configuración | Directamente sobre `main` |
+| Memoria, skills, hooks y configuración compartida | La misma rama revisable de la sesión |
 | Experimento que no se conserva | Rama que nunca se integra |
 
-Crear un `CLAUDE.md` o un skill no necesita rama: no cambia el comportamiento de
-la API y no hay nada que revisar contra una base.
+Un `CLAUDE.md`, un skill o un hook también cambia la forma de trabajar del equipo.
+Se revisa en rama aunque no cambie una respuesta HTTP.
 
-## El Ciclo de una Sesión
+La fundación de la sesión 2 es la excepción: no hay base previa contra la que
+revisarla, así que se confirma en `main`.
+
+## El Ciclo de una Sesión, de la 3 en Adelante
 
 **Al empezar**, comprueba que partes de un estado bueno:
 
@@ -52,9 +66,9 @@ uv run pytest -q          # debe estar en verde
 git log --oneline -3
 ```
 
-Si `git status` no está vacío, decide qué hacer con eso **antes** de empezar: o
-lo confirmas, o lo descartas. Arrancar sobre trabajo a medias es la forma más
-común de perderlo.
+Si `git status` no está vacío, decide qué hacer con eso **antes** de empezar:
+confírmalo en su rama o consérvalo en una rama identificable. Arrancar sobre
+trabajo a medias sin saber qué contiene es la forma más común de perderlo.
 
 **Durante**, en tu rama:
 
@@ -73,6 +87,11 @@ git branch -d feature/lo-que-toque
 
 `--no-ff` deja visible qué rama aportó cada cosa. `-d` en minúscula solo borra
 ramas ya integradas: si se niega, es que el merge no llegó a hacerse.
+
+Si trabajas con un remoto propio, ese mismo cierre puede hacerse con una pull
+request o merge request en lugar del merge local: empujas la rama, abres la
+solicitud contra `main` y la integras cuando las comprobaciones estén en verde.
+El criterio no cambia; cambia dónde queda registrada la revisión.
 
 ## Commits
 
@@ -113,12 +132,27 @@ una sesión entera trabajando sobre `main`, sin depender de nadie.
 
 ## Tu Repositorio es Tuyo
 
-Desde la sesión 2 construyes `curso-claude-code-api` en tu propia cuenta de
-GitHub o GitLab. Nadie más escribe en él.
+Desde la sesión 2 construyes `curso-claude-code-api` en un repositorio local
+tuyo. GitHub y GitLab son opcionales: ninguno de los dos es requisito para
+completar el curso.
 
-Al terminar el curso contiene dos cosas: la API, y el directorio `.claude/` con
-las herramientas que construiste —memoria, skills, hooks, subagente y
-configuración de permisos—. La segunda es la que te llevas al trabajo.
+Si quieres respaldo remoto, crea primero un repositorio privado y vacío en el
+proveedor que prefieras. Al terminar la sesión 2, con `main` limpio y en verde,
+conéctalo sin pegar tokens en la terminal ni en la conversación:
+
+```bash
+git remote add origin <URL_DEL_REPOSITORIO_VACIO>
+git push -u origin main
+git remote -v
+```
+
+Si el remoto ya contiene commits, no fuerces el push. Compara ambos historiales
+y decide cómo integrarlos antes de continuar.
+
+Al terminar el curso contiene dos cosas: la API generada bajo tu dirección y el
+directorio `.claude/` con las herramientas que construiste —memoria, skills,
+hooks, subagente y configuración de permisos—. La segunda es la que te llevas al
+trabajo.
 
 ## Contrato de Soporte
 

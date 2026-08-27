@@ -1,8 +1,8 @@
 # Sesión 1: De un Ticket a un Cambio Verificado
 
-En esta sesión no vas a aprender una lista de comandos. En los primeros 40
-minutos vas a tomar un incidente de facturación, hacer que Claude Code encuentre
-la causa, corregirlo y revisar la evidencia antes de aceptar el cambio.
+En esta sesión no vas a aprender una lista de comandos. Desde el primer minuto
+vas a trabajar sobre un incidente de facturación. Primero reproduces el fallo y
+diriges la corrección; después pones nombre al ciclo que acabas de recorrer.
 
 ## Objetivo
 
@@ -16,11 +16,10 @@ revisar el diff.
 
 | Bloque | Minutos |
 |---|---:|
-| Apertura: del incidente al diff | 10 |
-| Conceptos: el ciclo de trabajo y el contrato de tarea | 20 |
-| [Lab 01 — Resolver un incidente real](labs/01-bucle-de-verificacion/README.md) | 40 |
-| [Lab 02 — Convertir una petición ambigua en contrato](labs/02-criterio-falseable/README.md) | 40 |
-| Evidencia, transferencia y cierre | 10 |
+| [Lab 01 — Del incidente al diff](labs/01-bucle-de-verificacion/README.md) | 45 |
+| Conceptos: nombrar el ciclo que acabas de ejecutar | 15 |
+| [Lab 02 — Convertir una petición ambigua en contrato](labs/02-criterio-falseable/README.md) | 45 |
+| Evidencia, transferencia y cierre | 15 |
 
 ## Materiales
 
@@ -39,6 +38,19 @@ revisar el diff.
 Los dos labs trabajan sobre el mismo repositorio. El primero corrige un defecto
 con una prueba de regresión ya escrita. El segundo te obliga a definir el
 comportamiento antes de permitir que cambie el código.
+
+## Arranque: Primero el Incidente
+
+No leas todavía los conceptos. Abre el Lab 01 y ejecútalo desde el paso 1 hasta
+aceptar o rechazar el diff:
+
+```bash
+code $CURSO/sesiones/sesion-01-especificar-y-verificar/labs/01-bucle-de-verificacion/README.md
+```
+
+En los primeros diez minutos debes haber ejecutado la suite y observado el saldo
+duplicado. Vuelve a esta página después del checkpoint final del lab. Los
+conceptos siguientes explican las decisiones que ya tomaste.
 
 Antes de empezar:
 
@@ -191,6 +203,7 @@ La sesión está completa si:
 - [ ] La suite y la validación independiente terminan sin error.
 - [ ] Puedes justificar cada archivo modificado.
 - [ ] Conservaste el ticket, el contrato y la validación sin cambios durante la implementación.
+- [ ] Redactaste los contratos de tests e implementación del segundo lab.
 - [ ] Guardaste una evidencia breve con resultado, comandos y riesgo residual.
 
 ## Limpieza
@@ -258,6 +271,9 @@ en cada sesión. Antes de llegar, comprueba:
 
 ```bash
 docker run --rm hello-world
+docker image inspect postgres:18-alpine > /dev/null
 uv --version
+uv python find 3.12
+git config --get user.name
 git config --get user.email
 ```

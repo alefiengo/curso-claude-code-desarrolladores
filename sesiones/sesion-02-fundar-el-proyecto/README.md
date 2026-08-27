@@ -19,9 +19,8 @@ convertirlo en una copia del repositorio.
 
 | Bloque | Minutos |
 |---|---:|
-| Apertura: qué puede descubrir y qué necesita que le cuentes | 10 |
-| Conceptos: contexto persistente, alcance y garantía | 10 |
-| [Lab 01 — Inicializar un proyecto bajo contrato](labs/01-base-verificable/README.md) | 45 |
+| [Lab 01 — Fundar el proyecto desde un repositorio vacío](labs/01-base-verificable/README.md) | 55 |
+| Conceptos retrospectivos: contexto persistente, alcance y garantía | 10 |
 | [Lab 02 — Convertir decisiones en contexto de proyecto](labs/02-memoria-util/README.md) | 45 |
 | Evidencia y cierre | 10 |
 
@@ -39,19 +38,34 @@ convertirlo en una copia del repositorio.
 | [01 — Inicializar un proyecto bajo contrato](labs/01-base-verificable/README.md) | Debes delegar la creación de un servicio nuevo sin aceptar alcance ni éxito por declaración | Un prompt de tarea dirige la generación; Git y las comprobaciones automáticas deciden si se acepta |
 | [02 — Convertir decisiones en contexto de proyecto](labs/02-memoria-util/README.md) | Una propuesta rápida contradice cuatro reglas del proyecto | Un `CLAUDE.md` útil dirige la revisión; no garantiza que el agente obedezca |
 
+## Arranque: Un Repositorio sin Código
+
+No leas todavía los conceptos. Abre el Lab 01 y llega hasta la primera ejecución
+de las tres verificaciones obligatorias:
+
+```bash
+code $CURSO/sesiones/sesion-02-fundar-el-proyecto/labs/01-base-verificable/README.md
+```
+
+En los primeros diez minutos debes haber comprobado que el repositorio solo
+contiene el contrato y `.gitignore`, y debes tener un primer borrador propio del
+encargo. Completa el lab y vuelve después a esta página: la explicación sobre
+contexto parte de lo que Claude pudo y no pudo descubrir durante la generación.
+
 ## Al finalizar esta sesión podrás
 
 - Separar hechos descubribles de decisiones que el equipo debe declarar.
 - Dirigir la inicialización de un proyecto vacío con alcance y criterios
-  falsables.
+  comprobables.
 - Auditar archivos nuevos y límites negativos antes del primer commit.
 - Elegir qué pertenece al `CLAUDE.md` raíz y qué necesita otro alcance.
 - Usar `/init` como borrador y auditarlo antes de conservarlo.
 - Comprobar con `/context` qué instrucciones se cargaron y usar `/memory` para
   inspeccionar sus fuentes y la memoria automática.
 - Probar el contexto con un caso diseñado para contradecirlo.
-- Distinguir contexto, documentación y guardrails: reglas que se cumplen
-  aunque el modelo decida otra cosa, porque las aplica un permiso o un hook.
+- Distinguir contexto, documentación y garantías técnicas: límites que se
+  cumplen aunque el modelo decida otra cosa, porque los aplica un permiso o un
+  hook configurado para bloquear.
 - Dejar `main` en un estado reproducible para las sesiones siguientes.
 
 ## Conceptos Clave
@@ -63,17 +77,18 @@ información del entorno, memoria de proyecto, memoria automática y definicione
 de herramientas. Después se suman la conversación, los archivos que lee y las
 salidas de comandos.
 
-`/context` muestra qué ocupa la ventana actual. `/memory` permite inspeccionar
-los archivos de instrucciones y la memoria automática. Responden preguntas
-distintas:
+`/context` muestra qué ocupa la ventana actual. `/memory` enumera los archivos
+de instrucciones cargados y permite abrirlos, además de inspeccionar la memoria
+automática. Responden preguntas distintas:
 
 | Pregunta | Herramienta |
 |---|---|
 | ¿Qué ocupa contexto ahora? | `/context` |
-| ¿Qué instrucciones y auto memory puedo inspeccionar? | `/memory` |
+| ¿Qué instrucciones se cargaron y qué auto memory puedo inspeccionar? | `/memory` |
 
-Que `/memory` permita abrir un archivo no prueba que esté activo en ese momento.
-Para comprobar la carga, usa **Memory files** dentro de `/context`.
+Usa `/memory` para identificar y abrir las fuentes cargadas. Usa **Memory files**
+dentro de `/context` para ver además cuánto contexto ocupan. Si difieren, registra
+la versión y reinicia desde la raíz antes de diagnosticar la configuración.
 
 La consecuencia profesional no es "usar pocos tokens". Es mantener alta la
 proporción entre señal y ruido: cada instrucción cargada siempre debe justificar
@@ -173,7 +188,7 @@ excepciones se convierten en permisos o hooks más adelante.
 Desde `~/curso-claude/curso-claude-code-api`:
 
 ```bash
-uv sync --frozen
+uv sync --locked
 uv run pytest -q
 uv run ruff check .
 docker compose config -q
@@ -233,19 +248,19 @@ Qué quitaste y por qué no merecía carga permanente.
 Qué conflictos encontró Claude en la propuesta y cuál omitió, si hubo uno.
 
 ## Límite
-Qué parte requiere un guardrail y no solo una instrucción.
+Qué parte requiere una garantía técnica y no solo una instrucción.
 ```
 
 Preguntas de repaso:
 
 - ¿Qué dato útil dejaste fuera de `CLAUDE.md` porque ya tenía un lugar mejor?
 - ¿Qué decisión no podía deducirse del código?
-- ¿Qué diferencia hay entre que `/memory` liste un archivo y que `/context` lo muestre cargado?
-- ¿Qué regla de tu archivo debería convertirse en guardrail si el riesgo aumenta?
+- ¿Qué información aporta `/memory` y qué información adicional aporta `/context`?
+- ¿Qué regla de tu archivo debería convertirse en garantía técnica si el riesgo aumenta?
 
 ## Versión
 
-Material revisado el **26 de agosto de 2026** con Claude Code **2.1.246** y la
+Material revisado el **27 de agosto de 2026** con Claude Code **2.1.247** y la
 documentación oficial de memoria y contexto. Comprueba tu versión con
 `claude --version` y la disponibilidad local con `/help`.
 

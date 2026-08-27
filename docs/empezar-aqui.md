@@ -14,14 +14,18 @@ Sigue la [guía de instalación](instalacion-entorno.md) de principio a fin.
 Instala VS Code, la terminal, Docker, `uv`, Git y Claude Code, y clona el
 material del curso.
 
-Sabes que terminaste cuando estos cinco comandos responden sin error:
+Sabes que terminaste cuando estas nueve comprobaciones responden sin error:
 
 ```bash
 code --version
 claude --version
 docker run --rm hello-world
+docker image inspect postgres:18-alpine > /dev/null
 uv --version
+uv python find 3.12
+git config --get user.name
 git config --get user.email
+ls $CURSO/sesiones
 ```
 
 Si alguno falla, [problemas frecuentes](problemas-frecuentes.md) lo cubre. No
@@ -50,15 +54,18 @@ ahora de corrido; búscalo cuando lo necesites.
 Cada sesión sigue siempre la misma forma. Ábrela y recórrela en este orden:
 
 1. **Objetivo y Duración** — qué vas a poder hacer al terminar.
-2. **Conceptos Clave** — léelos, pero no los memorices. Son lo que da sentido a
-   los laboratorios; vuelves a ellos cuando algo no encaja.
-3. **Laboratorios** — aquí está el trabajo real. Cada lab parte de una situación
-   profesional y termina con evidencia revisable.
-4. **Validación General** — la lista que confirma que la sesión quedó hecha.
-5. **Cierre** — evidencias y preguntas de repaso.
+2. **Arranque** — entra en la situación y produce la primera evidencia antes de
+   estudiar la explicación.
+3. **Conceptos Clave** — vuelve a ellos después de la primera práctica para
+   poner nombre a las decisiones que tomaste.
+4. **Laboratorios restantes** — continúa el cambio y aplica el criterio con menos
+   ayuda.
+5. **Validación General y Cierre** — confirma el resultado, registra el riesgo y
+   responde las preguntas de repaso.
 
-**Lo importante:** el aprendizaje está en los laboratorios. Si vas con poco
-tiempo, haz los labs y vuelve después a los conceptos.
+**Lo importante:** el aprendizaje está en los laboratorios. No postergues la
+primera práctica para leer toda la teoría: ejecuta el arranque y vuelve a los
+conceptos cuando ya tengas un resultado que interpretar.
 
 ### Sesión 1
 
@@ -70,8 +77,8 @@ Son dos laboratorios encadenados sobre el mismo repositorio:
 
 | Lab | Qué hace | Min |
 |---|---|---:|
-| [01 — Resolver un incidente real](../sesiones/sesion-01-especificar-y-verificar/labs/01-bucle-de-verificacion/README.md) | Corregir un webhook que aplica dos veces el mismo pago y auditar el diff | 40 |
-| [02 — Convertir una petición en contrato](../sesiones/sesion-01-especificar-y-verificar/labs/02-criterio-falseable/README.md) | Cerrar decisiones, fijar tests e implementar contra evidencia independiente | 40 |
+| [01 — Resolver un incidente real](../sesiones/sesion-01-especificar-y-verificar/labs/01-bucle-de-verificacion/README.md) | Corregir un webhook que aplica dos veces el mismo pago y auditar el diff | 45 |
+| [02 — Convertir una petición en contrato](../sesiones/sesion-01-especificar-y-verificar/labs/02-criterio-falseable/README.md) | Cerrar decisiones, fijar tests e implementar contra evidencia independiente | 45 |
 
 Empieza por el Lab 01 y hazlos en orden: el segundo continúa desde el commit del
 primero.

@@ -30,7 +30,7 @@ Consulta esta guía antes de pedir soporte.
 | Comportamiento raro tras muchos turnos | Contexto degradado | `/clear` y reformular la tarea. Se trata en la sesión 3 |
 | Un comando de los apuntes no existe | La versión instalada es distinta | `claude --help` y `/help` mandan sobre los apuntes |
 | `-p` aborta al intentar una herramienta | En modo no interactivo no puede resolver una aprobación | Configurar `--allowedTools` o `dontAsk` con allowlist; consultar la sesión 10 |
-| Auto mode no aparece | La cuenta, proveedor, modelo o versión no lo admite | Usar la ruta obligatoria manual/`acceptEdits`; revisar `compatibilidad.md` |
+| Auto mode no aparece | El plan, proveedor, modelo, versión o política no cumple sus requisitos | Usar **Ask before edits** (`default`) o `acceptEdits`; revisar `compatibilidad.md` |
 | Un Stop hook repite el mismo fallo | La condición sigue roja o el script no tiene salida | Interrumpir, ejecutar el script fuera del hook y revisar timeout/diagnóstico |
 | Docker falla dentro del sandbox | Docker necesita acceso que el sandbox no ofrece | Mantenerlo fuera solo con aprobación puntual; no abrir Bash globalmente |
 
@@ -47,9 +47,9 @@ Consulta esta guía antes de pedir soporte.
 
 ### Cuando un merge entra en conflicto
 
-En el camino del curso cada rama sale de un tag y no debería haber conflicto. Si
-aparece, casi siempre es porque confirmaste algo en `main` entre sesiones o
-porque repetiste una sesión.
+En el camino del curso cada rama sale de un `main` limpio y verificado. Si aparece
+un conflicto, suele significar que `main` cambió después de crear la rama o que
+repetiste una sesión sobre historia distinta.
 
 ```bash
 git status                 # qué archivos están en conflicto

@@ -2,7 +2,8 @@
 
 Prepara esto **antes de la primera sesión**. Resolverlo en clase consume el tiempo de práctica.
 
-Al terminar debes poder ejecutar los cinco comandos de la [verificación final](#verificación-final).
+Al terminar debes poder ejecutar las nueve comprobaciones de la
+[verificación final](#verificación-final).
 
 ## Resumen por sistema
 
@@ -286,7 +287,8 @@ Claude Code trae lecciones interactivas. En una sesión:
 /powerup
 ```
 
-Diez lecciones cortas: hablar con tu código, enseñarle tus reglas, modos, deshacer, subagentes, comandos propios, automatizar, ejecución en segundo plano, elección de modelo y uso multi-dispositivo.
+Es una serie de lecciones cortas dentro del producto. Su cantidad y su contenido
+pueden cambiar entre versiones; sigue el índice que muestre tu instalación.
 
 Son de **descubrimiento**: muestran que la funcionalidad existe y la dejan probar una vez. El curso trabaja el criterio para usarlas. Hacerlas antes de la sesión 1 te ahorra tiempo de nivelación.
 
@@ -356,30 +358,31 @@ code $CURSO
 Windows y la barra inferior izquierda no dice `WSL: Ubuntu-24.04`, para y vuelve
 al paso 2: lo que sigue fallará.
 
-Ejecuta los cinco comandos. Los cinco deben responder sin error:
+Ejecuta las nueve comprobaciones. Todas deben responder sin error:
 
 ```bash
 code --version
 claude --version
 docker run --rm hello-world
+docker image inspect postgres:18-alpine > /dev/null
 uv --version
+uv python find 3.12
+git config --get user.name
 git config --get user.email
-```
-
-Y comprueba dos cosas más: que la imagen de PostgreSQL está descargada y que el
-material del curso está donde los labs lo esperan.
-
-```bash
-docker image ls postgres
 ls $CURSO/sesiones
 ```
+
+`docker image inspect` comprueba la etiqueta exacta que usa la sesión 2; listar
+`postgres` sin etiqueta también daría verde si solo tuvieras otra versión.
 
 Guarda la salida como evidencia del preflight:
 
 ```bash
 mkdir -p ~/curso-claude/evidencias
-{ code --version; claude --version; uv --version; git --version
+{ code --version; claude --version; uv --version; uv python find 3.12
+  git --version; git config --get user.name; git config --get user.email
   docker --version; docker run --rm hello-world > /dev/null && echo "docker daemon: ok"
+  docker image inspect postgres:18-alpine > /dev/null && echo "postgres 18 image: ok"
   echo "CURSO=$CURSO"; ls $CURSO/sesiones; } \
   | tee ~/curso-claude/evidencias/preflight.txt
 ```

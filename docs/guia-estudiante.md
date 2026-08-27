@@ -4,15 +4,16 @@
 
 El curso avanza en tres bloques:
 
-1. **Fundamentos y proyecto:** formular tareas verificables, dar memoria al
-   proyecto y diseñar antes de implementar.
-2. **Construir con herramientas propias:** los recursos de la API, tus primeros
-   skills y los hooks que evitan que se te olvide algo.
-3. **Verificar, delegar y entregar:** consultar la base con MCP, corregir un
-   fallo real, delegar la revisión y automatizar sin nadie delante.
+1. **Controlar la tarea y el contexto:** formular cambios verificables, fundar el
+   proyecto y mantener señal durante trabajo largo.
+2. **Diseñar, implementar y recuperar:** planificar cambios multiarchivo,
+   entregarlos con evidencia y recuperarse de una desviación.
+3. **Verificar, extender y automatizar:** depurar, construir herramientas
+   reutilizables, acotar permisos y ejecutar sin nadie delante.
 
-Cada sesión hace avanzar el proyecto **y** te deja una herramienta nueva en tu
-`.claude/`. Eso es lo que te llevas al trabajo.
+Cada sesión deja una decisión transferible y una evidencia revisable. Algunas
+hacen crecer la API; otras mejoran las instrucciones o herramientas que la
+rodean. El valor no depende de fabricar un artefacto nuevo en cada clase.
 
 ## Antes de la primera sesión
 
@@ -25,7 +26,9 @@ Prepara el entorno siguiendo la [guía de instalación](instalacion-entorno.md).
 - Git configurado con nombre y correo.
 - Una terminal Linux, macOS o WSL 2 con Ubuntu.
 
-Si nunca has usado Claude Code, o solo lo has usado como chat, ejecuta `/powerup` antes de la primera sesión: son diez lecciones cortas dentro del propio producto. Está descrito en la [guía de instalación](instalacion-entorno.md).
+Si nunca has usado Claude Code, o solo lo has usado como chat, ejecuta `/powerup`
+antes de la primera sesión: abre una serie de lecciones cortas dentro del propio
+producto. Está descrito en la [guía de instalación](instalacion-entorno.md).
 
 ## Qué necesitas saber de antes
 
@@ -56,12 +59,15 @@ opcionales añaden 30–45 minutos por sesión si decides realizarlos.
 
 ## El proyecto integrador
 
-Construyes tu propio `curso-claude-code-api` a lo largo del curso. Los laboratorios lo hacen crecer sesión a sesión: al terminar tienes una API funcionando y un `.claude/` con las herramientas que construiste.
+Construyes tu propio `curso-claude-code-api` a lo largo del curso. El curso no
+entrega su implementación: Claude la genera progresivamente bajo los contratos,
+tests y revisiones que tú diriges. Algunas sesiones amplían la API y otras
+mejoran el proceso con instrucciones y herramientas en `.claude/`.
 
 Es tuyo. Trabajas en tu máquina y en tu repositorio.
 
-Los labs son acumulativos. Antes de cada sesión comprueba que partes de un estado
-bueno —`main` limpio y en verde—, como explica el
+Los labs del proyecto son acumulativos. Antes de cada cambio comprueba que partes
+de un estado bueno —`main` limpio y en verde—, como explica el
 [flujo de trabajo con Git](../proyecto-integrador/flujo-git.md). Si faltas, el
 laboratorio de esa sesión y el contrato bastan para recuperarla.
 
@@ -83,7 +89,7 @@ riesgo dejaste explícito.
 
 Consulta la [guía de problemas frecuentes](problemas-frecuentes.md) antes de pedir soporte.
 
-Las palabras que el curso usa con un significado preciso —criterio falseable,
+Las palabras que el curso usa con un significado preciso —criterio manipulable,
 comprobación independiente, handoff, idempotente— están reunidas en el
 [glosario](glosario.md).
 

@@ -25,6 +25,20 @@ decisión de ingeniería que podría aparecer mañana en una pull request.
 - Test y lint en verde.
 - No debe existir todavía un `CLAUDE.md` de proyecto.
 
+## Ritmo de Trabajo
+
+Este lab tiene 45 minutos. Los puntos de control son:
+
+| Min | Debe existir |
+|---:|---|
+| 0–8 | Decisiones incorporadas, fuentes de contexto inspeccionadas y borrador de `/init` |
+| 8–23 | Auditoría escrita y encargo propio para reescribir `CLAUDE.md` |
+| 23–35 | Archivo recargado y propuesta adversa evaluada en una sesión nueva |
+| 35–45 | Auto memory revisada, evidencia guardada y rama integrada en `main` |
+
+No recortes la prueba adversa para ganar tiempo: es la evidencia de que el
+archivo dirige una decisión real y no solo existe.
+
 ## Paso a Paso
 
 ### 1. Incorporar las decisiones del equipo
@@ -98,7 +112,15 @@ puede mostrar el diff de un archivo nuevo. No confirmes todavía.
 
 ### 4. Auditar cada instrucción por función y alcance
 
-Abre Claude de nuevo y pide una revisión sin edición:
+Antes de abrir Claude de nuevo, redacta en
+`evidencias/prompt-auditoria-contexto.txt` una revisión sin edición. Debe exigir
+una decisión de alcance para cada bloque, una fuente o riesgo para lo que quede
+en la raíz y la detección de decisiones omitidas.
+
+Contrasta tu borrador con esta referencia y entrega después tu versión corregida:
+
+<details>
+<summary>Prompt de referencia para contrastar</summary>
 
 ```text
 Audita @CLAUDE.md usando @docs/decisiones-ingenieria.md y el repositorio.
@@ -115,12 +137,19 @@ Cita la fuente o el riesgo concreto que justifica cada elemento marcado RAÍZ.
 Señala también cualquier decisión del equipo que el borrador haya omitido.
 ```
 
+</details>
+
 No evalúes por cantidad de texto. Evalúa si cada instrucción tiene un trabajo
 claro y el alcance correcto.
 
 ### 5. Escribir el contexto mínimo suficiente
 
-Pide la reescritura con esta barra de calidad:
+Redacta ahora la instrucción de reescritura a partir de la auditoría y guárdala
+en `evidencias/prompt-reescritura-contexto.txt`. Antes de enviarla, comprueba que
+conserva solo decisiones transversales, remite a las fuentes detalladas y excluye
+inventario, tutoriales y estado temporal.
+
+Usa esta barra de calidad para revisar tu prompt, no como texto que debas copiar:
 
 ```text
 Reescribe CLAUDE.md solo con elementos que deban estar disponibles en cualquier
@@ -174,8 +203,9 @@ El archivo debe aparecer bajo **Memory files**. Después usa:
 /memory
 ```
 
-Si aparece en `/memory` pero no en `/context`, no des por hecha la carga. Revisa
-su ubicación y asegúrate de haber iniciado la sesión desde la raíz del proyecto.
+`/memory` también debe listar el archivo y permite abrirlo. `/context` añade la
+vista de cuánto ocupa dentro de la ventana. Si las dos vistas difieren, anota la
+versión, cierra la sesión y vuelve a abrirla desde la raíz antes de continuar.
 
 ### 7. Evaluar el contexto con una propuesta adversa
 
@@ -232,7 +262,7 @@ Completa `evidencias/s02.md` con:
 - una decisión que necesitó comunicación del equipo;
 - una línea eliminada del borrador de `/init`;
 - los conflictos detectados y omitidos en la propuesta;
-- un límite que requeriría enforcement si aumentara el riesgo.
+- un límite que requeriría una garantía técnica si aumentara el riesgo.
 
 Revisa y confirma:
 
@@ -240,13 +270,26 @@ Revisa y confirma:
 git status --short
 git diff --check
 git diff
-git add CLAUDE.md evidencias/s02.md evidencias/claude-md-borrador.md
+git add CLAUDE.md evidencias/s02.md evidencias/claude-md-borrador.md \
+  evidencias/prompt-auditoria-contexto.txt \
+  evidencias/prompt-reescritura-contexto.txt
 git diff --cached --check
 git diff --cached --stat
 git commit -m "Define el contexto operativo de TaskFlow"
 uv run pytest -q
 uv run ruff check .
 git status --short
+git log --oneline
+```
+
+En esta sesión el trabajo se confirma directamente en `main`: no hay revisión de
+por medio y el historial queda lineal. A partir de la sesión 3 cada cambio pasa
+por una rama y su revisión antes de integrarse.
+
+Si conectaste un remoto propio, publica ahora la base:
+
+```bash
+git push -u origin main
 ```
 
 ## Validación
@@ -261,6 +304,7 @@ git status --short
 ```
 
 - [ ] `/context` mostró el `CLAUDE.md` de la raíz.
+- [ ] Conservaste los prompts propios de auditoría y reescritura como evidencia.
 - [ ] Cada bloque tiene fuente, riesgo o uso frecuente que justifica cargarlo siempre.
 - [ ] El archivo no repite dependencias, árbol, tutorial ni estado temporal.
 - [ ] La propuesta adversa fue revisada contra cuatro conflictos concretos.

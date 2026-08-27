@@ -86,14 +86,20 @@ sin preguntarte nada más.
 
 ### 4. Convertir el contrato en tests y detenerse en rojo
 
-```text
-Convierte @contract_template.md en tests dentro de test_billing.py.
-En esta fase no modifiques billing.py.
+Esta vez el curso no entrega el prompt. Redacta un contrato de tarea breve con la
+plantilla de la sesión 1. Debe dejar explícitos estos cinco elementos:
 
-Cubre cada invariante del contrato, ejecuta `python3 -m unittest -v` y detente
-cuando los tests nuevos fallen por el comportamiento que aún falta. Explica por
-qué ese rojo es el esperado.
-```
+- resultado: convertir cada invariante en una comprobación;
+- fuente: `contract_template.md`;
+- alcance: solo `test_billing.py`;
+- restricción: no modificar `billing.py` durante esta fase;
+- terminación: ejecutar `python3 -m unittest -v`, detenerse en el rojo por la
+  capacidad ausente y explicar por qué es el rojo esperado.
+
+Antes de enviarlo, intercámbialo con otra persona o pídele a Claude una crítica
+sin edición. Corrige cualquier decisión que todavía tendría que adivinar y
+guarda tu versión final en `~/curso-claude/evidencias/s01-prompt-tests.txt`.
+Después entrégala a Claude.
 
 Un rojo útil falla porque falta la capacidad descrita. Un error de importación,
 una sintaxis rota o un nombre inventado no demuestra el requisito.
@@ -123,20 +129,21 @@ los tests para conseguir verde.
 
 ### 6. Implementar contra el contrato
 
-Continúa en la misma sesión:
+Continúa en la misma sesión, pero redacta tú el segundo contrato de tarea. Debe
+nombrar:
 
-```text
-Implementa @contract_template.md en billing.py.
-No modifiques contract_template.md, test_billing.py ni acceptance_validation.py.
-Haz el cambio mínimo y conserva la idempotencia del ticket anterior.
+- el comportamiento definido en `contract_template.md`;
+- `billing.py` como único archivo de implementación permitido;
+- `contract_template.md`, `test_billing.py` y `acceptance_validation.py` como
+  comprobaciones protegidas;
+- el cambio mínimo y la conservación de la idempotencia anterior;
+- `python3 -m unittest -v` y `python3 acceptance_validation.py` como criterio de
+  terminación;
+- archivos modificados, resultados y riesgo residual como reporte de cierre.
 
-Termina cuando pasen:
-- `python3 -m unittest -v`
-- `python3 acceptance_validation.py`
-
-Después muestra los archivos modificados, los resultados y cualquier riesgo que
-siga fuera de alcance.
-```
+Guárdalo en `~/curso-claude/evidencias/s01-prompt-implementacion.txt`, comprueba
+que contiene las cinco partes del contrato de tarea y el reporte de cierre, y
+entrégalo a Claude.
 
 Interrumpe si cambia la comprobación o amplía el dominio.
 
@@ -185,6 +192,7 @@ git status --short
 ```
 
 - [ ] La solicitud vaga terminó convertida en un contrato explícito.
+- [ ] Redactaste y conservaste los contratos para tests e implementación.
 - [ ] Los tests se confirmaron antes de modificar la implementación.
 - [ ] El rojo inicial correspondía al comportamiento ausente.
 - [ ] Suite y validación independiente pasan.

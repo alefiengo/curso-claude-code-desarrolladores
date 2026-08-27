@@ -8,7 +8,7 @@ opcional para que una diferencia de plan o versión no bloquee el curso.
 - Base general revisada contra **Claude Code 2.1.233** y la documentación
   disponible el **17 de agosto de 2026**.
 - Las sesiones 1 y 2, ya reconstruidas, se volvieron a verificar con **Claude
-  Code 2.1.246** y la documentación disponible el **26 de agosto de 2026**. La
+  Code 2.1.247** y la documentación disponible el **27 de agosto de 2026**. La
   versión declarada en cada sesión manda sobre esta referencia general.
 - Ejecuta `claude --version`, `claude doctor` y `claude --help` antes de la sesión 1.
 - Dentro de Claude Code, `/help` es la fuente de verdad de tu instalación.
@@ -29,7 +29,7 @@ cuentas tengan las mismas capacidades.
 | Sesiones interactivas, archivos y Bash | Pro, Max, Team, Enterprise o API | Obligatoria |
 | Modelos concretos | Depende del plan y proveedor | Usar `default` y registrar el activo |
 | Contexto de 1M | Depende del plan y créditos | No es requisito |
-| Auto mode | Pro, Max y Team: es el modo de arranque | Cambiar a Manual con `Shift+Tab`, o `acceptEdits` / `dontAsk` |
+| Auto mode | Solo aparece si plan, modelo, proveedor y política lo permiten; no está disponible en Pro | Usar **Ask before edits** (`default`) o `acceptEdits`; comprobar el modo con `/status` |
 | GitHub App y funciones cloud | Dependen de cuenta y GitHub | Flujo local con `git diff` y `git format-patch` |
 | Revisión cloud avanzada | Depende de disponibilidad y créditos | Revisión local con subagente nombrado |
 
@@ -127,8 +127,12 @@ mkdir -p evidencias
   claude --version
   claude doctor
   docker --version
+  docker image inspect postgres:18-alpine > /dev/null
   uv --version
+  uv python find 3.12
   git --version
+  git config --get user.name
+  git config --get user.email
 } | tee evidencias/preflight.txt
 ```
 

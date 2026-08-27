@@ -76,10 +76,11 @@ claude
 El directorio importa: aquí Claude puede ver el ticket, el código, la suite y el
 estado de Git.
 
-Comprueba el modo de permisos con `/status`. En los planes Pro, Max y Team la
-sesión arranca en Auto mode: un clasificador aprueba acciones por ti. Cambia a
-Manual con `Shift+Tab` antes de continuar, para ver cada permiso que Claude
-pide.
+Comprueba el modo de permisos con `/status`. No deduzcas el modo inicial por el
+plan de tu cuenta: depende de la versión, el proveedor y la configuración local
+o administrada. Para este primer lab usa **Ask before edits** —algunas versiones
+lo muestran como `default` o Manual—, de modo que puedas observar cada permiso.
+Cambia con `Shift+Tab` hasta que `/status` confirme ese modo.
 
 ### 4. Entregar el contrato de tarea
 

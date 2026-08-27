@@ -50,8 +50,9 @@ git commit -m "Acota las reglas de pruebas a su ruta"
 ## Parte 3: Comprobar la Carga
 
 Abre una sesión nueva y ejecuta `/context` antes de leer tests. Anota si la regla
-aparece bajo **Memory files**. Usa `/memory` para inspeccionarla, pero no tomes el
-hecho de que pueda abrirse como prueba de que ya estaba en contexto.
+aparece bajo **Memory files** y si `/memory` la enumera entre las instrucciones
+cargadas. Antes de abrir una ruta coincidente no debería aparecer en ninguna de
+las dos vistas.
 
 Después pide:
 

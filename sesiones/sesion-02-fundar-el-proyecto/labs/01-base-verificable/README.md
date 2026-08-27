@@ -24,6 +24,23 @@ salida puede variar; los criterios de aceptación no.
 - La imagen `postgres:18-alpine` descargada.
 - Ningún repositorio previo en `~/curso-claude/curso-claude-code-api` que quieras conservar.
 
+## Ritmo de Trabajo
+
+Este lab tiene 55 minutos. Usa estos puntos de control para no convertir la
+generación en una espera pasiva:
+
+| Min | Debe existir |
+|---:|---|
+| 0–10 | Repositorio mínimo, encargo propio y una diferencia anotada tras el contraste |
+| 10–25 | Plan revisado y primera implementación generada |
+| 25–40 | Alcance auditado y cuatro comprobaciones independientes en verde |
+| 40–50 | PostgreSQL `healthy` y `/health` probado contra Uvicorn |
+| 50–55 | Mapa de onboarding, evidencia y commit de la base |
+
+Una descarga lenta no rebaja el contrato. Mientras termina, revisa el plan, el
+árbol y los límites negativos; si el bloqueo persiste, usa la contingencia que
+indique quien imparte la sesión.
+
 ## Paso a Paso
 
 ### 1. Preparar un repositorio mínimo
@@ -53,15 +70,26 @@ find . -maxdepth 2 -type f -not -path './.git/*' | sort
 Solo deben aparecer `.gitignore` y `docs/contrato-api.md`. No existe código,
 `CLAUDE.md`, lock ni configuración de proyecto.
 
-### 2. Dar una especificación completa antes de pedir código
+### 2. Redactar y contrastar la especificación
 
-Abre Claude Code desde la raíz:
+Antes de abrir Claude, redacta tu propio contrato de tarea en
+`evidencias/prompt-fundacion.txt`. Usa las seis partes de la referencia rápida:
+fuente, alcance, límites negativos, criterios, proceso y terminación. Debe partir
+de `docs/contrato-api.md`, permitir solo la base del proyecto y dejar todo el
+contrato futuro fuera de esta entrega.
+
+Después abre Claude Code desde la raíz:
 
 ```bash
 claude
 ```
 
-Entrega este contrato de tarea:
+Compara tu borrador con este contrato de referencia. No lo copies sin revisar:
+registra en `evidencias/s02.md` una restricción que faltaba o una línea de tu
+borrador que eliminaste por innecesaria.
+
+<details>
+<summary>Contrato de referencia para contrastar</summary>
 
 ```text
 Crea desde cero la base de una API FastAPI administrada con uv y Python 3.12.
@@ -98,7 +126,7 @@ Debe cumplir:
   POSTGRES_PORT con valores locales ficticios.
 - compose.yaml puede renderizarse sin crear .env; usa valores locales seguros
   por defecto cuando sea necesario.
-- README.md contiene un solo recorrido canónico basado en uv sync --frozen,
+- README.md contiene un solo recorrido canónico basado en uv sync --locked,
   pytest, Ruff, docker compose up, Uvicorn y docker compose down.
 - uv run pytest -q, uv run ruff check . y docker compose config -q pasan desde
   la raíz.
@@ -107,7 +135,18 @@ No debilites una comprobación para conseguir verde. Todavía no implementes:
 primero explora, presenta el plan y espera.
 ```
 
-El prompt contiene información propia de esta tarea: alcance, contrato de
+</details>
+
+La aplicación **ASGI** es el objeto que recibe peticiones dentro del proceso;
+`app.main:app` significa "objeto `app` del módulo `app.main`". Un **healthcheck**
+es el comando periódico con el que Docker decide si un servicio está listo. Si
+estos términos no aparecían en tu borrador, decide si necesitas nombrarlos o si
+el resultado observable ya elimina la ambigüedad.
+
+Entrega a Claude tu versión corregida, no necesariamente la redacción literal de
+la referencia.
+
+El contrato contiene información propia de esta tarea: alcance, contrato de
 salida y criterio de terminación. No pertenece al futuro `CLAUDE.md` completo.
 
 ### 3. Aprobar o corregir el plan
@@ -292,6 +331,9 @@ git status --short
 El resumen debe incluir `uv.lock`; el diff detallado lo omite porque es generado
 y extenso. `.env` y `.venv` no deben entrar al commit.
 
+La base queda confirmada en `main`. El Lab 02 continúa sobre el mismo historial y
+añade allí las decisiones y el contexto del proyecto.
+
 ## Validación
 
 ```bash
@@ -308,6 +350,7 @@ git status --short
 ```
 
 - [ ] Claude exploró y presentó un plan antes de editar.
+- [ ] Redactaste el encargo inicial y registraste qué corregiste al contrastarlo.
 - [ ] El cambio se mantuvo dentro del alcance permitido.
 - [ ] Contrato, `.gitignore`, `.env` y `CLAUDE.md` pasaron las pruebas negativas.
 - [ ] Lock, test, lint y configuración de Compose pasan de forma independiente.
@@ -315,7 +358,7 @@ git status --short
 - [ ] `/health` respondió el JSON contractual.
 - [ ] `git ls-files` muestra `.env.example`, nunca `.env`.
 - [ ] La evidencia distingue lo que hizo Claude de lo que verificaste tú.
-- [ ] `main` termina limpio.
+- [ ] `main` termina limpio y en verde.
 
 ## Limpieza
 
