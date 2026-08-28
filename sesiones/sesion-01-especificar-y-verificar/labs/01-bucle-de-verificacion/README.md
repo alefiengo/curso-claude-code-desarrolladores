@@ -22,6 +22,18 @@ de aceptar.
 - Python 3 y Git disponibles.
 - La variable `$CURSO` definida por el preflight.
 
+## Ritmo de Trabajo
+
+Este lab tiene 45 minutos. Usa estos puntos de control para saber si vas
+retrasado antes de que sea tarde:
+
+| Min | Debe existir |
+|---:|---|
+| 0–10 | El fallo reproducido: un test rojo que demuestra el cobro duplicado |
+| 10–20 | Encargo escrito con su criterio de terminación |
+| 20–35 | Arreglo generado y diff auditado turno por turno |
+| 35–45 | Suite en verde, commit y evidencia guardada |
+
 ## Paso a Paso
 
 ### 1. Preparar el repositorio
@@ -78,8 +90,9 @@ estado de Git.
 
 Comprueba el modo de permisos con `/status`. No deduzcas el modo inicial por el
 plan de tu cuenta: depende de la versión, el proveedor y la configuración local
-o administrada. Para este primer lab usa **Ask before edits** —algunas versiones
-lo muestran como `default` o Manual—, de modo que puedas observar cada permiso.
+o administrada. Para este primer lab usa **Manual** —el modo `default`, que
+algunas versiones muestran como "Ask before edits"—, de modo que puedas observar
+cada permiso.
 Cambia con `Shift+Tab` hasta que `/status` confirme ese modo.
 
 ### 4. Entregar el contrato de tarea

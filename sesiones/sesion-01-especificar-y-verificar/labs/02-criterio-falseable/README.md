@@ -23,6 +23,19 @@ escribir la solución.
 - El repositorio `~/curso-claude/sesion-01/webhook-ledger` limpio.
 - El último commit debe ser la corrección de idempotencia.
 
+## Ritmo de Trabajo
+
+Este lab tiene 45 minutos. Usa estos puntos de control para saber si vas
+retrasado antes de que sea tarde:
+
+| Min | Debe existir |
+|---:|---|
+| 0–8 | Solicitud leída y decisiones que faltan enumeradas |
+| 8–18 | Contrato completado con las seis decisiones cerradas |
+| 18–30 | Tests escritos y detenidos en el rojo correcto |
+| 30–40 | Implementación contra el contrato, sin tocar la comprobación |
+| 40–45 | Auditoría con `/diff` y Git, y commit |
+
 ## Paso a Paso
 
 ### 1. Incorporar la solicitud y la plantilla
@@ -78,8 +91,16 @@ Usa estas decisiones de producto para completar `contract_template.md`:
 | Compatibilidad | Los casos válidos y la idempotencia anterior se conservan |
 | Fuera de alcance | Persistencia, concurrencia, firma y formato HTTP |
 
-Puedes editar la plantilla tú o pedirle a Claude que la complete con esas
-decisiones. Revísala antes de continuar.
+Puedes editar la plantilla tú o delegarla, indicando qué puede tocar:
+
+```text
+Completa @contract_template.md con las decisiones que acabo de darte.
+Solo ese archivo. No toques billing.py ni los tests, y no implementes nada.
+Si una decisión no está en mi lista, márcala como pendiente en vez de elegirla.
+```
+
+Revísala antes de continuar. La última frase importa: sin ella, las decisiones
+que faltan vuelven a tomarse solas, que es justo lo que este lab evita.
 
 El contrato está listo si otra persona puede derivar los mismos casos de prueba
 sin preguntarte nada más.
@@ -96,10 +117,21 @@ plantilla de la sesión 1. Debe dejar explícitos estos cinco elementos:
 - terminación: ejecutar `python3 -m unittest -v`, detenerse en el rojo por la
   capacidad ausente y explicar por qué es el rojo esperado.
 
-Antes de enviarlo, intercámbialo con otra persona o pídele a Claude una crítica
-sin edición. Corrige cualquier decisión que todavía tendría que adivinar y
-guarda tu versión final en `~/curso-claude/evidencias/s01-prompt-tests.txt`.
-Después entrégala a Claude.
+Antes de enviarlo, intercámbialo con otra persona o pide una crítica del propio
+encargo:
+
+```text
+Este es el encargo que voy a darte, todavía no lo ejecutes:
+
+<pega aquí tu contrato de tarea>
+
+¿Qué decisión tendrías que adivinar si lo recibieras tal cual? Enuméralas.
+No propongas la redacción corregida: quiero escribirla yo.
+```
+
+Revisar el encargo cuesta un turno; corregir una implementación que partió de un
+encargo ambiguo cuesta varios. Corrige lo que aparezca y entrega tu versión final
+a Claude.
 
 Un rojo útil falla porque falta la capacidad descrita. Un error de importación,
 una sintaxis rota o un nombre inventado no demuestra el requisito.
@@ -141,15 +173,27 @@ nombrar:
   terminación;
 - archivos modificados, resultados y riesgo residual como reporte de cierre.
 
-Guárdalo en `~/curso-claude/evidencias/s01-prompt-implementacion.txt`, comprueba
-que contiene las cinco partes del contrato de tarea y el reporte de cierre, y
-entrégalo a Claude.
+Comprueba que contiene las cinco partes del contrato de tarea y el reporte de
+cierre, y entrégalo a Claude.
 
 Interrumpe si cambia la comprobación o amplía el dominio.
 
 ### 7. Auditar el resultado
 
-Sal de Claude y ejecuta:
+El resumen que acaba de darte Claude no es evidencia. Compruébalo, primero sin
+salir de la conversación:
+
+```text
+/diff
+```
+
+Las flechas izquierda y derecha alternan entre el diff completo y el cambio de
+cada turno; arriba y abajo recorren los archivos. Busca una sola cosa: si algún
+turno tocó `contract_template.md`, `test_billing.py` o `acceptance_validation.py`.
+Un archivo modificado y luego revertido no aparece en el diff final, pero sí en
+su turno.
+
+Después sal con `/exit` y comprueba desde Git:
 
 ```bash
 git status --short
@@ -194,6 +238,7 @@ git status --short
 - [ ] La solicitud vaga terminó convertida en un contrato explícito.
 - [ ] Redactaste y conservaste los contratos para tests e implementación.
 - [ ] Los tests se confirmaron antes de modificar la implementación.
+- [ ] Recorriste el cambio con `/diff` antes de salir de la conversación.
 - [ ] El rojo inicial correspondía al comportamiento ausente.
 - [ ] Suite y validación independiente pasan.
 - [ ] Contrato, tests y validación no cambiaron durante la implementación.

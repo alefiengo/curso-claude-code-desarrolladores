@@ -33,9 +33,9 @@ generación en una espera pasiva:
 |---:|---|
 | 0–10 | Repositorio mínimo, encargo propio y una diferencia anotada tras el contraste |
 | 10–25 | Plan revisado y primera implementación generada |
-| 25–40 | Alcance auditado y cuatro comprobaciones independientes en verde |
-| 40–50 | PostgreSQL `healthy` y `/health` probado contra Uvicorn |
-| 50–55 | Mapa de onboarding, evidencia y commit de la base |
+| 25–40 | Alcance auditado con `/diff` y cuatro comprobaciones independientes en verde |
+| 40–45 | PostgreSQL declarado llega a `healthy` |
+| 45–55 | Mapa de onboarding, `/context` sin memoria de proyecto, evidencia y commit |
 
 Una descarga lenta no rebaja el contrato. Mientras termina, revisa el plan, el
 árbol y los límites negativos; si el bloqueo persiste, usa la contingencia que
@@ -70,13 +70,54 @@ find . -maxdepth 2 -type f -not -path './.git/*' | sort
 Solo deben aparecer `.gitignore` y `docs/contrato-api.md`. No existe código,
 `CLAUDE.md`, lock ni configuración de proyecto.
 
+Crea ahora `evidencias/s02.md` con este andamiaje. Los dos labs de hoy escriben
+en él, así que conviene tenerlo estructurado antes de empezar:
+
+```markdown
+# Sesión 2
+
+## Contexto de partida
+Qué fuentes ajenas al proyecto mostró `/context` antes de que existiera un
+`CLAUDE.md`.
+
+## Descubrible en el repositorio
+Un hecho que Claude encontró sin memoria, y su fuente.
+
+## Primera delegación
+Una decisión del plan que aprobaste o corregiste, y qué prueba usaste.
+
+## Encargo propio
+Qué te faltó pedir al contrastar tus encargos con las redacciones de referencia.
+
+## Verificación
+Qué comprobó Claude, qué comprobaste tú, y qué archivo o dependencia quitaste
+por exceder el alcance.
+
+## Decisión que necesitaba el equipo
+Una regla que no podía inferirse del repositorio, incluidas las lagunas que dejó
+el mapa de onboarding.
+
+## Línea eliminada de /init
+Qué quitaste y por qué no merecía carga permanente.
+
+## Prueba del contexto
+Qué conflictos encontró Claude en la propuesta y cuál omitió, si hubo uno.
+
+## Límite
+Qué parte requiere una garantía técnica y no solo una instrucción.
+```
+
+No lo confirmes todavía: se versiona al final del Lab 02, ya relleno.
+
 ### 2. Redactar y contrastar la especificación
 
-Antes de abrir Claude, redacta tu propio contrato de tarea en
-`evidencias/prompt-fundacion.txt`. Usa las seis partes de la referencia rápida:
-fuente, alcance, límites negativos, criterios, proceso y terminación. Debe partir
-de `docs/contrato-api.md`, permitir solo la base del proyecto y dejar todo el
-contrato futuro fuera de esta entrega.
+Redacta tu propio contrato de tarea. Al de la sesión 1 —resultado, fuentes,
+alcance, restricciones y verificación— esta entrega le añade una parte más:
+el **proceso**, es decir, si Claude debe explorar, planificar y esperar
+aprobación antes de editar. La referencia rápida de esta sesión tiene las seis.
+
+Debe partir de `docs/contrato-api.md`, permitir solo la base del proyecto y
+dejar todo el contrato futuro fuera de esta entrega.
 
 Después abre Claude Code desde la raíz:
 
@@ -85,7 +126,7 @@ claude
 ```
 
 Compara tu borrador con este contrato de referencia. No lo copies sin revisar:
-registra en `evidencias/s02.md` una restricción que faltaba o una línea de tu
+registra en **Encargo propio** una restricción que faltaba o una línea de tu
 borrador que eliminaste por innecesaria.
 
 <details>
@@ -189,8 +230,32 @@ Observa la ejecución. Interrumpe si Claude intenta tocar el contrato, cambiar
 
 ### 4. Auditar el resultado, no el relato
 
-Antes de salir, usa `/diff`. Después termina la conversación con `/exit` y
-revisa desde Git:
+Claude acaba de contarte lo que hizo. Ese resumen no es evidencia: compruébalo
+antes de aceptarlo, primero dentro de la sesión y después desde Git.
+
+Sin salir de la conversación, abre el visor de cambios:
+
+```text
+/diff
+```
+
+Las flechas izquierda y derecha alternan entre el diff completo y **el cambio de
+cada turno por separado**; arriba y abajo recorren los archivos. `Enter` abre el
+diff de uno, `Esc` vuelve a la lista.
+
+Recorre turno por turno y responde tres preguntas:
+
+| Pregunta | Qué buscas |
+|---|---|
+| ¿Qué archivo tocó cada turno? | Un turno que edite algo fuera del alcance aprobado |
+| ¿Algún turno modificó un archivo protegido? | Contrato, `.gitignore` o un `.env` creado de paso |
+| ¿Hay cambios que nadie pidió? | Endpoints extra, dependencias añadidas, configuración futura |
+
+Ver el diff por turno es lo que distingue "el resultado final está bien" de "el
+camino fue correcto". Un archivo tocado y luego revertido no aparece en el diff
+final, pero sí en su turno.
+
+Después termina la conversación con `/exit` y revisa desde Git:
 
 ```bash
 git status --short
@@ -248,42 +313,30 @@ tres verificaciones obligatorias al terminar.
 
 Revisa el nuevo diff antes de continuar.
 
-### 6. Probar PostgreSQL y la API reales
+### 6. Comprobar que la base declarada arranca
+
+Las comprobaciones del paso 5 leen archivos. Esta arranca el servicio: es la
+diferencia entre "Compose está bien escrito" y "Compose funciona".
 
 Crea la configuración local fuera de la conversación:
 
 ```bash
 cp .env.example .env
 git check-ignore -v .env
-git status --short
 docker compose up -d --wait db
 docker compose ps
-docker compose exec db sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "select version();"'
 ```
 
-El servicio debe estar `healthy` y la consulta debe devolver PostgreSQL 18. El
-comando toma usuario y base del entorno interno del contenedor, por lo que no
-necesitas copiar valores a la conversación.
+`--wait` no devuelve el control hasta que el healthcheck pasa, así que si el
+comando termina, el servicio llegó a `healthy`. Ese es el único hecho que este
+paso necesita demostrar: el contrato pedía PostgreSQL 18 con healthcheck, y lo
+declarado arranca de verdad.
 
-En un panel de terminal:
+`.env` debe aparecer ignorado y fuera de `git status`. Claude no lo abre ni lo
+necesita.
 
-```bash
-uv run uvicorn app.main:app --port 8000
-```
-
-En otro:
-
-```bash
-curl -fsS http://127.0.0.1:8000/health
-```
-
-Debe responder:
-
-```json
-{"status":"ok"}
-```
-
-Detén Uvicorn con `Ctrl+C`. PostgreSQL puede seguir activo durante el Lab 02.
+PostgreSQL queda activo para el Lab 02. La API todavía no lo usa: `GET /health`
+no consulta la base, y conectarlos es trabajo de la sesión 3.
 
 ### 7. Medir qué puede descubrir sin memoria de proyecto
 
@@ -307,12 +360,23 @@ Todavía no contiene dos acuerdos del equipo: si SQLite está permitido para
 tests y si Claude puede abrir `.env`. Una respuesta rigurosa los marca como
 desconocidos o inferencias, nunca como políticas inventadas.
 
-Guarda en `evidencias/s02.md`:
+Antes de salir, comprueba con qué contaba esta conversación:
 
-- una decisión del plan que corregiste o aprobaste conscientemente;
-- las verificaciones ejecutadas por Claude y por ti;
-- cualquier archivo o dependencia que eliminaste por exceder el alcance;
-- las dos lagunas encontradas en el mapa de onboarding.
+```text
+/context
+```
+
+No debe aparecer ningún `CLAUDE.md` de proyecto bajo **Memory files**: todavía
+no existe. Lo que Claude acaba de mapear salió de leer el repositorio, no de
+instrucciones cargadas. El Lab 02 crea ese archivo y vuelve a mirar aquí.
+
+Completa en `evidencias/s02.md`:
+
+| Sección | Qué anotas |
+|---|---|
+| Primera delegación | Una decisión del plan que corregiste o aprobaste conscientemente |
+| Verificación | Las verificaciones que ejecutó Claude, las que ejecutaste tú y cualquier archivo o dependencia que quitaste por exceder el alcance |
+| Decisión que necesitaba el equipo | Las dos lagunas encontradas en el mapa de onboarding |
 
 Sal con `/exit`.
 
@@ -345,25 +409,29 @@ uv lock --check
 uv run pytest -q
 uv run ruff check .
 docker compose config -q
-docker compose ps
 git status --short
 ```
 
+`docker compose ps` no aparece aquí: si ya detuviste el servicio, su salida vacía
+no distingue un fallo de una limpieza. El arranque se comprobó en el paso 6.
+
 - [ ] Claude exploró y presentó un plan antes de editar.
 - [ ] Redactaste el encargo inicial y registraste qué corregiste al contrastarlo.
+- [ ] Recorriste el cambio turno por turno con `/diff` antes de mirar Git.
+- [ ] `/context` confirmó que no había memoria de proyecto cargada todavía.
 - [ ] El cambio se mantuvo dentro del alcance permitido.
 - [ ] Contrato, `.gitignore`, `.env` y `CLAUDE.md` pasaron las pruebas negativas.
 - [ ] Lock, test, lint y configuración de Compose pasan de forma independiente.
-- [ ] PostgreSQL llegó a `healthy` y respondió una consulta.
-- [ ] `/health` respondió el JSON contractual.
+- [ ] PostgreSQL declarado en Compose llegó a `healthy`.
+- [ ] `tests/test_health.py` afirma código y JSON exacto, y pasa.
 - [ ] `git ls-files` muestra `.env.example`, nunca `.env`.
 - [ ] La evidencia distingue lo que hizo Claude de lo que verificaste tú.
 - [ ] `main` termina limpio y en verde.
 
 ## Limpieza
 
-Detén Uvicorn. Conserva PostgreSQL activo si continúas inmediatamente con el Lab
-02; si haces una pausa, detenlo sin borrar el volumen:
+Conserva PostgreSQL activo si continúas inmediatamente con el Lab 02; si haces
+una pausa, detenlo sin borrar el volumen:
 
 ```bash
 docker compose down

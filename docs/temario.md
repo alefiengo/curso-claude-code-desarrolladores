@@ -40,23 +40,27 @@ mientras se implementa la primera versión de la API.
 **Conceptos:** presupuesto de contexto, sesión limpia, compactación, preguntas
 laterales y persistencia de decisiones.
 
-**Práctica:** construir la v1 por contrato y medir qué ocupa contexto antes de
-decidir qué conservar.
+**Práctica:** conectar la API a PostgreSQL —persistencia, migración y catálogo de
+estados— y medir qué ocupa contexto antes de decidir qué conservar.
 
-**Sales con:** v1 en verde y criterio para continuar, compactar o empezar limpio.
+**Sales con:** la capa de persistencia en verde y criterio para continuar,
+compactar o empezar limpio.
 
 ## Bloque 2 — Diseñar, Implementar y Recuperar
 
 ### 4. Explorar y planificar un cambio multiarchivo
 
-**Situación:** añadir fechas límite afecta contrato, base, migración,
-serialización, filtros y rollback.
+**Situación:** el contrato promete un `409` al borrar un proyecto con tareas, y
+la tabla de tareas no existe todavía. La contradicción solo aparece si alguien
+explora antes de escribir.
 
 **Conceptos:** exploración separada de implementación, plan como hipótesis,
-fuentes del repositorio y coste de planificar.
+fuentes del repositorio, coste de planificar, y elección de modelo y esfuerzo
+según el riesgo.
 
-**Práctica:** descubrir los archivos reales, rechazar un plan con afirmaciones
-infundadas y dejar la v2 expresada como tests en rojo.
+**Práctica:** cerrar las decisiones por entrevista, rechazar un plan con
+afirmaciones infundadas y dejar el CRUD de proyectos expresado como tests en
+rojo.
 
 **Sales con:** especificación autocontenida, plan revisado y contrato ejecutable.
 
@@ -68,7 +72,8 @@ mover las pruebas o producir una historia imposible de revisar.
 **Conceptos:** dirección por resultados, integridad de la comprobación, commits
 por intención y evidencia de entrega.
 
-**Práctica:** implementar la v2, auditar tests y migración, segmentar commits y
+**Práctica:** implementar el CRUD de proyectos, comprobar que la vara no se
+movió, revisar el diff con una revisión de contexto propio, segmentar commits y
 preparar una descripción de cambio independiente de la conversación.
 
 **Sales con:** una entrega que otra persona puede entender, ejecutar y cuestionar.
@@ -114,7 +119,7 @@ inválidos y adversos.
 
 **Sales con:** un skill versionado cuya utilidad y límites fueron probados.
 
-### 9. Convertir reglas en guardrails
+### 9. Convertir reglas en guardarraíles
 
 **Situación:** "no hagas X" es una instrucción; una ejecución automática necesita
 una garantía más fuerte.

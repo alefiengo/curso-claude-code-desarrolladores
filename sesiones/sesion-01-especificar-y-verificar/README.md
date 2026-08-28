@@ -267,7 +267,16 @@ Si la interfaz difiere, consulta:
 ## Preparación para la Siguiente Sesión
 
 La sesión 2 crea el proyecto integrador y diseña el contexto que Claude recibirá
-en cada sesión. Antes de llegar, comprueba:
+en cada sesión.
+
+El material se publica sesión a sesión, así que actualiza tu copia antes de la
+clase:
+
+```bash
+cd $CURSO && git pull
+```
+
+Después comprueba el entorno:
 
 ```bash
 docker run --rm hello-world

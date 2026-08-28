@@ -5,7 +5,7 @@ opcional para que una diferencia de plan o versión no bloquee el curso.
 
 ## Línea Base
 
-- Base general revisada contra **Claude Code 2.1.233** y la documentación
+- Base general revisada contra **Claude Code 2.1.247** y la documentación
   disponible el **17 de agosto de 2026**.
 - Las sesiones 1 y 2, ya reconstruidas, se volvieron a verificar con **Claude
   Code 2.1.247** y la documentación disponible el **27 de agosto de 2026**. La
@@ -29,7 +29,7 @@ cuentas tengan las mismas capacidades.
 | Sesiones interactivas, archivos y Bash | Pro, Max, Team, Enterprise o API | Obligatoria |
 | Modelos concretos | Depende del plan y proveedor | Usar `default` y registrar el activo |
 | Contexto de 1M | Depende del plan y créditos | No es requisito |
-| Auto mode | Solo aparece si plan, modelo, proveedor y política lo permiten; no está disponible en Pro | Usar **Ask before edits** (`default`) o `acceptEdits`; comprobar el modo con `/status` |
+| Auto mode | Solo aparece si plan, modelo, proveedor y política lo permiten; no está disponible en Pro | Usar el modo **Manual** (`default`) o `acceptEdits`; comprobar el modo con `/status` |
 | GitHub App y funciones cloud | Dependen de cuenta y GitHub | Flujo local con `git diff` y `git format-patch` |
 | Revisión cloud avanzada | Depende de disponibilidad y créditos | Revisión local con subagente nombrado |
 
@@ -37,15 +37,29 @@ cuentas tengan las mismas capacidades.
 
 | Función | Comprobación | Alternativa |
 |---|---|---|
-| `/autocompact` | Presente en 2.1.233, con `--autocompact` como equivalente al arrancar | Usar `/context` y `/compact` manualmente |
+| `/autocompact` | Presente en 2.1.247, con `--autocompact` como equivalente al arrancar | Usar `/context` y `/compact` manualmente |
 | `/subtask` | Buscarla en `/help` | Delegar en un subagente nombrado |
 | `/goal` | Buscarla en `/help` | Trabajar en turnos con el mismo criterio de terminación |
-| `/reload-skills` | Buscarla en `/help` | Reiniciar la sesión |
 | `/code-review` | Buscarla en `/help` | Pedir revisión del diff con rúbrica explícita |
-| `/cost` | Buscarla en `/help` | En 2.1.233 es alias de `/usage`, igual que `/stats` |
+| `/cost` | Buscarla en `/help` | En 2.1.247 es alias de `/usage`, igual que `/stats` |
+
+## Herramientas de Shell que No Están en Todas Partes
+
+El preflight instala Git, Docker y uv. Los labs usan además estos comandos, que
+no vienen garantizados en los tres sistemas:
+
+| Comando | Dónde falta | Qué hacer |
+|---|---|---|
+| `timeout` | **macOS**: no viene de serie | `brew install coreutils` y usar `gtimeout`, o sustituirlo por el límite de tu terminal. Lo usan tres pasos de la sesión 10 |
+| `npx` | Sistemas sin Node instalado | Solo lo usa el paso opcional de MCP en la sesión 10. Sin Node, registra la decisión de la tabla y salta la conexión |
+| `curl` | Habitual, pero no obligatorio | Un paso opcional de la sesión 7. La comprobación equivalente la hace `/verify` |
+| `sed -i` | **macOS**: la sintaxis difiere de Linux | El material no lo usa: donde hace falta editar un archivo desde la terminal, usa Python |
+
+Ninguno es obligatorio para completar una sesión. Si te falta alguno, el paso lo
+dice y ofrece la ruta alternativa.
 
 Los subagentes nombrados se crean escribiendo el archivo en `.claude/agents/`.
-En 2.1.233, `/agents` existe pero está marcado como retirado y solo remite a esa
+En 2.1.247, `/agents` existe pero está marcado como retirado y solo remite a esa
 carpeta: el material no depende de él en ninguna sesión.
 
 No se usan como requisito comandos que solo existan en una instalación local o

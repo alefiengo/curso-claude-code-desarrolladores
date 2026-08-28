@@ -79,7 +79,7 @@ El estado en que la ventana está tan llena —o tan cargada de intentos fallido
 salidas irrelevantes— que las respuestas empeoran. Se diagnostica con `/context`
 y se corrige limpiando o compactando, no insistiendo.
 
-Se trabaja en la sesión 3 _(aún no publicada)_.
+Se trabaja en la [sesión 3](../sesiones/sesion-03-administrar-el-contexto/README.md).
 
 ### Compactar y limpiar
 

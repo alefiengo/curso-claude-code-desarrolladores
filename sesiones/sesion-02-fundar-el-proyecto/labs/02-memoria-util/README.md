@@ -23,7 +23,9 @@ decisión de ingeniería que podría aparecer mañana en una pull request.
 - Lab 01 completado.
 - `~/curso-claude/curso-claude-code-api` limpio y en `main`.
 - Test y lint en verde.
-- No debe existir todavía un `CLAUDE.md` de proyecto.
+- Sin `CLAUDE.md` de proyecto: el Lab 01 lo dejó fuera del alcance a propósito.
+  Si repites este lab y ya existe uno, muévelo a `evidencias/` antes de empezar;
+  el paso 3 lo genera de nuevo.
 
 ## Ritmo de Trabajo
 
@@ -32,9 +34,9 @@ Este lab tiene 45 minutos. Los puntos de control son:
 | Min | Debe existir |
 |---:|---|
 | 0–8 | Decisiones incorporadas, fuentes de contexto inspeccionadas y borrador de `/init` |
-| 8–23 | Auditoría escrita y encargo propio para reescribir `CLAUDE.md` |
+| 8–23 | Auditoría recibida y encargo propio para reescribir `CLAUDE.md` |
 | 23–35 | Archivo recargado y propuesta adversa evaluada en una sesión nueva |
-| 35–45 | Auto memory revisada, evidencia guardada y rama integrada en `main` |
+| 35–45 | Auto memory revisada, evidencia guardada y contexto confirmado en `main` |
 
 No recortes la prueba adversa para ganar tiempo: es la evidencia de que el
 archivo dirige una decisión real y no solo existe.
@@ -84,7 +86,7 @@ Revisa también:
 /memory
 ```
 
-Anota en `evidencias/s02.md` qué fuentes ajenas al proyecto existen y cuáles
+Anota en **Contexto de partida** qué fuentes ajenas al proyecto existen y cuáles
 mostró `/context` como cargadas. No las borres: basta con conocerlas para
 interpretar la prueba final.
 
@@ -112,44 +114,82 @@ puede mostrar el diff de un archivo nuevo. No confirmes todavía.
 
 ### 4. Auditar cada instrucción por función y alcance
 
-Antes de abrir Claude de nuevo, redacta en
-`evidencias/prompt-auditoria-contexto.txt` una revisión sin edición. Debe exigir
-una decisión de alcance para cada bloque, una fuente o riesgo para lo que quede
-en la raíz y la detección de decisiones omitidas.
+El borrador de `/init` mezcla instrucciones que deben cargarse en cualquier
+tarea con otras que no. Vas a pedirle a Claude que clasifique cada bloque del
+archivo, sin editarlo todavía, en una de estas cinco categorías:
 
-Contrasta tu borrador con esta referencia y entrega después tu versión corregida:
+| Categoría | Cuándo aplica |
+|---|---|
+| SIEMPRE | Debe estar presente en cualquier tarea del repositorio |
+| POR RUTA | Solo aplica al trabajar sobre ciertos archivos |
+| BAJO DEMANDA | Es un procedimiento que se consulta cuando hace falta, no contexto permanente |
+| DOCUMENTACIÓN | Pertenece al README o a `docs/`, no a instrucciones |
+| ELIMINAR | Es genérico, duplicado, obvio o temporal |
+
+Escribe tú el encargo. Además de la clasificación debe pedir dos cosas:
+
+- la fuente o el riesgo concreto que justifica cada bloque marcado SIEMPRE;
+- qué decisiones de `docs/decisiones-ingenieria.md` faltan en el borrador.
+
+Contrasta tu encargo con esta redacción de referencia y corrige lo que falte.
+Anota en **Encargo propio** qué te faltó pedir:
 
 <details>
-<summary>Prompt de referencia para contrastar</summary>
+<summary>Redacción de referencia para contrastar</summary>
 
 ```text
 Audita @CLAUDE.md usando @docs/decisiones-ingenieria.md y el repositorio.
 No edites todavía.
 
 Para cada bloque indica una de estas decisiones:
-- RAÍZ: debe estar presente en cualquier tarea;
+- SIEMPRE: debe estar presente en cualquier tarea;
 - POR RUTA: solo aplica a ciertos archivos;
 - BAJO DEMANDA: es un procedimiento, no contexto permanente;
 - DOCUMENTACIÓN: pertenece al README o a docs, no a instrucciones;
 - ELIMINAR: es genérico, duplicado, obvio o temporal.
 
-Cita la fuente o el riesgo concreto que justifica cada elemento marcado RAÍZ.
+Cita la fuente o el riesgo concreto que justifica cada elemento marcado SIEMPRE.
 Señala también cualquier decisión del equipo que el borrador haya omitido.
 ```
 
 </details>
 
+Abre Claude desde el directorio raíz del proyecto y entrega tu versión corregida:
+
+```bash
+claude
+```
+
 No evalúes por cantidad de texto. Evalúa si cada instrucción tiene un trabajo
-claro y el alcance correcto.
+claro y el alcance correcto. Conserva esta conversación abierta: el paso 5
+reescribe el archivo con la auditoría todavía delante.
 
 ### 5. Escribir el contexto mínimo suficiente
 
-Redacta ahora la instrucción de reescritura a partir de la auditoría y guárdala
-en `evidencias/prompt-reescritura-contexto.txt`. Antes de enviarla, comprueba que
-conserva solo decisiones transversales, remite a las fuentes detalladas y excluye
-inventario, tutoriales y estado temporal.
+Sigue en la misma conversación. Redacta ahora la instrucción de reescritura a
+partir de la auditoría que Claude acaba de entregarte.
 
-Usa esta barra de calidad para revisar tu prompt, no como texto que debas copiar:
+Tu instrucción debe cumplir esta barra de calidad. Compruébala punto por punto
+antes de enviarla:
+
+| Debe exigir | Comprobación |
+|---|---|
+| Solo lo que aplica a cualquier tarea del repositorio | Ninguna línea sirve para un único archivo o momento |
+| Las fuentes de verdad del comportamiento y de las decisiones | Nombra `docs/contrato-api.md` y `docs/decisiones-ingenieria.md` |
+| Los comandos canónicos de instalación, test y lint | Aparecen tal como se ejecutan |
+| PostgreSQL, no SQLite, para pruebas de persistencia | Queda como regla, no como sugerencia |
+| No abrir, mostrar, editar ni confirmar `.env` | Prohibición explícita, sin excepciones |
+| No debilitar tests existentes para conseguir verde | Prohibición explícita |
+| Formato breve: encabezados y viñetas | Sin párrafos largos |
+| Apuntar al documento en vez de duplicarlo | Rutas entre backticks, sin imports con `@` |
+
+Los dos últimos puntos importan por su coste: `CLAUDE.md` se carga entero en cada
+sesión, y un import con `@` arrastraría además el documento completo. Copiar el
+árbol, las dependencias, un tutorial o el estado actual gasta esa carga en
+información que el repositorio ya responde.
+
+<details>
+<summary>Prompt de referencia para contrastar</summary>
 
 ```text
 Reescribe CLAUDE.md solo con elementos que deban estar disponibles en cualquier
@@ -168,7 +208,12 @@ lo contiene en vez de duplicarlo. Nombra sus rutas entre backticks; no uses
 imports con @, porque cargarían el documento completo en cada sesión.
 ```
 
-Sal y revisa tú el archivo completo:
+</details>
+
+Entrega tu versión corregida en la misma conversación de la auditoría, para que
+Claude reescriba el archivo con el análisis que acaba de hacer delante.
+
+Cuando termine, sal con `/exit` y revisa tú el archivo completo:
 
 ```bash
 sed -n '1,220p' CLAUDE.md
@@ -208,6 +253,10 @@ vista de cuánto ocupa dentro de la ventana. Si las dos vistas difieren, anota l
 versión, cierra la sesión y vuelve a abrirla desde la raíz antes de continuar.
 
 ### 7. Evaluar el contexto con una propuesta adversa
+
+Aquí sí usas `@`. En un prompt carga el archivo una vez, para esta pregunta; lo
+que el paso 5 descartó es usarlo dentro de `CLAUDE.md`, donde cargaría el
+documento entero en todas las sesiones futuras.
 
 Sin editar archivos, pide:
 
@@ -256,13 +305,16 @@ fuente versionada.
 
 ### 9. Guardar la evidencia y confirmar
 
-Completa `evidencias/s02.md` con:
+Termina de completar `evidencias/s02.md`:
 
-- un hecho que Claude descubrió sin memoria;
-- una decisión que necesitó comunicación del equipo;
-- una línea eliminada del borrador de `/init`;
-- los conflictos detectados y omitidos en la propuesta;
-- un límite que requeriría una garantía técnica si aumentara el riesgo.
+| Sección | Qué anotas |
+|---|---|
+| Descubrible en el repositorio | Un hecho que Claude descubrió sin memoria |
+| Decisión que necesitaba el equipo | Una decisión que necesitó comunicación del equipo |
+| Encargo propio | Qué te faltó pedir en el encargo de auditoría del paso 4 |
+| Línea eliminada de /init | Una línea que quitaste del borrador |
+| Prueba del contexto | Los conflictos detectados y omitidos en la propuesta |
+| Límite | Un límite que requeriría una garantía técnica si aumentara el riesgo |
 
 Revisa y confirma:
 
@@ -270,9 +322,7 @@ Revisa y confirma:
 git status --short
 git diff --check
 git diff
-git add CLAUDE.md evidencias/s02.md evidencias/claude-md-borrador.md \
-  evidencias/prompt-auditoria-contexto.txt \
-  evidencias/prompt-reescritura-contexto.txt
+git add CLAUDE.md evidencias/s02.md evidencias/claude-md-borrador.md
 git diff --cached --check
 git diff --cached --stat
 git commit -m "Define el contexto operativo de TaskFlow"
@@ -304,7 +354,7 @@ git status --short
 ```
 
 - [ ] `/context` mostró el `CLAUDE.md` de la raíz.
-- [ ] Conservaste los prompts propios de auditoría y reescritura como evidencia.
+- [ ] Registraste qué te faltó pedir al contrastar tu encargo con la referencia.
 - [ ] Cada bloque tiene fuente, riesgo o uso frecuente que justifica cargarlo siempre.
 - [ ] El archivo no repite dependencias, árbol, tutorial ni estado temporal.
 - [ ] La propuesta adversa fue revisada contra cuatro conflictos concretos.
@@ -327,7 +377,7 @@ docker compose down
 
 | Problema | Causa probable | Acción |
 |---|---|---|
-| `/init` propone skills o hooks | La versión actual ofrece una inicialización más amplia | Elige solo instrucciones de proyecto; las extensiones llegan cuando exista su necesidad |
+| `/init` propone skills o hooks | La sesión tiene activado `CLAUDE_CODE_NEW_INIT=1`, que abre el flujo ampliado | Elige solo instrucciones de proyecto; las extensiones llegan cuando exista su necesidad |
 | `/init` no crea el archivo | Ya existe o la sesión no está en la raíz | Comprueba `pwd`, mueve el archivo previo a evidencias y repite |
 | `/context` no muestra `CLAUDE.md` | La sesión estaba abierta antes de crearlo o arrancó en otro directorio | Cierra y abre `claude` desde la raíz |
 | El borrador copia todo el README | Confundió documentación con instrucciones persistentes | Conserva solo comandos frecuentes, fuentes y límites no obvios |

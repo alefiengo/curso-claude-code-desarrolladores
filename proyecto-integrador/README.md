@@ -52,18 +52,29 @@ separado:
 | Sesión | Lo que se añade |
 |---:|---|
 | 2 | Esqueleto: FastAPI, Compose, `GET /health` y el `CLAUDE.md` del proyecto |
-| 3 | v1: esquema, migraciones, proyectos, tareas y gestión del contexto |
-| 4 | Contrato v2, plan revisado y tests en rojo para fechas límite |
-| 5 | v2 implementada, migrada y preparada como entrega revisable |
-| 6 | Recuperación, checkpoint y continuidad de la v2 |
-| 7 | Regresión de títulos invisibles y comprobación visual mínima |
+| 3 | Persistencia, migración inicial y catálogo de estados |
+| 4 | Proyectos especificados: plan revisado y tests en rojo, sin código |
+| 5 | Proyectos implementados y preparados como entrega revisable |
+| 6 | Tareas y filtros, con recuperación de un cambio que se fue de alcance |
+| 7 | Regresión de títulos invisibles |
 | 8 | Skill de verificación evaluado y de solo lectura |
 | 9 | Permisos mínimos y hooks probados con casos negativos |
 | 10 | Revisión aislada, ejecución no interactiva y CI |
 
+La API crece en rebanadas finas, una por sesión. Es deliberado: cada sesión
+introduce **el mínimo de dominio que hace necesaria su herramienta**, y el resto
+de los minutos son para Claude Code.
+
+Al terminar la sesión 7 tienes la v1 completa del contrato: salud, estados,
+proyectos, tareas y filtros. **`due_at` y el filtro `overdue` quedan fuera del
+recorrido de clase** y son trabajo del
+[proyecto final](proyecto-final.md): la sección *Tareas v2* del contrato está
+escrita, pero nadie te va a guiar paso a paso para implementarla. Ese es el
+punto: al llegar ahí ya sabes dirigir el cambio tú.
+
 ## Arquitectura
 
-### Bloques 1 y 2 (v1 y v2)
+### Bloques 1 y 2
 
 ```text
 navegador
@@ -75,7 +86,7 @@ página estática (servida por FastAPI)
     +-- PostgreSQL :5432
 ```
 
-### Bloque 3 (v3)
+### Bloque 3
 
 La aplicación no cambia. Lo que crece es el instrumental alrededor:
 

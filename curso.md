@@ -100,23 +100,26 @@ adversa con cuatro conflictos conocidos.
 
 #### Sesión 3 — Mantener señal durante un cambio largo
 
-Se implementa la v1 del contrato de la API mientras se observa qué llena el
-contexto. El estudiante separa una pregunta lateral, una exploración extensa y
-una decisión persistente; limpia o compacta solo cuando sabe qué debe conservar.
+Se conecta la API a PostgreSQL —persistencia, migración inicial y catálogo de
+estados— mientras se observa qué llena el contexto. El estudiante separa una
+pregunta lateral, una exploración extensa y una decisión persistente; limpia o
+compacta solo cuando sabe qué debe conservar.
 
 **Decisión central:** cuándo continuar, compactar, delegar investigación o
 empezar una sesión limpia.
 
-**Evidencia:** v1 en verde y registro del contexto antes y después de una acción.
+**Evidencia:** la persistencia en verde y el registro del contexto antes y
+después de una acción.
 
 ### Bloque 2 — Diseñar, implementar y recuperar
 
 #### Sesión 4 — Explorar y planificar un cambio multiarchivo
 
-La v2 añade fechas límite, migración, serialización y filtros. Antes de editar,
+El CRUD de proyectos toca modelo, migración, esquemas, rutas y tests, y el
+contrato promete un `409` que todavía no puede implementarse. Antes de editar,
 Claude explora el repositorio y propone un plan. El estudiante rechaza
-afirmaciones sin fuente, resuelve decisiones de rollback y convierte el
-resultado en contrato ejecutable.
+afirmaciones sin fuente, cierra las decisiones que el contrato deja abiertas y
+convierte el resultado en contrato ejecutable.
 
 **Decisión central:** cuándo el coste de planificar es menor que el de corregir.
 
@@ -125,9 +128,10 @@ rojo por capacidad ausente.
 
 #### Sesión 5 — Implementar y entregar un cambio revisable
 
-Claude implementa la v2 contra el contrato ya fijado. El estudiante dirige por
-resultados, detecta si los tests se movieron, separa commits por intención y
-prepara una entrega que otra persona puede revisar sin leer la conversación.
+Claude implementa los proyectos contra el contrato ya fijado. El estudiante
+dirige por resultados, detecta si los tests se movieron, pide una revisión que no
+hereda su conversación, separa commits por intención y prepara una entrega que
+otra persona puede revisar sin leer el hilo.
 
 **Decisión central:** cuándo un cambio funciona pero todavía no está listo para
 integrarse.
@@ -137,9 +141,11 @@ de entrega.
 
 #### Sesión 6 — Interrumpir, recuperar y continuar
 
-Se prueban dos caminos sobre una misma desviación: corregir sobre el contexto
-contaminado o volver a un checkpoint. Después se cierra una sesión y otra
-persona —o una sesión nueva— retoma con un traspaso mínimo.
+Al implementar tareas y filtros, un encargo ancho se lleva por delante trabajo ya
+terminado. Se prueban dos caminos: corregir sobre el contexto contaminado o
+rebobinar. Rebobinar deja al descubierto qué no cubre un checkpoint —la base de
+datos ya migrada, entre otras cosas—. Después se cierra la sesión y otra persona
+retoma con un traspaso mínimo.
 
 **Decisión central:** cuándo sale más barato redirigir, rebobinar o empezar
 limpio.

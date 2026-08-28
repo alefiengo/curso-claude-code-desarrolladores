@@ -1,15 +1,18 @@
 # Referencia Rápida: Sesión 2
 
-## Contrato para Inicializar un Proyecto
+## Contrato de Tarea: la Variante de Fundación
 
-| Parte | Pregunta que debe responder |
-|---|---|
-| Fuente | ¿Qué documento manda sobre el comportamiento? |
-| Alcance | ¿Qué archivos y capacidades puede cambiar? |
-| Límites negativos | ¿Qué no puede tocar, crear ni leer? |
-| Criterios | ¿Qué resultados exactos deben observarse? |
-| Proceso | ¿Debe explorar, planificar, esperar aprobación o implementar? |
-| Terminación | ¿Qué comandos debe ejecutar antes de declarar éxito? |
+Es el contrato de la sesión 1 con una parte más. Cuando el trabajo no cabe en un
+turno, hay que acordar también **cómo** procede Claude, no solo qué entrega.
+
+| Parte | Pregunta que debe responder | En la sesión 1 |
+|---|---|---|
+| Fuente | ¿Qué documento manda sobre el comportamiento? | Fuentes |
+| Alcance | ¿Qué archivos y capacidades puede cambiar? | Alcance |
+| Límites negativos | ¿Qué no puede tocar, crear ni leer? | Restricciones |
+| Criterios | ¿Qué resultados exactos deben observarse? | Resultado |
+| Proceso | ¿Debe explorar, planificar, esperar aprobación o implementar? | — |
+| Terminación | ¿Qué comandos debe ejecutar antes de declarar éxito? | Verificación |
 
 Un prompt de inicio describe la entrega actual. No lo copies completo a
 `CLAUDE.md`: conserva allí solo decisiones que sigan vigentes en tareas futuras.
@@ -42,6 +45,16 @@ Un prompt de inicio describe la entrega actual. No lo copies completo a
 - Instrucciones de una sola tarea.
 - Consejos genéricos como "escribe código limpio".
 
+## Tamaño
+
+Apunta a menos de 200 líneas. Por encima, el archivo consume más contexto y la
+adherencia baja. Si crece, no lo partas en imports —lo importado también se carga
+al arrancar—: mueve lo que solo aplica a ciertas rutas a `.claude/rules/` con
+`paths:`, y lo que es un procedimiento a un skill.
+
+El `CLAUDE.md` de la raíz sobrevive a `/compact`: Claude Code lo relee del disco.
+Una instrucción que solo diste en la conversación, no.
+
 ## Auditoría de una Línea
 
 Para cada instrucción pregunta:
@@ -55,10 +68,15 @@ Para cada instrucción pregunta:
 ## Comandos
 
 ```text
+/diff       abre el visor de cambios; flechas para ver turno por turno
 /init       genera o mejora una propuesta; no la confirma por ti
 /context    muestra qué ocupa la ventana y qué memoria se cargó
 /memory     lista y abre instrucciones cargadas; permite auditar auto memory
 ```
+
+`/diff` revisa dentro de la sesión; `git diff` revisa desde fuera. Auditar el
+trabajo de un agente necesita las dos: la primera muestra qué hizo cada turno,
+la segunda qué quedó en el árbol.
 
 ## Comprobar la Línea Base
 

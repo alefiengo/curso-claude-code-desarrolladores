@@ -56,7 +56,7 @@ Al terminar podrás:
 |---:|---|---|
 | [1](sesiones/sesion-01-especificar-y-verificar/README.md) | Un ticket ambiguo o sin comprobación | Cambio aceptado con suite, alcance y diff revisados |
 | [2](sesiones/sesion-02-fundar-el-proyecto/README.md) | Claude no conoce el repositorio o recibe instrucciones inútiles | `CLAUDE.md` breve, probado contra tareas reales |
-| 3 _(aún no publicada)_ | Una tarea larga degrada el contexto mientras crece el cambio | API v1 y una estrategia de contexto medida |
+| [3](sesiones/sesion-03-administrar-el-contexto/README.md) | Una tarea larga degrada el contexto mientras crece el cambio | API v1 y una estrategia de contexto medida |
 | 4 _(aún no publicada)_ | El agente implementa antes de entender dependencias y riesgos | Especificación, plan revisado y contrato en rojo |
 | 5 _(aún no publicada)_ | El código funciona, pero el cambio no es revisable | Implementación v2, commits coherentes y entrega con evidencia |
 | 6 _(aún no publicada)_ | Una línea de trabajo se desvía o debe continuar otro día | Recuperación comprobada y traspaso mínimo |

@@ -40,17 +40,17 @@ convertirlo en una copia del repositorio.
 
 ## Arranque: Un Repositorio sin Código
 
-No leas todavía los conceptos. Abre el Lab 01 y llega hasta la primera ejecución
-de las tres verificaciones obligatorias:
+No leas todavía los conceptos. Abre el Lab 01 y empieza:
 
 ```bash
 code $CURSO/sesiones/sesion-02-fundar-el-proyecto/labs/01-base-verificable/README.md
 ```
 
 En los primeros diez minutos debes haber comprobado que el repositorio solo
-contiene el contrato y `.gitignore`, y debes tener un primer borrador propio del
-encargo. Completa el lab y vuelve después a esta página: la explicación sobre
-contexto parte de lo que Claude pudo y no pudo descubrir durante la generación.
+contiene el contrato y `.gitignore`, y tener un borrador propio del encargo con
+una diferencia anotada tras contrastarlo. Completa el lab y vuelve después a
+esta página: la explicación sobre contexto parte de lo que Claude pudo y no pudo
+descubrir durante la generación.
 
 ## Al finalizar esta sesión podrás
 
@@ -133,6 +133,15 @@ No lo llenes con frases genéricas como "escribe código limpio", estados
 temporales como "hoy solo existe `/health`" ni recorridos multi-paso que solo se
 usan en una tarea concreta.
 
+**Apunta a menos de 200 líneas.** No es un límite del formato: por encima de esa
+cifra el archivo consume más contexto y la adherencia baja. Es la misma razón por
+la que este curso pide instrucciones concretas: "usa PostgreSQL en las pruebas de
+persistencia, nunca SQLite" se puede comprobar; "escribe buenos tests" no.
+
+Si el archivo crece, la salida no es partirlo en imports —lo importado también se
+carga al arrancar—, sino mover lo que solo aplica a ciertas rutas a
+`.claude/rules/` con `paths:`, o lo que es un procedimiento a un skill.
+
 ### Elegir el alcance correcto
 
 Antes de escribir una regla, decide cuándo debe cargar y quién la comparte:
@@ -169,6 +178,11 @@ Trata su salida como cualquier otro cambio generado:
 de seguridad. Una instrucción vaga, contradictoria o perdida entre ruido puede
 ignorarse.
 
+Lo que sí garantiza es persistencia dentro de la sesión: el `CLAUDE.md` de la
+raíz del proyecto sobrevive a `/compact`, porque Claude Code lo vuelve a leer del
+disco y lo reinyecta. Una instrucción que solo diste en la conversación no. Esa
+diferencia es el punto de partida de la sesión 3.
+
 En el Lab 02 usarás una propuesta que pide SQLite, editar tests, leer `.env` y
 cerrar con una comprobación incompleta. El resultado sirve para evaluar si el
 contexto orienta bien la revisión. Si Claude omite un conflicto, no "falló el
@@ -182,6 +196,9 @@ excepciones se convierten en permisos o hooks más adelante.
 | `/init` | Generar o mejorar una propuesta de instrucciones de proyecto |
 | `/context` | Ver la distribución del contexto y los archivos cargados |
 | `/memory` | Inspeccionar instrucciones y memoria automática |
+
+`/diff` se introdujo en la sesión 1 y aquí lo usas sobre un cambio más grande:
+varios archivos generados de una vez, en lugar de una corrección de una línea.
 
 ## Validación General
 
@@ -227,29 +244,9 @@ una regla con alcance por ruta y comprueba cuándo entra en contexto.
 
 ## Cierre
 
-Guarda `evidencias/s02.md`:
-
-```markdown
-# Sesión 2
-
-## Descubrible en el repositorio
-Un hecho que Claude encontró sin memoria y su fuente.
-
-## Primera delegación
-Una decisión del plan que aprobaste o corregiste y qué prueba usaste.
-
-## Decisión que necesitaba el equipo
-Una regla que no podía inferirse con seguridad.
-
-## Línea eliminada de /init
-Qué quitaste y por qué no merecía carga permanente.
-
-## Prueba del contexto
-Qué conflictos encontró Claude en la propuesta y cuál omitió, si hubo uno.
-
-## Límite
-Qué parte requiere una garantía técnica y no solo una instrucción.
-```
+`evidencias/s02.md` se creó en el paso 1 del Lab 01 y se fue rellenando durante
+los dos labs. Antes de cerrar, comprueba que ninguna de sus nueve secciones
+quedó vacía y que el archivo está confirmado en `main`.
 
 Preguntas de repaso:
 
@@ -268,18 +265,60 @@ documentación oficial de memoria y contexto. Comprueba tu versión con
 - [Depurar configuración](https://code.claude.com/docs/en/debug-your-config)
 - [Ventana de contexto](https://code.claude.com/docs/en/context-window)
 
-## Preparación para la Sesión 3
+## Estado Final del Repositorio
 
-Llega con el proyecto limpio y la base disponible:
+La sesión 3 parte exactamente de aquí. Si algo de esta lista no coincide,
+resuélvelo antes de continuar: cada sesión hereda el repositorio de la anterior.
+
+En `~/curso-claude/curso-claude-code-api`, rama `main`, sin ramas ni etiquetas
+adicionales:
+
+| Ruta | Origen |
+|---|---|
+| `.gitignore` | Copiado en el Lab 01 |
+| `docs/contrato-api.md` | Copiado en el Lab 01 |
+| `docs/decisiones-ingenieria.md` | Copiado en el Lab 02 |
+| `pyproject.toml`, `uv.lock` | Generados por Claude bajo contrato |
+| `app/`, `tests/test_health.py` | Generados por Claude bajo contrato |
+| `compose.yaml`, `.env.example`, `README.md` | Generados por Claude bajo contrato |
+| `CLAUDE.md` | Escrito y depurado por ti en el Lab 02 |
+| `evidencias/s02.md` y los borradores del Lab 02 | Escritos por ti |
+
+Fuera del control de versiones, ignorados y presentes en tu máquina: `.env` y
+`.venv`. El volumen de PostgreSQL sigue existiendo.
+
+Compruébalo:
 
 ```bash
+cd ~/curso-claude/curso-claude-code-api
 git switch main
 git status --short
+git tag --list
+git ls-files CLAUDE.md docs/contrato-api.md docs/decisiones-ingenieria.md
+git check-ignore -v .env
 uv run pytest -q
+uv run ruff check .
 docker compose up -d --wait db
-docker compose ps
 ```
 
-La sesión 3 implementa la v1 y observa cómo cambia el contexto durante una tarea
-larga. Cierra la conversación de hoy: las decisiones duraderas ya están en el
-repositorio.
+- [ ] `git status --short` no imprime nada.
+- [ ] `git tag --list` no imprime nada: este curso no usa etiquetas de sesión.
+- [ ] Los tres archivos de contexto aparecen versionados.
+- [ ] `.env` aparece ignorado.
+- [ ] Suite y lint en verde, y PostgreSQL llega a `healthy`.
+
+## Preparación para la Sesión 3
+
+La sesión 3 conecta la API a PostgreSQL y observa cómo cambia el contexto durante
+una tarea larga. Es la primera que trabaja en una rama en lugar de confirmar
+directamente en `main`.
+
+Cierra la conversación de hoy. Las decisiones duraderas ya están en el
+repositorio: eso es justamente lo que acabas de comprobar.
+
+El material se publica sesión a sesión, así que actualiza tu copia antes de la
+clase:
+
+```bash
+cd $CURSO && git pull
+```
