@@ -35,34 +35,34 @@ reglas.
 ### 3. Mantener señal durante una tarea larga
 
 **Situación:** la conversación acumula archivos, comandos y caminos descartados
-mientras se implementa la primera versión de la API.
+mientras se acuerda cómo conectar la API a PostgreSQL.
 
 **Conceptos:** presupuesto de contexto, sesión limpia, compactación, preguntas
 laterales y persistencia de decisiones.
 
-**Práctica:** conectar la API a PostgreSQL —persistencia, migración y catálogo de
-estados— y medir qué ocupa contexto antes de decidir qué conservar.
+**Práctica:** llevar una conversación larga hasta un plan de persistencia
+acordado, midiendo qué ocupa contexto antes de decidir qué conservar.
 
-**Sales con:** la capa de persistencia en verde y criterio para continuar,
-compactar o empezar limpio.
+**Sales con:** un plan escrito que sobrevive a la conversación que lo produjo, y
+criterio para continuar, compactar o empezar limpio.
 
-## Bloque 2 — Diseñar, Implementar y Recuperar
+## Bloque 2 — Ejecutar, Entregar y Recuperar
 
-### 4. Explorar y planificar un cambio multiarchivo
+### 4. Ejecutar y publicar
 
-**Situación:** el contrato promete un `409` al borrar un proyecto con tareas, y
-la tabla de tareas no existe todavía. La contradicción solo aparece si alguien
-explora antes de escribir.
+**Situación:** el plan está aprobado, deja una decisión sin cerrar y son cuatro
+incrementos por delante. Nada de lo que se haga existirá fuera de tu máquina.
 
-**Conceptos:** exploración separada de implementación, plan como hipótesis,
-fuentes del repositorio, coste de planificar, y elección de modelo y esfuerzo
-según el riesgo.
+**Conceptos:** decisión abierta, un commit por incremento, diferencia entre lo
+que pides y lo que permites, configuración de proyecto versionada, remoto y
+lectura del historial desde fuera.
 
-**Práctica:** cerrar las decisiones por entrevista, rechazar un plan con
-afirmaciones infundadas y dejar el CRUD de proyectos expresado como tests en
-rojo.
+**Práctica:** cerrar la decisión abierta antes del primer incremento, dirigir los
+cuatro uno a uno, escribir los permisos en `.claude/settings.json` y publicar el
+repositorio en un remoto propio.
 
-**Sales con:** especificación autocontenida, plan revisado y contrato ejecutable.
+**Sales con:** la persistencia en verde, los permisos versionados y el trabajo
+visible para alguien que no estuvo.
 
 ### 5. Implementar y entregar un cambio revisable
 

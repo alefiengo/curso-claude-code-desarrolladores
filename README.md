@@ -52,18 +52,18 @@ Al terminar podrás:
 
 ## Recorrido
 
-| Sesión | Problema profesional | Evidencia de salida |
-|---:|---|---|
-| [1](sesiones/sesion-01-especificar-y-verificar/README.md) | Un ticket ambiguo o sin comprobación | Cambio aceptado con suite, alcance y diff revisados |
-| [2](sesiones/sesion-02-fundar-el-proyecto/README.md) | Claude no conoce el repositorio o recibe instrucciones inútiles | `CLAUDE.md` breve, probado contra tareas reales |
-| [3](sesiones/sesion-03-administrar-el-contexto/README.md) | Una tarea larga degrada el contexto mientras crece el cambio | API v1 y una estrategia de contexto medida |
-| 4 _(aún no publicada)_ | El agente implementa antes de entender dependencias y riesgos | Especificación, plan revisado y contrato en rojo |
-| 5 _(aún no publicada)_ | El código funciona, pero el cambio no es revisable | Implementación v2, commits coherentes y entrega con evidencia |
-| 6 _(aún no publicada)_ | Una línea de trabajo se desvía o debe continuar otro día | Recuperación comprobada y traspaso mínimo |
-| 7 _(aún no publicada)_ | Una explicación plausible reemplaza a la reproducción | Fallo reproducido, causa corregida y regresión permanente |
-| 8 _(aún no publicada)_ | El mismo procedimiento se vuelve a escribir y varía cada vez | Skill evaluado con casos de éxito y fallo |
-| 9 _(aún no publicada)_ | Una instrucción se confunde con una garantía | Permisos mínimos y hooks probados con casos negativos |
-| 10 _(aún no publicada)_ | Una ejecución aislada o automática puede exceder sus límites | Revisión delegada y flujo no interactivo auditable |
+| Sesión | Problema profesional |
+|---:|---|
+| [1](sesiones/sesion-01-especificar-y-verificar/README.md) | Un ticket ambiguo o sin comprobación |
+| [2](sesiones/sesion-02-fundar-el-proyecto/README.md) | Claude no conoce el repositorio o recibe instrucciones inútiles |
+| [3](sesiones/sesion-03-administrar-el-contexto/README.md) | Una tarea larga degrada el contexto mientras crece el cambio |
+| [4](sesiones/sesion-04-ejecutar-y-publicar/README.md) | Un plan aprobado, ejecutado sin límites y sin publicar |
+| 5 _(aún no publicada)_ | El código funciona, pero el cambio no es revisable |
+| 6 _(aún no publicada)_ | Una línea de trabajo se desvía o debe continuar otro día |
+| 7 _(aún no publicada)_ | Una explicación plausible reemplaza a la reproducción |
+| 8 _(aún no publicada)_ | El mismo procedimiento se vuelve a escribir y varía cada vez |
+| 9 _(aún no publicada)_ | Una instrucción se confunde con una garantía |
+| 10 _(aún no publicada)_ | Una ejecución aislada o automática puede exceder sus límites |
 
 Consulta el [temario detallado](docs/temario.md) para ver las decisiones y los
 artefactos de cada sesión.
@@ -72,7 +72,7 @@ artefactos de cada sesión.
 
 - 20 horas: 10 sesiones en vivo de 2 horas.
 - Al menos 70 % del tiempo se trabaja sobre código y evidencia.
-- Dos laboratorios encadenados por sesión.
+- Dos o tres laboratorios encadenados por sesión.
 - Un proyecto integrador que crece mediante cambios revisables.
 - Evaluación formativa: no se premia memorizar comandos ni aceptar más código.
 
@@ -80,6 +80,9 @@ artefactos de cada sesión.
 
 Necesitas manejar Git y una terminal, y poder leer y depurar Python básico. No
 necesitas experiencia previa con Claude Code, FastAPI ni MCP.
+
+Desde la sesión 4 publicas tu trabajo, así que necesitas también una cuenta de
+**GitHub o GitLab**. Cualquiera de las dos sirve.
 
 Si nunca usaste la herramienta, llegas en igualdad de condiciones: la primera
 sesión explica el modelo mental mientras resuelves un cambio real.

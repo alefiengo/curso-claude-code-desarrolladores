@@ -3,7 +3,7 @@
 Este mapa orienta. `claude --help` y `/help` mandan en la versión instalada.
 
 Todo lo que aparece aquí se contrastó con dos fuentes: la instalación
-(Claude Code 2.1.247) y la [documentación oficial](https://code.claude.com/docs).
+(Claude Code 2.1.251) y la [documentación oficial](https://code.claude.com/docs).
 Una sola no basta, y esa es también la regla que practicas en la sesión 7.
 
 ## Por Sesión
@@ -12,13 +12,13 @@ Una sola no basta, y esa es también la regla que practicas en la sesión 7.
 |---:|---|---|
 | 1 | `claude`, `@ruta`, `Esc`, `Shift+Tab`, `/diff`, `/status`, `/context` | Dirigir una tarea y auditar su resultado |
 | 2 | `/init`, `/memory`, `/context all` | Dar contexto de proyecto que cambia el resultado |
-| 3 | `/clear`, `/compact`, `/btw`, `/autocompact`, `/token-budget` | Mantener señal en una conversación larga |
-| 4 | `/plan`, `Ctrl+G`, `/goal`, `/effort`, `/advisor`, `/model opusplan` | Planificar y ajustar el esfuerzo al riesgo |
+| 3 | `/clear`, `/compact`, `/btw`, `/autocompact` | Mantener señal en una conversación larga |
+| 4 | `/permissions`, `/rewind`, `Esc Esc`, `/resume` | Ejecutar un plan con límites y poder deshacer |
 | 5 | `/code-review`, `/security-review`, `/simplify` | Entregar un cambio que otro puede revisar |
 | 6 | `/rewind`, `/branch`, `/fork`, `/resume`, `--continue`, `Esc Esc` | Interrumpir, recuperar y continuar |
 | 7 | `/verify` | Reproducir un fallo y demostrar su corrección |
 | 8 | `/skills`, `allowed-tools`, `disallowed-tools`, `/plugin` | Convertir repetición en una herramienta evaluada |
-| 9 | `/permissions`, `/hooks`, `/sandbox`, `--permission-mode` | Convertir reglas en guardarraíles |
+| 9 | `/permissions`, `/hooks`, `--permission-mode` | Convertir reglas en guardarraíles |
 | 10 | `/agents`, `/subtask`, `/background`, `/tasks`, `/mcp`, `claude -p`, `--output-format json`, `--json-schema` | Delegar y ejecutar sin nadie delante |
 
 ## Etiquetas del Curso
@@ -28,12 +28,12 @@ Una sola no basta, y esa es también la regla que practicas en la sesión 7.
 - **Referencia:** se muestra para descubrimiento, no se memoriza.
 - **Creado en el lab:** skill o comando propio, no incorporado a Claude Code.
 
-Son opcionales `/advisor` y `/model opusplan` (sesión 4), `/plugin` (sesión 8)
-y `/mcp` (sesión 10): ningún paso obligatorio depende de ellos.
+Son opcionales `/plugin` (sesión 8) y `/mcp` (sesión 10): ningún paso
+obligatorio depende de ellos.
 
-`/advisor` es **experimental y solo funciona contra la API de Anthropic**: no
-está en Amazon Bedrock, Claude Platform on AWS, Google Cloud ni Microsoft
-Foundry. Además el modelo asesor debe ser al menos tan capaz como el principal.
+Las filas de la sesión 5 en adelante son **provisionales**. Manda siempre la
+sección **Comandos Nuevos** de cada sesión, que es la que se verifica contra la
+instalación antes de publicarse.
 
 No evalúes memorización de la tabla. Evalúa si la persona elige la herramienta
 correcta para el riesgo y puede verificar su efecto.

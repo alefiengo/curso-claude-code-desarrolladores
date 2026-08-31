@@ -68,9 +68,8 @@ etiqueta como **creado en el lab**.
 
 ## Modelos y Nivel de Esfuerzo
 
-El curso se hace con `default`. Esta sección es de consulta: no hace falta para
-seguir ninguna sesión, y la sesión 4 _(aún no publicada)_
-mide la diferencia sobre una tarea real.
+El curso se hace con `default`. Esta sección es de consulta: ninguna sesión
+depende de cambiar de modelo ni de nivel de esfuerzo.
 
 Comprueba cuál tienes activo con `/status`; se cambia con `/model`.
 

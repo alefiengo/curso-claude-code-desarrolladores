@@ -6,8 +6,8 @@ El curso avanza en tres bloques:
 
 1. **Controlar la tarea y el contexto:** formular cambios verificables, fundar el
    proyecto y mantener señal durante trabajo largo.
-2. **Diseñar, implementar y recuperar:** planificar cambios multiarchivo,
-   entregarlos con evidencia y recuperarse de una desviación.
+2. **Ejecutar, entregar y recuperar:** llevar un plan acordado hasta código
+   publicado, entregarlo con evidencia y recuperarse de una desviación.
 3. **Verificar, extender y automatizar:** depurar, construir herramientas
    reutilizables, acotar permisos y ejecutar sin nadie delante.
 
@@ -25,6 +25,7 @@ Prepara el entorno siguiendo la [guía de instalación](instalacion-entorno.md).
 - `uv` instalado.
 - Git configurado con nombre y correo.
 - Una terminal Linux, macOS o WSL 2 con Ubuntu.
+- Una cuenta de GitHub o de GitLab. Desde la sesión 4 publicas tu repositorio.
 
 Si nunca has usado Claude Code, o solo lo has usado como chat, ejecuta `/powerup`
 antes de la primera sesión: abre una serie de lecciones cortas dentro del propio
@@ -67,7 +68,8 @@ mejoran el proceso con instrucciones y herramientas en `.claude/`.
 Es tuyo. Trabajas en tu máquina y en tu repositorio.
 
 Los labs del proyecto son acumulativos. Antes de cada cambio comprueba que partes
-de un estado bueno —`main` limpio y en verde—, como explica el
+del estado que la sesión anterior dejó escrito —casi siempre `main` limpio y en
+verde—, como explica el
 [flujo de trabajo con Git](../proyecto-integrador/flujo-git.md). Si faltas, el
 laboratorio de esa sesión y el contrato bastan para recuperarla.
 

@@ -100,31 +100,32 @@ adversa con cuatro conflictos conocidos.
 
 #### Sesión 3 — Mantener señal durante un cambio largo
 
-Se conecta la API a PostgreSQL —persistencia, migración inicial y catálogo de
-estados— mientras se observa qué llena el contexto. El estudiante separa una
-pregunta lateral, una exploración extensa y una decisión persistente; limpia o
-compacta solo cuando sabe qué debe conservar.
+Se acuerda cómo conectar la API a PostgreSQL —persistencia, migración inicial y
+catálogo de estados— mientras se observa qué llena el contexto. El estudiante
+separa una pregunta lateral, una exploración extensa y una decisión persistente;
+limpia o compacta solo cuando sabe qué debe conservar.
 
 **Decisión central:** cuándo continuar, compactar, delegar investigación o
 empezar una sesión limpia.
 
-**Evidencia:** la persistencia en verde y el registro del contexto antes y
-después de una acción.
+**Evidencia:** un plan de persistencia escrito y aprobado, y el registro del
+contexto antes y después de una acción.
 
-### Bloque 2 — Diseñar, implementar y recuperar
+### Bloque 2 — Ejecutar, entregar y recuperar
 
-#### Sesión 4 — Explorar y planificar un cambio multiarchivo
+#### Sesión 4 — Ejecutar un plan acordado y publicarlo
 
-El CRUD de proyectos toca modelo, migración, esquemas, rutas y tests, y el
-contrato promete un `409` que todavía no puede implementarse. Antes de editar,
-Claude explora el repositorio y propone un plan. El estudiante rechaza
-afirmaciones sin fuente, cierra las decisiones que el contrato deja abiertas y
-convierte el resultado en contrato ejecutable.
+El plan de persistencia está aprobado, tiene cuatro incrementos y deja una
+decisión sin cerrar. El estudiante la cierra por escrito antes de que la cierre
+el agente, dirige los incrementos uno a uno con un commit por incremento, y
+convierte en configuración versionada los permisos que hasta ahora aprobaba de
+uno en uno. La sesión termina con el trabajo publicado en un remoto propio.
 
-**Decisión central:** cuándo el coste de planificar es menor que el de corregir.
+**Decisión central:** qué se le pide al agente y qué se le permite, que no son
+la misma lista.
 
-**Evidencia:** especificación autocontenida, plan con archivos reales y tests en
-rojo por capacidad ausente.
+**Evidencia:** cuatro commits con la migración reversible y `GET /states` en
+verde, `.claude/settings.json` en el repositorio y dos ramas en el remoto.
 
 #### Sesión 5 — Implementar y entregar un cambio revisable
 
@@ -180,7 +181,7 @@ necesita una instrucción más clara.
 **Evidencia:** skill versionado, casos de evaluación y prueba de que no edita el
 proyecto cuando solo debe verificar.
 
-#### Sesión 9 — Convertir reglas en guardrails
+#### Sesión 9 — Convertir reglas en guardarraíles
 
 El estudiante diferencia instrucciones, permisos, sandbox y hooks. Configura el
 mínimo privilegio necesario, prueba lo permitido y lo prohibido, y añade una
@@ -207,10 +208,10 @@ interactiva reproducible.
 
 ## Proyecto Integrador
 
-El proyecto es una API de gestión de tareas con PostgreSQL. Su dominio es
-deliberadamente convencional para que las decisiones difíciles sean de
-ingeniería asistida: contrato, migración, contexto, verificación, entrega,
-permisos y automatización.
+El proyecto es una API de gestión de tareas con PostgreSQL, a la que más
+adelante se antepone un BFF. Su dominio es deliberadamente convencional para que
+las decisiones difíciles sean de ingeniería asistida: contrato, migración,
+contexto, verificación, entrega, permisos y automatización.
 
 No se construye una aplicación distinta en cada sesión. El mismo repositorio
 acumula historia, decisiones y herramientas, de modo que también aparecen los
@@ -224,8 +225,8 @@ Consulta [Proyecto integrador](proyecto-integrador/README.md).
 |---|---:|---|
 | Apertura y demostración | 10 | Problema visible y pregunta de ingeniería |
 | Conceptos precisos | 15–20 | Modelo mental necesario para decidir |
-| Laboratorio 1 | 35–45 | Caso principal resuelto con guía |
-| Laboratorio 2 | 35–45 | Variación, límite o transferencia |
+| Laboratorio 1 | 35–50 | Caso principal resuelto con guía |
+| Laboratorios siguientes | 20–45 | Variación, límite o transferencia |
 | Revisión y cierre | 10–15 | Evidencia, riesgo residual y conexión con la siguiente sesión |
 
 Los tiempos exactos están en cada sesión y suman 120 minutos. Si una práctica no

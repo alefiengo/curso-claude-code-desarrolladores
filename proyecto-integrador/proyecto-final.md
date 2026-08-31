@@ -9,14 +9,15 @@ resuelta paso a paso.
 
 ### A. Capacidad nueva de backend
 
-Añade etiquetas, asignación o historial de cambios. Debe afectar al menos
-contrato, persistencia, API y tests.
+Implementa *Tareas v2* del contrato —`due_at` y el filtro `overdue`—, o añade
+etiquetas, asignación o historial de cambios. Debe afectar al menos contrato,
+persistencia, API y tests.
 
 ### B. Cliente mínimo
 
-Construye un cliente web o CLI contra la API. Debe permitir listar, crear,
-actualizar estado y mostrar errores. El stack es libre, pero la elección debe
-justificarse y no ampliar innecesariamente el alcance.
+Construye un cliente web o CLI **contra el BFF**, no contra la API. Debe
+permitir listar, crear, actualizar estado y mostrar errores. El stack es libre,
+pero la elección debe justificarse y no ampliar innecesariamente el alcance.
 
 No elijas una tarea que ya resolviste en los labs.
 

@@ -57,6 +57,10 @@ revisarla, así que se confirma en `main`.
 
 ## El Ciclo de una Sesión, de la 3 en Adelante
 
+Los comandos de esta sección explican **qué ocurre**, no qué tecleas. Desde la
+sesión 4 se los pides a Claude y compruebas lo que informa; lo único que sigues
+escribiendo tú son los comandos de la propia herramienta.
+
 **Al empezar**, comprueba que partes de un estado bueno:
 
 ```bash
@@ -133,12 +137,13 @@ una sesión entera trabajando sobre `main`, sin depender de nadie.
 ## Tu Repositorio es Tuyo
 
 Desde la sesión 2 construyes `curso-claude-code-api` en un repositorio local
-tuyo. GitHub y GitLab son opcionales: ninguno de los dos es requisito para
-completar el curso.
+tuyo. En la **sesión 4 lo publicas**, así que necesitas una cuenta de GitHub o
+de GitLab. Cualquiera de las dos sirve, y el repositorio que crees es privado y
+tuyo.
 
-Si quieres respaldo remoto, crea primero un repositorio privado y vacío en el
-proveedor que prefieras. Al terminar la sesión 2, con `main` limpio y en verde,
-conéctalo sin pegar tokens en la terminal ni en la conversación:
+El laboratorio de esa sesión lo lleva paso a paso: crear el repositorio remoto
+vacío, conectarlo y empujar las ramas, sin pegar tokens en la terminal ni en la
+conversación. En esencia son tres órdenes:
 
 ```bash
 git remote add origin <URL_DEL_REPOSITORIO_VACIO>
