@@ -35,7 +35,7 @@ generación en una espera pasiva:
 | 10–25 | Plan revisado y primera implementación generada |
 | 25–40 | Alcance auditado con `/diff` y cuatro comprobaciones independientes en verde |
 | 40–45 | PostgreSQL declarado llega a `healthy` |
-| 45–55 | Mapa de onboarding, `/context` sin memoria de proyecto, evidencia y commit |
+| 45–55 | Mapa de onboarding, `/context` sin memoria de proyecto y commit |
 
 Una descarga lenta no rebaja el contrato. Mientras termina, revisa el plan, el
 árbol y los límites negativos; si el bloqueo persiste, usa la contingencia que
@@ -70,44 +70,6 @@ find . -maxdepth 2 -type f -not -path './.git/*' | sort
 Solo deben aparecer `.gitignore` y `docs/contrato-api.md`. No existe código,
 `CLAUDE.md`, lock ni configuración de proyecto.
 
-Crea ahora `evidencias/s02.md` con este andamiaje. Los dos labs de hoy escriben
-en él, así que conviene tenerlo estructurado antes de empezar:
-
-```markdown
-# Sesión 2
-
-## Contexto de partida
-Qué fuentes ajenas al proyecto mostró `/context` antes de que existiera un
-`CLAUDE.md`.
-
-## Descubrible en el repositorio
-Un hecho que Claude encontró sin memoria, y su fuente.
-
-## Primera delegación
-Una decisión del plan que aprobaste o corregiste, y qué prueba usaste.
-
-## Encargo propio
-Qué te faltó pedir al contrastar tus encargos con las redacciones de referencia.
-
-## Verificación
-Qué comprobó Claude, qué comprobaste tú, y qué archivo o dependencia quitaste
-por exceder el alcance.
-
-## Decisión que necesitaba el equipo
-Una regla que no podía inferirse del repositorio, incluidas las lagunas que dejó
-el mapa de onboarding.
-
-## Línea eliminada de /init
-Qué quitaste y por qué no merecía carga permanente.
-
-## Prueba del contexto
-Qué conflictos encontró Claude en la propuesta y cuál omitió, si hubo uno.
-
-## Límite
-Qué parte requiere una garantía técnica y no solo una instrucción.
-```
-
-No lo confirmes todavía: se versiona al final del Lab 02, ya relleno.
 
 ### 2. Redactar y contrastar la especificación
 
@@ -126,8 +88,8 @@ claude
 ```
 
 Compara tu borrador con este contrato de referencia. No lo copies sin revisar:
-registra en **Encargo propio** una restricción que faltaba o una línea de tu
-borrador que eliminaste por innecesaria.
+quédate con una restricción que te faltaba o una línea de tu borrador que
+eliminaste por innecesaria.
 
 <details>
 <summary>Contrato de referencia para contrastar</summary>
@@ -370,13 +332,12 @@ No debe aparecer ningún `CLAUDE.md` de proyecto bajo **Memory files**: todavía
 no existe. Lo que Claude acaba de mapear salió de leer el repositorio, no de
 instrucciones cargadas. El Lab 02 crea ese archivo y vuelve a mirar aquí.
 
-Completa en `evidencias/s02.md`:
+Antes de salir, ten claro:
 
-| Sección | Qué anotas |
-|---|---|
-| Primera delegación | Una decisión del plan que corregiste o aprobaste conscientemente |
-| Verificación | Las verificaciones que ejecutó Claude, las que ejecutaste tú y cualquier archivo o dependencia que quitaste por exceder el alcance |
-| Decisión que necesitaba el equipo | Las dos lagunas encontradas en el mapa de onboarding |
+- qué decisión del plan corregiste o aprobaste conscientemente;
+- qué verificó Claude y qué verificaste tú;
+- qué archivo o dependencia quitaste por exceder el alcance;
+- las dos lagunas que dejó el mapa de onboarding.
 
 Sal con `/exit`.
 

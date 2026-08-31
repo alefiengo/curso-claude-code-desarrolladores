@@ -8,26 +8,15 @@ comparar conductas antes y después sin convertirlas en calificación.
 
 ## Evidencia por Sesión
 
-Guarda en `evidencias/sNN.md`:
+Tu evidencia es el repositorio, no un informe aparte. Cada sesión la deja escrita
+sola: los commits separan los incrementos, los tests fijan el comportamiento, el
+diff muestra el alcance y las salidas que guardas —un rojo, un parche, un
+`preflight.txt`— quedan versionadas donde el lab te las pide.
 
-```markdown
-# Sesión NN
+Lo único que Git no guarda por ti son dos respuestas, y las cierra cada sesión:
 
-## Tarea
-Qué problema resolví.
-
-## Decisión
-Qué límite, plan o criterio cambié y por qué.
-
-## Evidencia
-Comando ejecutado, resultado y diff revisado.
-
-## Fallo o riesgo
-Qué podía salir mal y cómo lo detecté.
-
-## Transferencia
-Dónde aplicaría esta técnica en un repositorio real.
-```
+- qué decidiste y qué observaste para decidirlo;
+- qué sigue sin estar probado.
 
 Nadie espera que Claude te haya dado la misma solución que a los demás. Lo que
 cuenta es que tu decisión y tu evidencia se sostengan.

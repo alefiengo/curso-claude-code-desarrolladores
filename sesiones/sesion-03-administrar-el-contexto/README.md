@@ -25,7 +25,7 @@ como fuente de verdad ni un porcentaje como regla automática.
 | [Lab 01 — Dirigir un cambio largo sin perder el control](labs/01-persistencia-vigilada/README.md) | 55 |
 | Conceptos retrospectivos: contexto como presupuesto de trabajo | 15 |
 | [Lab 02 — Cerrar con contexto deliberado](labs/02-presupuesto-contexto/README.md) | 40 |
-| Evidencia y cierre | 10 |
+| Cierre y decisión transferible | 10 |
 
 ## Materiales
 
@@ -207,7 +207,7 @@ git log --oneline -6
 
 ## Limpieza
 
-Conserva el proyecto y sus evidencias. Detén PostgreSQL sin borrar el volumen:
+Conserva el proyecto y su historial. Detén PostgreSQL sin borrar el volumen:
 
 ```bash
 docker compose down
@@ -226,12 +226,6 @@ contexto sobre la misma pregunta de solo lectura en un repositorio propio. No se
 entrega y no es requisito para la sesión 4.
 
 ## Cierre
-
-Completa la sección **Cierre** de `evidencias/s03.md`, el archivo que copiaste en
-el paso 1 del Lab 01. Debe quedar registrado cuándo continuaste, compactaste o
-limpiaste y qué evidencia sostuvo esa decisión; qué comandos y fuentes permiten
-reconstruir el estado sin leer la conversación; y qué sigue sin estar probado o
-qué riesgo aceptaste al integrar.
 
 Preguntas de repaso:
 
@@ -256,20 +250,72 @@ Comprueba tu versión con `claude --version` y los comandos con `/help`. Si
 
 ## Estado Final del Repositorio
 
-La sesión 4 parte de aquí. En `~/curso-claude/curso-claude-code-api`, rama
-`main`, con `feature/persistencia` ya integrada y borrada, y sin ninguna
-etiqueta:
+En `~/curso-claude/curso-claude-code-api`, sin ninguna etiqueta:
+
+| Rama | Estado |
+|---|---|
+| `main` | Como la dejó la sesión 2 |
+| `feature/persistencia` | Creada, con el plan acordado y **sin integrar** |
 
 | Añadido en esta sesión | Contenido |
 |---|---|
-| Configuración de base de datos y modelos | La capa que conecta la API a PostgreSQL |
-| Migración inicial | Reconstruye esquema y catálogo desde una base vacía |
-| Catálogo de estados | La sección Estados del contrato, con sus tests en verde |
-| Fixtures de test contra PostgreSQL | La base sobre la que se escriben los tests de las sesiones 4 y 5 |
-| `evidencias/s03.md` y `evidencias/estados-rojo.txt` | Tu registro de contexto y el rojo previo |
+| `docs/plan.md` | El plan de incrementos acordado antes de generar código |
+| `evidencias/s03.md` | Andamiaje de notas que el lab ya no pide rellenar |
 
-Proyectos, tareas y filtros **no existen todavía**. Es correcto: llegan en las
-sesiones 4 y 5.
+La capa de persistencia, la migración y el catálogo de estados **quedan
+pendientes** sobre esa rama. Son el punto de partida de lo siguiente, no un
+requisito que ya esté cumplido.
+
+Proyectos, tareas y filtros tampoco existen todavía.
+
+## Terminar la Persistencia
+
+La sesión acordó el plan pero no llegó a ejecutarlo. Los tres incrementos siguen
+pendientes sobre `feature/persistencia`, y la sesión 4 los necesita en verde.
+
+Son unos 40 minutos. No es rehacer la sesión: el plan ya está aprobado y
+confirmado en `docs/plan.md`.
+
+```bash
+cd ~/curso-claude/curso-claude-code-api
+git switch feature/persistencia
+docker compose up -d --wait db
+claude
+```
+
+Autoriza el primer incremento nombrando el plan como fuente:
+
+```text
+Implementa el primer incremento de @docs/plan.md: configuración de base de datos,
+modelos y migración inicial. Solo ese incremento.
+
+No modifiques docs/, CLAUDE.md, .gitignore ni .env. No abras .env.
+Al terminar ejecuta uv run alembic upgrade head, uv run pytest -q y
+uv run ruff check ., informa el resultado de cada uno y detente. No hagas commit.
+```
+
+Comprueba tú antes de confirmar. El `grep` no debe imprimir nada:
+
+```bash
+uv run alembic upgrade head && uv run alembic downgrade base && uv run alembic upgrade head
+uv run pytest -q
+! grep -Rniq 'sqlite' app tests pyproject.toml && echo "sin SQLite"
+git add -A && git commit -m "Anade persistencia y la migracion inicial"
+```
+
+Repite el mismo patrón con los dos que faltan, uno por commit: los tests del
+catálogo de estados en rojo, y después el catálogo en verde. Cambia solo la
+primera frase del encargo.
+
+Cuando los tres estén confirmados, integra:
+
+```bash
+git switch main
+git merge --no-ff feature/persistencia -m "Integra la capa de persistencia"
+uv run pytest -q && uv run ruff check .
+git branch -d feature/persistencia
+git log --oneline -6
+```
 
 ## Preparación para la Sesión 4
 
@@ -288,10 +334,8 @@ docker compose down -v
 docker compose up -d --wait db
 uv run alembic upgrade head
 uv run pytest -q
-uv run ruff check .
 git status --short
 ```
 
-No implementes nada. Lee la sección **Proyectos** de `docs/contrato-api.md` y
-anota qué decisiones deja abiertas. La sesión 4 empieza con esas preguntas y
-convierte el cambio en un plan revisable antes de tocar código.
+No implementes nada más. Lee la sección **Proyectos** de `docs/contrato-api.md`
+y anota qué decisiones deja abiertas.

@@ -19,7 +19,7 @@ revisar el diff.
 | [Lab 01 — Del incidente al diff](labs/01-bucle-de-verificacion/README.md) | 45 |
 | Conceptos: nombrar el ciclo que acabas de ejecutar | 15 |
 | [Lab 02 — Convertir una petición ambigua en contrato](labs/02-criterio-falseable/README.md) | 45 |
-| Evidencia, transferencia y cierre | 15 |
+| Transferencia y cierre | 15 |
 
 ## Materiales
 
@@ -51,12 +51,6 @@ code $CURSO/sesiones/sesion-01-especificar-y-verificar/labs/01-bucle-de-verifica
 En los primeros diez minutos debes haber ejecutado la suite y observado el saldo
 duplicado. Vuelve a esta página después del checkpoint final del lab. Los
 conceptos siguientes explican las decisiones que ya tomaste.
-
-Antes de empezar:
-
-```bash
-mkdir -p ~/curso-claude/evidencias
-```
 
 ## Al finalizar esta sesión podrás
 
@@ -208,13 +202,15 @@ La sesión está completa si:
 
 ## Limpieza
 
-El repositorio de la sesión es descartable. Conserva primero la evidencia:
+El repositorio de la sesión es descartable. Comprueba antes que el trabajo está
+confirmado:
 
 ```bash
-ls ~/curso-claude/evidencias/s01.md
+git -C ~/curso-claude/sesion-01 log --oneline
+git -C ~/curso-claude/sesion-01 status --short
 ```
 
-Si aparece, puedes borrar el laboratorio:
+Si el historial tiene tus commits y no queda nada sin confirmar, puedes borrarlo:
 
 ```bash
 rm -rf ~/curso-claude/sesion-01
@@ -226,24 +222,6 @@ El [desafío opcional](tareas/desafio-opcional.md) aplica el mismo ciclo a un
 ticket pequeño de un repositorio propio.
 
 ## Cierre
-
-Guarda `~/curso-claude/evidencias/s01.md` con este contenido mínimo:
-
-```markdown
-# Sesión 1
-
-## Cambio aceptado
-Qué comportamiento cambió y por qué.
-
-## Evidencia
-Comandos ejecutados y resultado.
-
-## Revisión del diff
-Qué archivo cambió y por qué el alcance es correcto.
-
-## Riesgo residual
-Qué sigue fuera de alcance o sin probar.
-```
 
 Preguntas de repaso:
 

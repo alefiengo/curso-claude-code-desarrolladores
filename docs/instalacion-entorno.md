@@ -323,12 +323,12 @@ distintas. Conviene tener el mapa antes de empezar:
 ```text
 ~/curso-claude/
 ├── material/            este repositorio. Es $CURSO. No trabajes aquí dentro.
-├── evidencias/          lo que escribes tú. Se conserva.
-└── sesion-01/           carpetas desechables de los labs. Se borran al terminar.
+└── sesion-01/           carpeta desechable del primer lab. Se borra al terminar.
 ```
 
 Desde la sesión 2 aparece además `curso-claude-code-api`, el proyecto que
-construyes durante el curso, con su propia carpeta `evidencias/`.
+construyes durante el curso. Ahí queda tu trabajo, y su historial de Git es lo
+que lo conserva.
 
 Comprueba que apunta a donde debe:
 
@@ -375,16 +375,15 @@ ls $CURSO/sesiones
 `docker image inspect` comprueba la etiqueta exacta que usa la sesión 2; listar
 `postgres` sin etiqueta también daría verde si solo tuvieras otra versión.
 
-Guarda la salida como evidencia del preflight:
+Guarda la salida del preflight por si algo falla más tarde:
 
 ```bash
-mkdir -p ~/curso-claude/evidencias
 { code --version; claude --version; uv --version; uv python find 3.12
   git --version; git config --get user.name; git config --get user.email
   docker --version; docker run --rm hello-world > /dev/null && echo "docker daemon: ok"
   docker image inspect postgres:18-alpine > /dev/null && echo "postgres 18 image: ok"
   echo "CURSO=$CURSO"; ls $CURSO/sesiones; } \
-  | tee ~/curso-claude/evidencias/preflight.txt
+  | tee ~/curso-claude/preflight.txt
 ```
 
 `docker --version` responde aunque el daemon esté parado: por eso el bloque

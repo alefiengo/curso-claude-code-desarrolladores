@@ -40,7 +40,7 @@ Solo dos, y son breves:
 | Qué | Por qué antes de empezar | Tiempo |
 |---|---|---|
 | [Seguridad](seguridad.md) | Vas a dar acceso a tu código a un agente. Aquí están los límites | 5 min |
-| [Guía del estudiante](guia-estudiante.md) | Cómo funcionan los labs, las evidencias y la evaluación | 10 min |
+| [Guía del estudiante](guia-estudiante.md) | Cómo funcionan los labs y la evaluación | 10 min |
 
 El resto —[plan del curso](../curso.md), [mapa de comandos](comandos.md),
 [glosario](glosario.md), [compatibilidad](compatibilidad.md)— es **material de

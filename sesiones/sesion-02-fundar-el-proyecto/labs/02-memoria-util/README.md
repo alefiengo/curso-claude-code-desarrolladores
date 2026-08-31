@@ -36,7 +36,7 @@ Este lab tiene 45 minutos. Los puntos de control son:
 | 0–8 | Decisiones incorporadas, fuentes de contexto inspeccionadas y borrador de `/init` |
 | 8–23 | Auditoría recibida y encargo propio para reescribir `CLAUDE.md` |
 | 23–35 | Archivo recargado y propuesta adversa evaluada en una sesión nueva |
-| 35–45 | Auto memory revisada, evidencia guardada y contexto confirmado en `main` |
+| 35–45 | Auto memory revisada y contexto confirmado en `main` |
 
 No recortes la prueba adversa para ganar tiempo: es la evidencia de que el
 archivo dirige una decisión real y no solo existe.
@@ -86,7 +86,7 @@ Revisa también:
 /memory
 ```
 
-Anota en **Contexto de partida** qué fuentes ajenas al proyecto existen y cuáles
+Fíjate en qué fuentes ajenas al proyecto existen y cuáles
 mostró `/context` como cargadas. No las borres: basta con conocerlas para
 interpretar la prueba final.
 
@@ -100,7 +100,7 @@ Si la interfaz ofrece configurar varios artefactos, elige solo instrucciones de
 proyecto. Skills y hooks todavía no resuelven el problema de esta sesión.
 
 `/init` explora el repositorio y propone un archivo. Sal con `/exit` y conserva
-el borrador como evidencia:
+el borrador para poder compararlo después:
 
 ```bash
 cp CLAUDE.md evidencias/claude-md-borrador.md
@@ -131,8 +131,7 @@ Escribe tú el encargo. Además de la clasificación debe pedir dos cosas:
 - la fuente o el riesgo concreto que justifica cada bloque marcado SIEMPRE;
 - qué decisiones de `docs/decisiones-ingenieria.md` faltan en el borrador.
 
-Contrasta tu encargo con esta redacción de referencia y corrige lo que falte.
-Anota en **Encargo propio** qué te faltó pedir:
+Contrasta tu encargo con esta redacción de referencia y corrige lo que falte:
 
 <details>
 <summary>Redacción de referencia para contrastar</summary>
@@ -305,16 +304,13 @@ fuente versionada.
 
 ### 9. Guardar la evidencia y confirmar
 
-Termina de completar `evidencias/s02.md`:
+Antes de confirmar, ten claro:
 
-| Sección | Qué anotas |
-|---|---|
-| Descubrible en el repositorio | Un hecho que Claude descubrió sin memoria |
-| Decisión que necesitaba el equipo | Una decisión que necesitó comunicación del equipo |
-| Encargo propio | Qué te faltó pedir en el encargo de auditoría del paso 4 |
-| Línea eliminada de /init | Una línea que quitaste del borrador |
-| Prueba del contexto | Los conflictos detectados y omitidos en la propuesta |
-| Límite | Un límite que requeriría una garantía técnica si aumentara el riesgo |
+- un hecho que Claude descubrió sin memoria;
+- una decisión que necesitó comunicación del equipo;
+- una línea que quitaste del borrador de `/init`;
+- los conflictos que detectó en la propuesta y cuál omitió;
+- un límite que requeriría una garantía técnica si aumentara el riesgo.
 
 Revisa y confirma:
 
@@ -322,7 +318,7 @@ Revisa y confirma:
 git status --short
 git diff --check
 git diff
-git add CLAUDE.md evidencias/s02.md evidencias/claude-md-borrador.md
+git add CLAUDE.md evidencias/claude-md-borrador.md
 git diff --cached --check
 git diff --cached --stat
 git commit -m "Define el contexto operativo de TaskFlow"
@@ -346,7 +342,7 @@ git push -u origin main
 
 ```bash
 cd ~/curso-claude/curso-claude-code-api
-git ls-files CLAUDE.md docs/decisiones-ingenieria.md evidencias/s02.md
+git ls-files CLAUDE.md docs/decisiones-ingenieria.md
 git check-ignore .env
 uv run pytest -q
 uv run ruff check .
@@ -354,7 +350,6 @@ git status --short
 ```
 
 - [ ] `/context` mostró el `CLAUDE.md` de la raíz.
-- [ ] Registraste qué te faltó pedir al contrastar tu encargo con la referencia.
 - [ ] Cada bloque tiene fuente, riesgo o uso frecuente que justifica cargarlo siempre.
 - [ ] El archivo no repite dependencias, árbol, tutorial ni estado temporal.
 - [ ] La propuesta adversa fue revisada contra cuatro conflictos concretos.
@@ -378,7 +373,7 @@ docker compose down
 | Problema | Causa probable | Acción |
 |---|---|---|
 | `/init` propone skills o hooks | La sesión tiene activado `CLAUDE_CODE_NEW_INIT=1`, que abre el flujo ampliado | Elige solo instrucciones de proyecto; las extensiones llegan cuando exista su necesidad |
-| `/init` no crea el archivo | Ya existe o la sesión no está en la raíz | Comprueba `pwd`, mueve el archivo previo a evidencias y repite |
+| `/init` no crea el archivo | Ya existe o la sesión no está en la raíz | Comprueba `pwd`, mueve el archivo previo a `evidencias/` y repite |
 | `/context` no muestra `CLAUDE.md` | La sesión estaba abierta antes de crearlo o arrancó en otro directorio | Cierra y abre `claude` desde la raíz |
 | El borrador copia todo el README | Confundió documentación con instrucciones persistentes | Conserva solo comandos frecuentes, fuentes y límites no obvios |
 | Claude detecta menos de cuatro conflictos | La instrucción es ambigua o la adherencia varió | Revisa manualmente, precisa una vez y repite el caso omitido |

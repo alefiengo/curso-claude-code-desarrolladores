@@ -22,7 +22,7 @@ convertirlo en una copia del repositorio.
 | [Lab 01 — Fundar el proyecto desde un repositorio vacío](labs/01-base-verificable/README.md) | 55 |
 | Conceptos retrospectivos: contexto persistente, alcance y garantía | 10 |
 | [Lab 02 — Convertir decisiones en contexto de proyecto](labs/02-memoria-util/README.md) | 45 |
-| Evidencia y cierre | 10 |
+| Cierre y decisión transferible | 10 |
 
 ## Materiales
 
@@ -224,7 +224,7 @@ La sesión está completa si:
 - [ ] `/context` confirma que el archivo está cargado.
 - [ ] La revisión de la propuesta detectó sus cuatro incompatibilidades, o registraste cuál omitió Claude.
 - [ ] `.env` está ignorado y no aparece en el historial.
-- [ ] Guardaste `evidencias/s02.md` y `main` está limpio.
+- [ ] `main` está limpio y en verde.
 
 ## Limpieza
 
@@ -243,10 +243,6 @@ El [desafío opcional](tareas/desafio-opcional.md) mueve convenciones de tests a
 una regla con alcance por ruta y comprueba cuándo entra en contexto.
 
 ## Cierre
-
-`evidencias/s02.md` se creó en el paso 1 del Lab 01 y se fue rellenando durante
-los dos labs. Antes de cerrar, comprueba que ninguna de sus nueve secciones
-quedó vacía y que el archivo está confirmado en `main`.
 
 Preguntas de repaso:
 
@@ -281,8 +277,10 @@ adicionales:
 | `pyproject.toml`, `uv.lock` | Generados por Claude bajo contrato |
 | `app/`, `tests/test_health.py` | Generados por Claude bajo contrato |
 | `compose.yaml`, `.env.example`, `README.md` | Generados por Claude bajo contrato |
+| `docs/onboarding.md` | El mapa que Claude produjo en el paso 7 del Lab 01 |
 | `CLAUDE.md` | Escrito y depurado por ti en el Lab 02 |
-| `evidencias/s02.md` y los borradores del Lab 02 | Escritos por ti |
+| `evidencias/propuesta-atajo.md` | Copiado en el Lab 02 para la prueba adversa |
+| `evidencias/claude-md-borrador.md` | El borrador de `/init`, conservado para comparar |
 
 Fuera del control de versiones, ignorados y presentes en tu máquina: `.env` y
 `.venv`. El volumen de PostgreSQL sigue existiendo.

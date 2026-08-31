@@ -106,8 +106,8 @@ partirlo; hasta entonces, se hace a mano y con criterio.
 
 Cuando algo se tuerce:
 
-1. **No borres todavía.** Guarda el intento en su rama y anota en tus evidencias
-   qué pasó y por qué lo abandonas.
+1. **No borres todavía.** Guarda el intento en su rama y deja escrito en el
+   mensaje del último commit qué pasó y por qué lo abandonas.
 2. Vuelve a `main`, que está en verde.
 3. Crea una rama nueva desde ahí.
 4. Reproduce primero la comprobación que falta.

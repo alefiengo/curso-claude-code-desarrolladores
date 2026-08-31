@@ -35,11 +35,11 @@ Este lab tiene 55 minutos:
 
 | Min | Debe existir |
 |---:|---|
-| 0–8 | Rama creada, línea base verificada y contexto inicial registrado |
+| 0–8 | Rama creada, línea base verificada y vista inicial de `/context all` |
 | 8–18 | Contrato de tarea propio y secuencia de incrementos acordada |
 | 18–33 | Persistencia y migración, con al menos una intervención registrada |
 | 33–40 | Tests del catálogo de estados en rojo |
-| 40–48 | Decisión de contexto tomada y registrada |
+| 40–48 | Decisión de contexto tomada, con su razón |
 | 48–55 | Catálogo en verde, reproducción desde base vacía y commits |
 
 Si un incremento se alarga, no lo compenses saltando la revisión: conserva la
@@ -59,8 +59,6 @@ uv run pytest -q
 uv run ruff check .
 docker compose up -d --wait db
 git switch -c feature/persistencia
-export MATERIAL=$CURSO/sesiones/sesion-03-administrar-el-contexto/labs/01-persistencia-vigilada/material
-cp $MATERIAL/evidencia-s03.md evidencias/s03.md
 ```
 
 Si falta `.env`, créalo tú, fuera de la conversación:
@@ -80,13 +78,13 @@ claude
 /context all
 ```
 
-Registra en `evidencias/s03.md` qué ocupa más espacio ahora. Esta es tu línea
-base: al final del lab vuelves a mirar y la comparas. Todavía no es una razón
-para compactar.
+Mira qué ocupa más espacio ahora y quédate con ese dato: es tu línea base, y al
+final del lab vuelves a mirar y la comparas. Todavía no es una razón para
+compactar.
 
 ### 2. Acordar el contrato de tarea
 
-Completa **Contrato de Tarea** en `evidencias/s03.md` antes de pedir código.
+Antes de pedir código, escribe tu contrato de tarea.
 
 Es el mismo contrato de las sesiones 1 y 2. Cambia una cosa: las restricciones
 se abren en dos filas —lo que queda fuera del alcance y los archivos que no se
@@ -148,6 +146,7 @@ de archivo varíen:
 Si la propuesta mezcla todo en un paso, corrígela antes de aprobar. Un incremento
 que no se puede confirmar solo tampoco se puede revisar solo.
 
+
 ### 3. Vigilar el primer incremento
 
 Autoriza solo persistencia y migración. Mientras Claude trabaja, **no esperes al
@@ -170,9 +169,9 @@ Para. Acabas de <acción concreta>, y el acuerdo dice <límite concreto>.
 Vuelve al incremento actual y termina solo eso.
 ```
 
-Registra en `evidencias/s03.md` **en qué turno ocurrió y qué dijiste**. Si no
-hubo ninguna desviación, anótalo también: es un resultado válido, y saber que lo
-vigilaste es la evidencia.
+Si interrumpiste, quédate con **en qué turno ocurrió y qué dijiste**: es lo que
+cuentas en el cierre. Si no hubo ninguna desviación, ese también es un resultado
+válido.
 
 Cuando el incremento termine, revísalo dentro de la sesión antes de mirar Git:
 
@@ -207,8 +206,7 @@ catálogo no se duplica al aplicar la migración dos veces.
 Cuando termine, comprueba que el rojo es el correcto:
 
 ```bash
-uv run pytest -q > evidencias/estados-rojo.txt 2>&1
-sed -n '1,60p' evidencias/estados-rojo.txt
+uv run pytest -q
 ```
 
 Un rojo útil dice `failed`, no `errors`. Si ves `errors`, los tests se rompieron
@@ -216,7 +214,7 @@ al importar algo que aún no existe y no están probando el contrato: pide que
 usen solo lo que ya está montado.
 
 ```bash
-git add tests evidencias/estados-rojo.txt && git commit -m "Define el contrato ejecutable del catálogo de estados"
+git add tests && git commit -m "Define el contrato ejecutable del catálogo de estados"
 ```
 
 ### 5. Decidir qué hacer con la conversación
@@ -227,7 +225,7 @@ Llevas dos incrementos y una exploración inicial. Antes de seguir, mide:
 /context all
 ```
 
-Compara con tu línea base del paso 1 y responde en `evidencias/s03.md`:
+Compara con tu línea base del paso 1 y responde:
 
 - ¿qué ocupa más espacio ahora?
 - ¿qué parte todavía cambia una decisión?

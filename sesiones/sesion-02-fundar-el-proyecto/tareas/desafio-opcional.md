@@ -83,7 +83,6 @@ Si aparece cargada desde el inicio, revisa:
 - [ ] `/context` permite identificar cuándo se cargó.
 - [ ] La regla se activa al leer `tests/test_health.py`.
 - [ ] No se trata como regla global al trabajar solo con `app/main.py`.
-- [ ] Anotaste el resultado en `evidencias/s02.md`.
 
 ## Limpieza
 

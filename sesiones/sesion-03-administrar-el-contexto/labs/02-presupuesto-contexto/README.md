@@ -23,8 +23,8 @@ construirla.
 - Suite, Ruff, lock y Compose en verde contra una base recién creada.
 - El catálogo de estados implementado y la migración reproducible.
 - Conversación de implementación todavía abierta.
-- `evidencias/s03.md` con la línea base de contexto, las intervenciones
-  registradas y la decisión del paso 5 del Lab 01.
+- La línea base de contexto, las intervenciones y la decisión del paso 5 del
+  Lab 01, presentes en la conversación o en tus notas.
 - `git status --short` vacío.
 
 ## Ritmo de Trabajo
@@ -49,7 +49,7 @@ En la conversación larga ejecuta:
 /context all
 ```
 
-Completa **Antes de Compactar** en `evidencias/s03.md`:
+Antes de actuar, responde:
 
 - categoría que más espacio ocupa;
 - información que todavía necesitas para cerrar la entrega;
@@ -88,8 +88,7 @@ uv run pytest -q
 uv run ruff check .
 ```
 
-Redacta en la sección **Compactación** de `evidencias/s03.md` una instrucción
-propia para `/compact`. Debe pedir que se conserven:
+Redacta una instrucción propia para `/compact`. Debe pedir que se conserven:
 
 - objetivo y fuentes del contrato de tarea;
 - rama, incrementos y estado actual;
@@ -122,7 +121,7 @@ La conversación anterior queda disponible para una recuperación futura, pero
 no entra en el nuevo contexto. Ejecuta `/context all` y confirma que las
 instrucciones del proyecto sí se cargaron.
 
-Redacta un contrato de revisión en **Revisión desde Contexto Limpio**. Debe pedir
+Redacta un contrato de revisión. Debe pedir
 una auditoría de solo lectura con estas fuentes y límites:
 
 - `@docs/contrato-api.md`, limitado a las secciones Salud y Estados;
@@ -158,18 +157,10 @@ uv run ruff check .
 docker compose config -q
 ```
 
-Completa el cierre de `evidencias/s03.md`, incluidos los hallazgos descartados y
-lo que sigue sin estar probado. Confirma solo la evidencia añadida por este lab:
+Antes de integrar, ten claros los hallazgos que descartaste y lo que sigue sin
+estar probado: son lo que declaras al abrir la revisión.
 
-```bash
-git add evidencias/s03.md
-git diff --cached --check
-git diff --cached
-git commit -m "Registra las decisiones de contexto"
-```
-
-Repite la suite si el commit cambió algo fuera de evidencias. Después integra
-sin crear tags:
+Integra sin crear tags:
 
 ```bash
 git switch main
@@ -198,7 +189,7 @@ cambian.
 
 ## Limpieza
 
-Conserva código, migraciones, tests, decisiones y evidencias. Detén PostgreSQL
+Conserva código, migraciones, tests y decisiones. Detén PostgreSQL
 sin borrar el volumen que acabas de reconstruir:
 
 ```bash
@@ -220,6 +211,6 @@ reanudarla para la sesión 4. Las decisiones duraderas ya viven en Git.
 | `/btw` no puede leer un archivo | Las preguntas laterales no tienen herramientas | Usa una petición normal si necesitas nueva evidencia |
 | `/btw` no existe | La versión instalada no lo incluye | Abre una sesión aparte para la consulta y no la uses como evidencia persistente |
 | `@ruta` aumenta mucho el contexto | Una referencia de archivo incluye su contenido completo | Carga solo la fuente necesaria y evita directorios o archivos grandes sin motivo |
-| `/clear` parece haber perdido el trabajo | El trabajo solo estaba en la conversación | Usa Git, tests y evidencias; la conversación anterior sigue disponible en el historial |
+| `/clear` parece haber perdido el trabajo | El trabajo solo estaba en la conversación | Usa Git y los tests; la conversación anterior sigue disponible en el historial |
 | La revisión propone proyectos o tareas | Leyó el contrato completo sin respetar el alcance de hoy | Rechaza el hallazgo: esas secciones son contexto, no trabajo autorizado |
 | Aparece un bloqueante al final | Una comprobación previa no cubría ese riesgo | No integres hasta corregir y repetir los gates; conserva el hallazgo en la evidencia |

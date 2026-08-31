@@ -133,10 +133,9 @@ ves el diff, no lo que hay que verificar.
 
 ## Comprobación Previa
 
-Guarda la salida en `evidencias/preflight.txt`:
+Guarda la salida en `~/curso-claude/preflight.txt`:
 
 ```bash
-mkdir -p evidencias
 {
   claude --version
   claude doctor
@@ -147,7 +146,7 @@ mkdir -p evidencias
   git --version
   git config --get user.name
   git config --get user.email
-} | tee evidencias/preflight.txt
+} | tee ~/curso-claude/preflight.txt
 ```
 
 Dentro de Claude Code comprueba, sin cambiar nada:
