@@ -103,8 +103,9 @@ Un commit útil deja el repositorio en un estado verificable y cuenta **qué
 decisión** se tomó, no qué archivos se tocaron —eso ya lo dice el diff.
 
 Trabajando con un agente aparece un problema propio: te deja setenta líneas en un
-solo cambio. Eso no se revisa. La sesión 10 construye un comando que propone cómo
-partirlo; hasta entonces, se hace a mano y con criterio.
+solo cambio. Eso no se revisa. En la sesión 5 conviertes ese reparto en una
+herramienta tuya que propone cómo partirlo; hasta entonces, se hace a mano y con
+criterio.
 
 ## Recuperar sin Perder Trabajo
 

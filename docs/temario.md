@@ -64,19 +64,24 @@ repositorio en un remoto propio.
 **Sales con:** la persistencia en verde, los permisos versionados y el trabajo
 visible para alguien que no estuvo.
 
-### 5. Implementar y entregar un cambio revisable
+### 5. Revisar e integrar
 
-**Situación:** una implementación puede estar en verde y aun así mezclar alcance,
-mover las pruebas o producir una historia imposible de revisar.
+**Situación:** el trabajo está en verde y sigue siendo tuyo y solo tuyo. Una
+suite que pasa no demuestra que el servicio responda, y una rama publicada no
+pide nada a nadie.
 
-**Conceptos:** dirección por resultados, integridad de la comprobación, commits
-por intención y evidencia de entrega.
+**Conceptos:** verificación contra el servicio frente a verificación contra las
+pruebas, procedimiento reutilizable frente a instrucción suelta, plan aprobado
+antes de la ejecución, y autonomía concedida sobre reglas escritas.
 
-**Práctica:** implementar el CRUD de proyectos, comprobar que la vara no se
-movió, revisar el diff con una revisión de contexto propio, segmentar commits y
-preparar una descripción de cambio independiente de la conversación.
+**Práctica:** comprobar la API con peticiones reales, entregar e integrar la
+rama pendiente en una solicitud de cambios, decidir qué trabajo repetido merece
+convertirse en herramienta, escribir dos skills propias, y usarlas para
+planificar un recurso completo y repartir su implementación en commits con una
+intención cada uno.
 
-**Sales con:** una entrega que otra persona puede entender, ejecutar y cuestionar.
+**Sales con:** una entrega que otra persona puede entender, ejecutar y
+cuestionar, y dos herramientas versionadas en tu repositorio.
 
 ### 6. Interrumpir, recuperar y continuar
 

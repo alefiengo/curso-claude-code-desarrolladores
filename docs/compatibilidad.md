@@ -52,7 +52,7 @@ no vienen garantizados en los tres sistemas:
 |---|---|---|
 | `timeout` | **macOS**: no viene de serie | `brew install coreutils` y usar `gtimeout`, o sustituirlo por el límite de tu terminal. Lo usan tres pasos de la sesión 10 |
 | `npx` | Sistemas sin Node instalado | Solo lo usa el paso opcional de MCP en la sesión 10. Sin Node, registra la decisión de la tabla y salta la conexión |
-| `curl` | Habitual, pero no obligatorio | Un paso opcional de la sesión 7. La comprobación equivalente la hace `/verify` |
+| `curl` | Habitual, pero no obligatorio | Desde la sesión 5 se usa para comprobar la API contra el servidor, no solo con las pruebas. Lo ejecuta Claude; si falta en tu sistema, pídele que instale el paquete de tu distribución |
 | `sed -i` | **macOS**: la sintaxis difiere de Linux | El material no lo usa: donde hace falta editar un archivo desde la terminal, usa Python |
 
 Ninguno es obligatorio para completar una sesión. Si te falta alguno, el paso lo

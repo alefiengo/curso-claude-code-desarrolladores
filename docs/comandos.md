@@ -14,10 +14,10 @@ Una sola no basta, y esa es también la regla que practicas en la sesión 7.
 | 2 | `/init`, `/memory`, `/context all` | Dar contexto de proyecto que cambia el resultado |
 | 3 | `/clear`, `/compact`, `/btw`, `/autocompact` | Mantener señal en una conversación larga |
 | 4 | `/permissions`, `/rewind`, `Esc Esc`, `/resume` | Ejecutar un plan con límites y poder deshacer |
-| 5 | `/code-review`, `/security-review`, `/simplify` | Entregar un cambio que otro puede revisar |
+| 5 | `/skills`, `/reload-skills`, `/plan`, `Ctrl+G` | Entregar un cambio e integrarlo con herramientas propias |
 | 6 | `/rewind`, `/branch`, `/fork`, `/resume`, `--continue`, `Esc Esc` | Interrumpir, recuperar y continuar |
 | 7 | `/verify` | Reproducir un fallo y demostrar su corrección |
-| 8 | `/skills`, `allowed-tools`, `disallowed-tools`, `/plugin` | Convertir repetición en una herramienta evaluada |
+| 8 | `allowed-tools`, `disallowed-tools`, `/plugin` | Convertir repetición en una herramienta evaluada |
 | 9 | `/permissions`, `/hooks`, `--permission-mode` | Convertir reglas en guardarraíles |
 | 10 | `/agents`, `/subtask`, `/background`, `/tasks`, `/mcp`, `claude -p`, `--output-format json`, `--json-schema` | Delegar y ejecutar sin nadie delante |
 
@@ -31,7 +31,7 @@ Una sola no basta, y esa es también la regla que practicas en la sesión 7.
 Son opcionales `/plugin` (sesión 8) y `/mcp` (sesión 10): ningún paso
 obligatorio depende de ellos.
 
-Las filas de la sesión 5 en adelante son **provisionales**. Manda siempre la
+Las filas de la sesión 6 en adelante son **provisionales**. Manda siempre la
 sección **Comandos Nuevos** de cada sesión, que es la que se verifica contra la
 instalación antes de publicarse.
 
@@ -44,7 +44,7 @@ Parte de aprender la herramienta es saber qué no hay que hacer.
 
 | Creencia frecuente | Qué ocurre de verdad |
 |---|---|
-| "Hay que recargar los skills tras editarlos" | Claude Code vigila `~/.claude/skills/`, el `.claude/skills/` del proyecto y el de cada directorio añadido con `/add-dir`, y recoge los cambios dentro de la sesión. No hace falta ningún comando |
+| "Hay que recargar los skills tras editarlos" | Casi nunca. Claude Code vigila `~/.claude/skills/`, el `.claude/skills/` del proyecto y el de cada directorio añadido con `/add-dir`, y recoge los cambios dentro de la sesión. `/reload-skills` existe para el caso que el vigilante no cubre: un directorio de skills que **no existía** cuando arrancó la sesión |
 | "Hay que reiniciar para probar un cambio en un `SKILL.md`" | Solo si creas un directorio de skills de primer nivel que no existía al arrancar la sesión |
 | "Un plugin se recarga igual que un skill" | No. La detección en vivo cubre el texto de `SKILL.md`; los cambios en `hooks/`, `.mcp.json`, `agents/` y `output-styles/` de un plugin necesitan `/reload-plugins` |
 

@@ -127,18 +127,22 @@ la misma lista.
 **Evidencia:** cuatro commits con la migración reversible y `GET /states` en
 verde, `.claude/settings.json` en el repositorio y dos ramas en el remoto.
 
-#### Sesión 5 — Implementar y entregar un cambio revisable
+#### Sesión 5 — Integrar lo hecho y construir tus primeras herramientas
 
-Claude implementa los proyectos contra el contrato ya fijado. El estudiante
-dirige por resultados, detecta si los tests se movieron, pide una revisión que no
-hereda su conversación, separa commits por intención y prepara una entrega que
-otra persona puede revisar sin leer el hilo.
+La rama de la sesión anterior sigue publicada y sin integrar. El estudiante
+comprueba la API contra un servidor real —no solo contra su suite—, la entrega
+en una solicitud de cambios que otra persona puede revisar sin leer el hilo, y
+la integra. Después decide qué de su trabajo repetido merece convertirse en
+herramienta y construye sus dos primeras skills: con una planifica los
+proyectos contra el contrato ya fijado, y con la otra reparte en commits el
+bloque de código que llega cuando deja de aprobar cada acción.
 
-**Decisión central:** cuándo un cambio funciona pero todavía no está listo para
-integrarse.
+**Decisión central:** cuánta autonomía se le concede a un cambio, y qué tiene
+que estar escrito antes de concederla.
 
-**Evidencia:** migración, suite, diff acotado, historial coherente y descripción
-de entrega.
+**Evidencia:** una rama integrada desde una solicitud de cambios, dos skills
+versionadas, un plan aprobado antes del primer archivo de código y un historial
+con una intención por commit.
 
 #### Sesión 6 — Interrumpir, recuperar y continuar
 

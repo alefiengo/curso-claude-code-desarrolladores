@@ -161,14 +161,27 @@ Tres capas distintas, que se confunden con facilidad:
 | Capa | Qué hace | Qué no garantiza |
 |---|---|---|
 | Instrucción | Orienta la decisión del modelo | Nada: puede omitirse |
+| Skill | Fija el procedimiento que se sigue | Que el modelo no decida otra cosa |
 | Permiso | Decide qué herramienta puede intentarse | Que el efecto no se logre por otra vía |
 | Sandbox | Acota qué puede alcanzar el proceso | Que lo permitido sea inofensivo |
 | Hook | Ejecuta código tuyo en un evento | Que tu script sea correcto |
 
 Una instrucción orienta. Un hook ejecuta una acción en un evento y, solo en los
 eventos y condiciones que admiten bloqueo, puede impedir una operación. Los
-permisos, el sandbox y los hooks se trabajan en la
+permisos se escriben en la
+[sesión 4](../sesiones/sesion-04-ejecutar-y-publicar/README.md); el sandbox y
+los hooks se trabajan en la
 sesión 9 _(aún no publicada)_.
+
+### Solicitud de cambios
+
+La petición de integrar una rama en otra, con su título, su descripción y su
+historial a la vista. En tu navegador no se llama así: GitHub la llama **pull
+request** y GitLab **merge request**. El curso usa el término en español porque
+la idea es la misma en los dos.
+
+No es un commit ni un push: es un objeto del proveedor, y por eso hace falta su
+herramienta —`gh` o `glab`— para crearla desde la conversación.
 
 ### Skill
 
