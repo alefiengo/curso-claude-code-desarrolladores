@@ -64,25 +64,28 @@ planificación cuando llegues a las fechas límite:
 secciones Tareas v1 y Tareas v2 de docs/contrato-api.md
 ```
 
-Revísalo con las mismas cuatro preguntas de la sesión pasada: ¿los incrementos
+Revísalo con las mismas cuatro preguntas de la sesión pasada —¿los incrementos
 se pueden ejecutar en orden?, ¿cada uno declara su comprobación?, ¿queda
-alguna decisión en condicional?, ¿el alcance es el del contrato y nada más?
+alguna decisión en condicional?, ¿el alcance es el del contrato y nada más?—
+y una quinta, porque hoy el plan cubre dos secciones a la vez: ¿cada
+incremento pertenece a una sola sección, v1 o v2, sin mezclar tareas de las
+dos? Si alguno las mezcla, pídele que las separe antes de aprobar nada.
 
 Confírmalo en su propio commit, con `docs:` y Conventional Commits.
 
 ### 3. Implementar tareas v1
 
-Aprueba solo el primer incremento —v1— y déjalo trabajar:
+Aprueba solo los incrementos de v1 y déjalo trabajar:
 
 ```text
-Implementa el primer incremento del plan, el de tareas v1. Ejecuta las
-comprobaciones que declara. No hagas commit de nada: quiero revisar el
-conjunto antes.
+Implementa los incrementos de tareas v1 —todos los que le pertenezcan, en
+orden— y ejecuta las comprobaciones que declara cada uno. No toques ningún
+incremento de v2. No hagas commit de nada: quiero revisar el conjunto antes.
 ```
 
 Cuando termine, revisa el `/diff`. Confirma en uno o varios commits, según lo
-que veas: si el incremento es una sola intención, un commit basta; si mezcla
-más de una, usa tu skill de reparto.
+que veas: si lo implementado es una sola intención, un commit basta; si
+mezcla más de una, usa tu skill de reparto.
 
 ### 4. Cerrar el `409` que quedó pendiente
 
@@ -144,6 +147,6 @@ Ninguna. El Lab 02 trabaja sobre este mismo estado.
 |---|---|
 | No tienes las dos skills de la sesión 5 | No se pueden reconstruir aquí: son el resultado de esa sesión completa. Vuelve a ella antes de seguir |
 | La skill deja alguna decisión aplazada | Es su límite funcionando: dile qué opción adoptar, con el contrato delante, y que la escriba como decisión tomada |
-| El `409` sigue fallando después de escribir el test | Revisa si el incremento de v1 implementó la comprobación contra tareas reales, o solo devolvía `409` sin consultar nada |
+| El `409` sigue fallando después de escribir el test | Revisa si alguno de los incrementos de v1 implementó la comprobación contra tareas reales, o solo devolvía `409` sin consultar nada |
 | El plan mezcla v1 y v2 en un solo incremento | Pídele que los separe: son dos incrementos, con su propia comprobación cada uno |
 | No te alcanza el tiempo para entregar v1 | Confirma el trabajo revisado y termina la entrega fuera de clase. El Lab 02 puede empezar igual, sobre la rama sin integrar |

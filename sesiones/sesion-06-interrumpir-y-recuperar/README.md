@@ -132,6 +132,9 @@ sin corregir nada:
 7. Un intento de DELETE /projects/{id} sobre un proyecto con tareas.
 8. Si queda algo del contrato de Proyectos o Tareas sin implementar o sin
    probar.
+9. Contra la API corriendo: un CRUD completo de un proyecto y de una tarea que
+   no hayas probado todavía en esta sesión —crear, leer, actualizar y borrar
+   cada uno—, con el código de estado de cada respuesta.
 
 Si algo falla, dime qué falló y detente. No lo arregles.
 ```
@@ -146,6 +149,7 @@ La sesión está completa si:
 - [ ] Sabes decir un caso concreto donde `/rewind` no revirtió algo que esperabas.
 - [ ] Le pediste a una conversación sin tu contexto que describiera el proyecto, y comparaste su respuesta con lo que tú sabes.
 - [ ] Ninguna rama queda abierta sin integrar.
+- [ ] Un CRUD completo de un proyecto y de una tarea responde lo que dice el contrato, endpoint por endpoint.
 
 ## Limpieza
 
