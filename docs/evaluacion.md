@@ -35,7 +35,8 @@ Entregables:
 - Tests o verificaciones que fallen antes y pasen después.
 - Evidencia de permisos y datos protegidos.
 - Revisión independiente en contexto aislado.
-- Nota de recuperación: cómo volver al estado anterior.
+- Nota de recuperación: qué camino elegiste cuando algo se desvió —corregir,
+  rebobinar o empezar limpio— y por qué.
 - Retrospectiva de una página.
 - `FINAL.md` con instrucciones de ejecución, decisiones, riesgos, rollback y
   límites conocidos.

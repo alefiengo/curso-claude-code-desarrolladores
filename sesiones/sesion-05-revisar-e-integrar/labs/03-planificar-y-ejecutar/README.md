@@ -44,11 +44,6 @@ Este lab tiene 35 minutos:
 | 28–32 | Revisado qué se te denegó mientras no mirabas |
 | 32–35 | Sesión de vuelta en modo manual, sin nada confirmado todavía |
 
-**Si vas tarde:** para en cuanto `GET /projects` responda, aunque falten
-incrementos. Pídele que anote al final del plan qué queda pendiente y sigue al
-Lab 04 con lo que tengas: repartir tres commits enseña lo mismo que repartir
-seis.
-
 ## Paso a Paso
 
 ### 1. Estrenar la skill
@@ -149,7 +144,8 @@ Dame el estado de cada punto por separado, sin corregir nada:
    código de estado y el cuerpo.
 4. GET /projects dos veces seguidas, con al menos tres proyectos creados, y si
    los ids salen en la misma posición las dos veces.
-5. Qué parte de la sección Proyectos del contrato no quedó comprobada, y por
+5. GET /projects/{id} con un id que no existe. Muestra el código de estado.
+6. Qué parte de la sección Proyectos del contrato no quedó comprobada, y por
    qué.
 
 Si algo falla, dime qué falló y detente.
@@ -208,6 +204,7 @@ El lab está completo si:
 - [ ] Propusiste la ejecución en un modo que no podía editar nada, y la aprobaste tú.
 - [ ] Los cinco endpoints de Proyectos responden lo que dice el contrato, con el esquema exacto.
 - [ ] Dos llamadas idénticas a `GET /projects` devuelven los ids en la misma posición.
+- [ ] `GET /projects/{id}` con un id inexistente responde `404`.
 - [ ] La migración sube, baja y vuelve a subir sin error.
 - [ ] La suite y el linter están en verde, y no aparece SQLite en ninguna parte.
 - [ ] Sabes qué se te denegó mientras trabajabas sin aprobar y si fue acertado, o que no se te denegó nada.
@@ -222,6 +219,7 @@ Ninguna. El Lab 04 trabaja sobre estos cambios sin confirmar.
 
 | Situación | Qué hacer |
 |---|---|
+| No te alcanza el tiempo para todos los incrementos | Para en cuanto `GET /projects` responda, aunque falten incrementos. Pídele que anote al final del plan qué queda pendiente y sigue al Lab 04 con lo que tengas: repartir tres commits enseña lo mismo que repartir seis |
 | La skill no te pregunta nada y planifica sin más | Mira si el plan deja alguna decisión en condicional. Si la deja, el límite del Lab 02 no está funcionando: dile qué decisión quedó abierta y pídele que corrija la skill, no solo el plan |
 | Al aprobar, no aparece la opción de trabajar sin permisos | Ese modo depende del modelo y de la política de tu organización. Elige aprobar revisando cada edición: el lab funciona igual y aprobarás más veces. Anótalo, porque cambia lo que compruebas en el paso 5 |
 | Claude confirmó los cambios por su cuenta | Le faltó tu instrucción del paso 4. No reescribas el historial: pídele que deshaga el commit conservando los cambios en el árbol de trabajo, y sigue al Lab 04 |

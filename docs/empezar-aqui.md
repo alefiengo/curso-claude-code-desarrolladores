@@ -73,7 +73,7 @@ conceptos cuando ya tengas un resultado que interpretar.
 code $CURSO/sesiones/sesion-01-especificar-y-verificar/README.md
 ```
 
-Son dos o tres laboratorios encadenados sobre el mismo repositorio:
+Son dos laboratorios encadenados sobre el mismo repositorio:
 
 | Lab | Qué hace | Min |
 |---|---|---:|

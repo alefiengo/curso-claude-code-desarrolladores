@@ -3,7 +3,7 @@
 Este mapa orienta. `claude --help` y `/help` mandan en la versión instalada.
 
 Todo lo que aparece aquí se contrastó con dos fuentes: la instalación
-(Claude Code 2.1.251) y la [documentación oficial](https://code.claude.com/docs).
+(Claude Code 2.1.252) y la [documentación oficial](https://code.claude.com/docs).
 Una sola no basta, y esa es también la regla que practicas en la sesión 7.
 
 ## Por Sesión
@@ -15,7 +15,7 @@ Una sola no basta, y esa es también la regla que practicas en la sesión 7.
 | 3 | `/clear`, `/compact`, `/btw`, `/autocompact` | Mantener señal en una conversación larga |
 | 4 | `/permissions`, `/rewind`, `Esc Esc`, `/resume` | Ejecutar un plan con límites y poder deshacer |
 | 5 | `/skills`, `/reload-skills`, `/plan`, `Ctrl+G` | Entregar un cambio e integrarlo con herramientas propias |
-| 6 | `/rewind`, `/branch`, `/fork`, `/resume`, `--continue`, `Esc Esc` | Interrumpir, recuperar y continuar |
+| 6 | `--continue`, `/rename`, `/branch`, `/fork` | Interrumpir, recuperar y continuar |
 | 7 | `/verify` | Reproducir un fallo y demostrar su corrección |
 | 8 | `allowed-tools`, `disallowed-tools`, `/plugin` | Convertir repetición en una herramienta evaluada |
 | 9 | `/permissions`, `/hooks`, `--permission-mode` | Convertir reglas en guardarraíles |
@@ -31,7 +31,7 @@ Una sola no basta, y esa es también la regla que practicas en la sesión 7.
 Son opcionales `/plugin` (sesión 8) y `/mcp` (sesión 10): ningún paso
 obligatorio depende de ellos.
 
-Las filas de la sesión 6 en adelante son **provisionales**. Manda siempre la
+Las filas de la sesión 7 en adelante son **provisionales**. Manda siempre la
 sección **Comandos Nuevos** de cada sesión, que es la que se verifica contra la
 instalación antes de publicarse.
 

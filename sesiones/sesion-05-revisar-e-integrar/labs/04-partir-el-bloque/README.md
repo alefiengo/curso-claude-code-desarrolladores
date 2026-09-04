@@ -3,8 +3,9 @@
 ## Objetivo
 
 Convertir el bloque de código que acabas de generar en varios commits con una
-intención cada uno, escribiendo el criterio del reparto en tu segunda skill, y
-entregar el resultado.
+intención cada uno, escribiendo el criterio del reparto en tu segunda skill,
+entregar el resultado, y volver a minar candidatas a skill con la señal que
+dejó todo el trabajo de hoy.
 
 ## Por qué este lab
 
@@ -31,19 +32,15 @@ se le pide eso a un archivo.
 
 ## Ritmo de Trabajo
 
-Este lab tiene 20 minutos:
+Este lab tiene 25 minutos:
 
 | Min | Debe existir |
 |---:|---|
 | 0–3 | El tamaño real del cambio a la vista y un reparto propuesto, sin confirmar |
 | 3–9 | La skill escrita, y la coautoría decidida |
 | 9–14 | La skill aplicada y los commits confirmados, con una intención cada uno |
-| 14–20 | Entrega integrada y contenedores detenidos |
-
-**Si vas tarde:** este es el tramo más apretado de la sesión. Lo que no puede
-faltar es la skill escrita y el reparto hecho, aunque sea con menos commits de
-los ideales. La entrega y la integración se terminan fuera de clase; deja `main`
-en verde antes de la próxima clase.
+| 14–18 | Entrega integrada |
+| 18–25 | Segunda ronda de candidatas, clasificadas y con las que sobrevivan construidas |
 
 ## Paso a Paso
 
@@ -173,15 +170,50 @@ feature/projects en local y en el remoto, y comprueba que la suite sigue verde
 en main.
 ```
 
+### 6. Minar otra vez, con mucho más contexto real
+
+En el Lab 02 pediste candidatas a skill con cuatro sesiones de historial y casi
+nada repetido todavía. Hoy tienes mucho más: la implementación entera de un
+recurso, comprobaciones reales contra el servidor, una descripción de entrega
+escrita y la skill de reparto que acabas de construir. Repite el ejercicio con
+esa señal delante:
+
+```text
+Con todo lo que hicimos hoy —la implementación de projects, las comprobaciones
+con curl, la descripción de la solicitud de cambios y el reparto en commits—,
+propónme hasta tres candidatas más a skill de este repositorio.
+
+Una candidata real cumple las tres: (a) es un procedimiento concreto que ya se
+repitió al menos dos veces con el mismo criterio, no una intención suelta; (b)
+necesita que yo lo dirija con juicio, no es un solo comando; (c) hoy solo
+existe en mi memoria de esta conversación o en un encargo que te repito cada
+vez.
+
+Para cada una dime en qué commits o pasos de hoy ves la repetición, y si
+necesita ver mi conversación para decidir o funciona igual sin ella. Descarta
+lo que ya cubren planificar-incremento o segmentar-commits, y descarta
+cualquier consejo general que no sea un procedimiento propio de este
+repositorio.
+```
+
+No las construyas a ciegas. Aplica el mismo criterio de rechazo del Lab 02:
+para cada candidata, decide si de verdad la repetiste o si es una generalidad
+con forma de skill, y rechaza por escrito las que no se lo ganen. Construye
+**solo** las que sobrevivan —puede ser una, pueden ser las tres, puede que
+ninguna—. El número no es el objetivo; el criterio con el que lo decidiste, sí.
+
+Para cada una que sobreviva, repite los pasos 3 y 4 de este lab: escríbela,
+comprueba que `/skills` la reconoce, y confírmala en su propio commit `chore:`.
+
 Antes de cerrar:
 
 ```text
 /context
 ```
 
-Mira cuánto has gastado hoy y en qué. Has dirigido dos entregas, escrito dos
-skills y dejado que Claude implementara un recurso entero: sabes lo que cuesta
-una sesión así.
+Mira cuánto has gastado hoy y en qué. Has dirigido dos entregas, escrito
+varias skills —cuenta cuántas con `/skills`— y dejado que Claude implementara
+un recurso entero: sabes lo que cuesta una sesión así.
 
 ## Validación
 
@@ -207,6 +239,7 @@ El lab está completo si:
 - [ ] La coautoría está configurada en `.claude/settings.json`, no dentro de la skill.
 - [ ] La solicitud de cambios está integrada, `main` está en verde y `feature/projects` ya no existe.
 - [ ] Sabes qué parte del contrato de Proyectos sigue sin poder probarse.
+- [ ] Repetiste el minado de candidatas con la señal de hoy, y sabes decir cuántas rechazaste y por qué.
 
 ## Limpieza
 
@@ -226,6 +259,7 @@ el primer encargo amplio hará más de lo que esperas.
 
 | Situación | Qué hacer |
 |---|---|
+| No te alcanza el tiempo para todo el lab | Lo que no puede faltar es la skill de reparto escrita y el reparto hecho, aunque sea con menos commits de los ideales. La entrega, la integración y la segunda ronda de candidatas se terminan fuera de clase; deja `main` en verde antes de continuar |
 | Los dos repartos del paso 2 salieron idénticos | Puede pasar. No invalida nada: la pregunta del paso no es si varía, es si el criterio está escrito en algún sitio. No lo está |
 | La skill confirmó sin enseñarte el reparto | Le falta el punto de esperar aprobación, o está escrito de forma ambigua. Pídele que deshaga los commits conservando los cambios, corrige el archivo y vuelve a invocarla |
 | No sabes cómo se inyecta la salida de un comando en una skill | Pídeselo describiendo qué quieres: que al invocarla llegue ya con el estado del repositorio. Es una línea del archivo, y que te la explique forma parte del paso |
@@ -233,4 +267,5 @@ el primer encargo amplio hará más de lo que esperas.
 | El campo de la coautoría no es el que esperabas | Hay uno antiguo que todavía funciona y uno vigente. Pídele que compruebe cuál acepta tu versión y que te enseñe el archivo resultante |
 | Un commit del reparto deja la suite en rojo | El orden está mal: una prueba llegó antes que el código que la hace pasar, o la migración después del modelo. Pídele que reordene y que compruebe la suite en cada commit |
 | El reparto propone un commit por archivo | Demasiado fino: no es un commit por archivo, es un commit por decisión. Dile cuántas decisiones ves tú y pídele que agrupe |
-| Se te acabó el tiempo con el reparto a medias | Confirma lo que tengas revisado y termina fuera de clase. `main` en verde es lo único que hace falta |
+| Ninguna candidata del paso 6 sobrevive al rechazo | Es un resultado válido, igual que en el Lab 02. No construyas nada solo por llegar a un número: dos skills bien fundadas valen más que cinco a medias |
+| Una candidata del paso 6 se solapa con `planificar-incremento` o `segmentar-commits` | Recházala con ese motivo exacto. Solaparse con una skill que ya existe no es una repetición nueva, es la misma repetición contada dos veces |

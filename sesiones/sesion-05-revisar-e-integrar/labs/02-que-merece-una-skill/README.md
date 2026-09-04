@@ -43,10 +43,6 @@ Este lab tiene 30 minutos:
 | 11–22 | La skill escrita, y la sesión reconociéndola por su nombre |
 | 22–30 | Diff revisado y la skill confirmada en su propio commit |
 
-**Si vas tarde:** la skill escrita es lo único que el Lab 03 necesita. Termina
-de clasificar las recomendaciones y de anotar el rechazo después de clase, pero
-no llegues al Lab 03 sin la skill.
-
 ## Paso a Paso
 
 ### 1. Pedir tres recomendaciones sobre tu repositorio
@@ -54,23 +50,43 @@ no llegues al Lab 03 sin la skill.
 No preguntes en abstracto. Que mire lo que tienes:
 
 ```text
-Lee este repositorio —el contrato, las decisiones de ingeniería, CLAUDE.md, el
-historial de commits y la configuración de .claude— y propónme tres
-procedimientos de este proyecto que se hayan repetido y que hoy no estén
-escritos en ningún sitio.
+Lee git log --oneline de todo el historial, el contenido de .claude/settings.json
+y de .claude/skills/ si existe, y los huecos de docs/decisiones-ingenieria.md:
+qué decide sin decir cómo se ejecuta.
 
-Para cada uno dime, en una línea cada cosa:
+Busco candidatas a skill de este repositorio, no ideas generales de buenas
+prácticas. Una candidata real cumple las tres cosas: (a) es un procedimiento
+concreto que ya se repitió al menos dos veces con el mismo criterio, no una
+intención suelta; (b) necesita que yo lo dirija con juicio, no es un solo
+comando; (c) hoy solo existe en tu memoria de esta conversación o en un
+encargo que te repito cada vez.
 
-1. Cuántas veces se ha repetido y dónde lo ves.
-2. Qué haría exactamente.
-3. Si necesita el contexto de mi conversación o le estorbaría.
-4. Si ya está resuelto en otro lugar del repositorio o por Claude Code.
+Propónme tres. Para cada una dime, en una línea cada cosa:
+
+1. Los commits o las líneas de settings.json donde ves la repetición, no una
+   descripción en general.
+2. El procedimiento exacto que seguirías al invocarla, paso a paso.
+3. Si necesita ver mi conversación para decidir, o funciona igual sin ella.
+4. Si ya está resuelto en otro lugar del repositorio o por una skill que trae
+   Claude Code de fábrica.
+
+Descarta cualquier cosa que sea un consejo general —"añadir más tests",
+"mejorar la cobertura", "refactorizar X"— y no un procedimiento propio de este
+repositorio. Si no encuentras tres que cumplan las tres condiciones, dime
+cuántas sí las cumplen y para ahí.
 
 No escribas ninguna todavía. No crees archivos.
 ```
 
 Tus tres recomendaciones no van a ser las de la persona de al lado, y eso está
 bien: el criterio con el que las juzgues sí es el mismo.
+
+**Si lo que sale es vago o interconvertible** —dos recomendaciones que podrían
+ser la misma, o algo tan general que valdría para cualquier repositorio—, no es
+un fallo tuyo ni hace falta reintentar el encargo. Es un resultado tan válido
+como uno bueno: pasa al paso 2 y clasifícalas tal como llegaron. Una
+recomendación vaga se rechaza fácil, con el motivo "no señala una repetición
+concreta", y eso cuenta como el rechazo que te pide el lab.
 
 ### 2. Clasificar y rechazar
 
@@ -103,9 +119,8 @@ claro.
 Hoy construyes **la de planificación**, esté o no entre las tres que te
 propuso. La necesitas en el Lab 03, y su repetición no está en tus commits sino
 en tu recorrido: ya acordaste un plan a mano y lo ejecutaste incremento a
-incremento. Si Claude
-no la recomendó, apúntalo: acabas de encontrar el límite de pedirle ideas sobre
-un repositorio que solo ve una vez.
+incremento. Si Claude no la recomendó, apúntalo: acabas de encontrar el límite
+de pedirle ideas sobre un repositorio que solo ve una vez.
 
 Las que sobrevivieron y no construyes hoy no se pierden. Una de ellas es el
 desafío de esta sesión.
@@ -232,8 +247,10 @@ Ninguna. El Lab 03 estrena la skill que acabas de escribir.
 
 | Situación | Qué hacer |
 |---|---|
+| No te alcanza el tiempo para terminar de clasificar | La skill escrita es lo único que el Lab 03 necesita. Termina de clasificar las recomendaciones y de anotar el rechazo fuera de clase, pero no sigas al Lab 03 sin la skill construida |
 | Las tres recomendaciones te parecen las tres buenas | Vuelve a la columna de la señal: ¿cuántas veces has hecho cada una? Si alguna no ha pasado dos veces, no es una skill todavía. Y comprueba si Claude Code ya la trae con `/skills` |
-| Ninguna de las tres te sirve | Pídele tres más, diciéndole qué falló en las primeras. También es un resultado válido: significa que este repositorio todavía no ha repetido lo suficiente |
+| Ninguna te convence, o las tres son vagas o intercambiables | No reintentes el encargo: es un resultado válido, no una señal de que algo salió mal. Clasifícalas tal como llegaron —una recomendación vaga se rechaza con "no señala una repetición concreta"— y sigue al paso 3. La skill de planificación se construye igual, la hayan recomendado o no |
+| Llevas dos o tres vueltas al encargo del paso 1 intentando que salga algo mejor | Para ahí. El lab no evalúa la calidad de lo que propone Claude, evalúa tu criterio para juzgarlo. Sigue con lo que ya tienes |
 | `/skills` no muestra la tuya | Ejecuta `/reload-skills`. Si sigue sin aparecer, `/exit` y vuelve a abrir: el directorio `.claude/skills/` no existía cuando arrancó la sesión |
 | `/skills` la muestra con otro nombre | El nombre viene del directorio, no del título que escribiste dentro. Pídele que renombre el directorio si no te gusta cómo se invoca |
 | Claude invoca la skill por su cuenta cuando no la pediste | Es su comportamiento normal: la carga cuando le parece relevante. Si prefieres invocarla siempre a mano, pídele que añada a la cabecera del archivo la opción que lo desactiva |

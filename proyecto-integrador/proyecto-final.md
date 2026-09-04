@@ -9,9 +9,9 @@ resuelta paso a paso.
 
 ### A. Capacidad nueva de backend
 
-Implementa *Tareas v2* del contrato —`due_at` y el filtro `overdue`—, o añade
-etiquetas, asignación o historial de cambios. Debe afectar al menos contrato,
-persistencia, API y tests.
+Añade una capacidad que el contrato de hoy no cubre —etiquetas, asignación o
+historial de cambios, por ejemplo— y que no hayas resuelto ya en ningún lab.
+Debe afectar al menos contrato, persistencia, API y tests.
 
 ### B. Cliente mínimo
 

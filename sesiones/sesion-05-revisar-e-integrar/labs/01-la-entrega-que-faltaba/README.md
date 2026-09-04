@@ -48,13 +48,6 @@ Este lab tiene 25 minutos:
 | 14–20 | La solicitud de cambios abierta, con su descripción escrita |
 | 20–25 | Rama integrada y borrada, `main` en verde |
 
-**Si vas tarde:** lo que no puede quedarse a medias es la solicitud de cambios
-abierta con su descripción. Integrar y borrar la rama son dos minutos y se
-pueden hacer fuera de clase. Si te vas al Lab 02 sin haber integrado, crea allí
-la rama desde `feature/persistencia` y no desde `main`: el trabajo de hoy
-necesita la configuración de conexión y las migraciones, y `main` todavía no las
-tiene.
-
 ## Paso a Paso
 
 ### 1. Confirmar desde dónde partes
@@ -248,7 +241,8 @@ estado.
 
 | Situación | Qué hacer |
 |---|---|
-| No tienes la rama `feature/persistencia`, o no la publicaste | Este lab no se puede recuperar aquí: necesita el trabajo de la sesión 4, que es autosuficiente y trae un plan de referencia en su Lab 01. Hazla entera antes de seguir. Si estás en clase, sáltate este lab y sigue en el 02 desde la rama que tengas: construye herramientas y no depende de la entrega de hoy |
+| No te alcanza el tiempo para integrar | Lo que no puede quedarse a medias es la solicitud de cambios abierta con su descripción: eso sí tiene que existir. Integrar y borrar la rama se terminan fuera de clase. Si sigues al Lab 02 sin haber integrado, crea su rama desde `feature/persistencia` y no desde `main`: ahí está la configuración de conexión y las migraciones que `main` todavía no tiene |
+| No tienes la rama `feature/persistencia`, o no la publicaste | Este lab no se puede recuperar aquí: necesita el trabajo de la sesión 4, que es autosuficiente y trae un plan de referencia en su Lab 01. Hazla entera antes de seguir. Si necesitas avanzar mientras tanto, salta al Lab 02 desde la rama que tengas: construye herramientas y no depende de la entrega de hoy |
 | Faltaste a la sesión 4 y no tienes remoto | Empieza por su Lab 03, que crea el repositorio remoto y publica. Son treinta minutos y sin eso no hay nada que entregar |
 | No tienes `gh` ni `glab` instalada | Instálala ahora: es el desafío de la sesión 4 y el resto del lab depende de ella. Pídele a Claude que te guíe con el instalador de tu sistema y que autentique la sesión. Si se alarga, sigue el lab hasta el paso 3 y abre la solicitud desde el navegador |
 | `GET /states` responde `200` con una lista vacía | Las migraciones no están aplicadas, o lo están a medias. Vuelve al paso 1 y comprueba en qué revisión está la base. No parchees el endpoint |

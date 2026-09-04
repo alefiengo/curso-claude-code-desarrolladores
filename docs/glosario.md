@@ -41,9 +41,9 @@ configuración:
 | Grado | Dónde vive el criterio | Sesión |
 |---|---|---:|
 | En el prompt | "ejecuta el test y arregla lo que falle" | 1 |
-| En la sesión | `/goal`, con una condición comprobable | 4 |
+| En la sesión | `/goal`, con una condición comprobable | Sin asignar |
 | En un programa | Stop hook: un código de salida que no se reinterpreta | 9 |
-| En otro agente | Un revisor con contexto limpio | 10 |
+| En otro agente | Un revisor con contexto limpio | Sin asignar |
 
 ### Modo de fallo
 
@@ -96,7 +96,7 @@ fuera de alcance, decisiones ya tomadas y el siguiente comando.
 No es la conversación exportada. Una exportación completa obliga a quien la lee
 a reconstruirlo todo; el handoff ya trae la conclusión.
 
-Se trabaja en la sesión 6 _(aún no publicada)_.
+Se trabaja en la [sesión 6](../sesiones/sesion-06-interrumpir-y-recuperar/README.md).
 
 ## Verificación y pruebas
 
@@ -183,10 +183,16 @@ la idea es la misma en los dos.
 No es un commit ni un push: es un objeto del proveedor, y por eso hace falta su
 herramienta —`gh` o `glab`— para crearla desde la conversación.
 
+Se publica en la [sesión 4](../sesiones/sesion-04-ejecutar-y-publicar/README.md)
+y se integra en la
+[sesión 5](../sesiones/sesion-05-revisar-e-integrar/README.md).
+
 ### Skill
 
 Un procedimiento que guardas para invocarlo como un comando. Se carga **solo
 cuando lo llamas**, a diferencia de `CLAUDE.md`, que se carga siempre.
+
+Se trabaja en la [sesión 5](../sesiones/sesion-05-revisar-e-integrar/README.md).
 
 ### Subagente
 

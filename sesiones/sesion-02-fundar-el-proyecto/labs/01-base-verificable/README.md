@@ -38,8 +38,9 @@ generación en una espera pasiva:
 | 45–55 | Mapa de onboarding, `/context` sin memoria de proyecto y commit |
 
 Una descarga lenta no rebaja el contrato. Mientras termina, revisa el plan, el
-árbol y los límites negativos; si el bloqueo persiste, usa la contingencia que
-indique quien imparte la sesión.
+árbol y los límites negativos. Si el bloqueo persiste más de dos o tres
+minutos, pídele a Claude que ejecute `docker pull postgres:18-alpine` por
+separado, con la salida completa a la vista, y no sigas sin ver `healthy`.
 
 ## Paso a Paso
 

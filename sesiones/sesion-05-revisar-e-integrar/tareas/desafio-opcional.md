@@ -8,7 +8,7 @@ condición que no usaste en clase: que se ejecute **en su propio contexto** y te
 devuelva solo el resultado.
 
 Este desafío no se entrega y no hace falta para seguir el curso. Lo que te deja
-es la tercera herramienta de tu repositorio, y la primera que trabaja sin
+es una herramienta más en tu repositorio, y la primera que trabaja sin
 ocuparte la conversación.
 
 ## Por qué esta condición

@@ -76,25 +76,30 @@ antes de la ejecución, y autonomía concedida sobre reglas escritas.
 
 **Práctica:** comprobar la API con peticiones reales, entregar e integrar la
 rama pendiente en una solicitud de cambios, decidir qué trabajo repetido merece
-convertirse en herramienta, escribir dos skills propias, y usarlas para
-planificar un recurso completo y repartir su implementación en commits con una
-intención cada uno.
+convertirse en herramienta, escribir tus primeras skills propias, y usarlas
+para planificar un recurso completo y repartir su implementación en commits
+con una intención cada uno.
 
 **Sales con:** una entrega que otra persona puede entender, ejecutar y
-cuestionar, y dos herramientas versionadas en tu repositorio.
+cuestionar, y al menos dos herramientas versionadas en tu repositorio.
 
-### 6. Interrumpir, recuperar y continuar
+### 6. Interrumpir y recuperar
 
-**Situación:** Claude sigue una hipótesis equivocada y la tarea debe continuar en
-otro momento o en otra sesión.
+**Situación:** un encargo demasiado amplio se lleva por delante trabajo que ya
+funcionaba, y rebobinar no siempre te devuelve al punto que crees.
 
-**Conceptos:** interrupción, redirección, checkpoint, rewind, Git como red de
-seguridad y traspaso de trabajo.
+**Conceptos:** costo de corregir hacia adelante frente a rebobinar, qué revierte
+un checkpoint y qué no —un comando ejecutado no es un archivo editado—, y la
+diferencia entre retomar tu propia conversación y que el repositorio se explique
+solo.
 
-**Práctica:** comparar corrección y recuperación; retomar desde evidencia mínima
-sin reinyectar toda la conversación.
+**Práctica:** cerrar el contrato completo de la API —proyectos y tareas—,
+reutilizar una skill de la sesión anterior sobre un contrato distinto,
+provocar y resolver el desajuste entre una migración rebobinada y la base de
+datos, y comprobar el propio repositorio con una conversación sin contexto.
 
-**Sales con:** una estrategia de recuperación y un traspaso probado.
+**Sales con:** el contrato completo implementado, y un criterio para decidir
+entre redirigir, rebobinar o empezar limpio.
 
 ## Bloque 3 — Verificar, Extender y Automatizar
 

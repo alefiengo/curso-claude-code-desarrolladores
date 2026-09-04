@@ -66,11 +66,11 @@ La API crece en rebanadas finas, una por sesión. Es deliberado: cada sesión
 introduce **el mínimo de dominio que hace necesaria su herramienta**, y el resto
 de los minutos son para Claude Code.
 
-Cuando el contrato v1 esté completo —salud, estados, proyectos, tareas y
-filtros—, **`due_at` y el filtro `overdue` seguirán fuera del recorrido de
-clase**. Son trabajo del [proyecto final](proyecto-final.md): la sección *Tareas
-v2* del contrato está escrita, pero nadie te va a guiar paso a paso para
-implementarla. Ese es el punto: al llegar ahí ya sabes dirigir el cambio tú.
+Al terminar la sesión 6, el contrato completo —salud, estados, proyectos y
+tareas, con sus fechas límite— está implementado. Ninguna capacidad nueva se
+añade después: el [proyecto final](proyecto-final.md) trabaja sobre lo que
+falta a propósito —el BFF, u otra capacidad que el contrato de hoy no cubre—,
+nunca sobre algo que ya resolviste en un lab.
 
 ## Arquitectura
 

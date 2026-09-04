@@ -21,8 +21,8 @@ puede leerlo sin que se lo cuentes.
 | [Lab 01 — La entrega que faltaba](labs/01-la-entrega-que-faltaba/README.md) | 25 |
 | [Lab 02 — Qué merece ser una skill](labs/02-que-merece-una-skill/README.md) | 30 |
 | [Lab 03 — Planificar y ejecutar con autonomía](labs/03-planificar-y-ejecutar/README.md) | 35 |
-| [Lab 04 — El bloque que nadie puede revisar](labs/04-partir-el-bloque/README.md) | 20 |
-| Cierre y decisión transferible | 10 |
+| [Lab 04 — El bloque que nadie puede revisar](labs/04-partir-el-bloque/README.md) | 25 |
+| Cierre y decisión transferible | 5 |
 
 ## Materiales
 
@@ -54,7 +54,7 @@ lo que informa. Los únicos comandos que escribes son los de la herramienta.
 | [01 — La entrega que faltaba](labs/01-la-entrega-que-faltaba/README.md) | Preguntas a la API antes de tocar nada, aplicas el esquema, abres la solicitud de cambios de `feature/persistencia` y la integras | Que una suite verde no responde la misma pregunta que una petición real, y qué se ve de tu trabajo cuando lo abre alguien que no estuvo |
 | [02 — Qué merece ser una skill](labs/02-que-merece-una-skill/README.md) | Pides tres recomendaciones sobre tu propio repositorio, decides cuáles merecen existir y construyes la primera | Que rechazar una recomendación cuesta más criterio que aceptarla, y que hay cosas que ya vienen resueltas |
 | [03 — Planificar y ejecutar con autonomía](labs/03-planificar-y-ejecutar/README.md) | Planificas `projects` con tu skill, apruebas el plan y dejas que Claude lo implemente entero sin pedirte permiso a cada paso | Que tus reglas de la sesión 4 siguen mandando cuando dejas de aprobar a mano, y cuáles no cubrían lo que hoy hace falta |
-| [04 — El bloque que nadie puede revisar](labs/04-partir-el-bloque/README.md) | Conviertes un cambio sin repartir en varios commits con una intención cada uno, con tu segunda skill | Que el reparto de un cambio en commits es una decisión tuya, y que escrita una vez deja de repetirse |
+| [04 — El bloque que nadie puede revisar](labs/04-partir-el-bloque/README.md) | Conviertes un cambio sin repartir en varios commits con una intención cada uno con tu segunda skill, y repites el minado de candidatas con toda la señal de hoy | Que el reparto de un cambio en commits es una decisión tuya, y que con más señal real el mismo ejercicio del Lab 02 sí produce candidatas defendibles |
 
 ## Al finalizar esta sesión podrás
 
@@ -181,7 +181,7 @@ La sesión está completa si:
 - [ ] La rama `feature/persistencia` ya no existe, ni en local ni en el remoto.
 - [ ] Comprobaste la API contra un servidor real, y no solo con la suite.
 - [ ] El motivo por el que rechazaste al menos una de las tres recomendaciones quedó escrito en el mensaje de un commit.
-- [ ] Existen dos skills de proyecto, versionadas, y `/skills` las reconoce.
+- [ ] Existen al menos dos skills de proyecto, versionadas, y `/skills` las reconoce.
 - [ ] El plan de `projects` está aprobado y escrito en `docs/` antes del primer archivo de código.
 - [ ] Los cinco endpoints de Proyectos responden lo que dice el contrato, con el esquema exacto y el orden estable.
 - [ ] Ningún commit de hoy mezcla dos intenciones.
@@ -241,7 +241,7 @@ abiertas:
 |---|---|
 | El plan de proyectos, en `docs/` | Lo escribe tu skill en el Lab 03; el nombre lo decide ella |
 | Migración de `projects` y sus cinco endpoints | La implementación del Lab 03, repartida en commits en el Lab 04 |
-| `.claude/skills/` con dos skills | Las que construyes en los laboratorios 02 y 04 |
+| `.claude/skills/` con al menos dos skills | `planificar-incremento` y `segmentar-commits`, del Lab 02 y el Lab 04. Pueden ser más: el Lab 04 construye las candidatas que sobrevivan a su segunda ronda de minado |
 | `.claude/settings.json` | El de la sesión 4, con la coautoría configurada en el Lab 04 y los permisos que hoy hayan hecho falta |
 
 `feature/persistencia` y `feature/projects` quedan integradas y borradas: a
@@ -253,7 +253,7 @@ Antes de la clase:
 
 - Deja `main` en verde. Si algo del contrato de Proyectos quedó sin implementar,
   termínalo fuera de clase y confírmalo en su propia rama.
-- Comprueba que tus dos skills se invocan por su nombre y hacen lo que dice su
+- Comprueba que tus skills se invocan por su nombre y hacen lo que dice su
   archivo. Las vas a seguir usando.
 - Actualiza tu copia del material:
 

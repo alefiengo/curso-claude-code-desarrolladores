@@ -59,9 +59,9 @@ Al terminar podrás:
 | [3](sesiones/sesion-03-administrar-el-contexto/README.md) | Una tarea larga degrada el contexto mientras crece el cambio |
 | [4](sesiones/sesion-04-ejecutar-y-publicar/README.md) | Un plan aprobado, ejecutado sin límites y sin publicar |
 | [5](sesiones/sesion-05-revisar-e-integrar/README.md) | El código funciona, pero el cambio no es revisable |
-| 6 _(aún no publicada)_ | Una línea de trabajo se desvía o debe continuar otro día |
+| [6](sesiones/sesion-06-interrumpir-y-recuperar/README.md) | Una línea de trabajo se desvía o debe continuar otro día |
 | 7 _(aún no publicada)_ | Una explicación plausible reemplaza a la reproducción |
-| 8 _(aún no publicada)_ | El mismo procedimiento se vuelve a escribir y varía cada vez |
+| 8 _(aún no publicada)_ | Un contrato entre servicios que ningún test vigila |
 | 9 _(aún no publicada)_ | Una instrucción se confunde con una garantía |
 | 10 _(aún no publicada)_ | Una ejecución aislada o automática puede exceder sus límites |
 
@@ -72,7 +72,7 @@ artefactos de cada sesión.
 
 - 20 horas: 10 sesiones en vivo de 2 horas.
 - Al menos 70 % del tiempo se trabaja sobre código y evidencia.
-- Dos o tres laboratorios encadenados por sesión.
+- Dos o más laboratorios encadenados por sesión.
 - Un proyecto integrador que crece mediante cambios revisables.
 - Evaluación formativa: no se premia memorizar comandos ni aceptar más código.
 

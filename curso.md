@@ -140,9 +140,9 @@ bloque de código que llega cuando deja de aprobar cada acción.
 **Decisión central:** cuánta autonomía se le concede a un cambio, y qué tiene
 que estar escrito antes de concederla.
 
-**Evidencia:** una rama integrada desde una solicitud de cambios, dos skills
-versionadas, un plan aprobado antes del primer archivo de código y un historial
-con una intención por commit.
+**Evidencia:** una rama integrada desde una solicitud de cambios, al menos dos
+skills versionadas, un plan aprobado antes del primer archivo de código y un
+historial con una intención por commit.
 
 #### Sesión 6 — Interrumpir, recuperar y continuar
 
@@ -152,7 +152,7 @@ rebobinar. Rebobinar deja al descubierto qué no cubre un checkpoint —la base 
 datos ya migrada, entre otras cosas—. Después se cierra la sesión y otra persona
 retoma con un traspaso mínimo.
 
-**Decisión central:** cuándo sale más barato redirigir, rebobinar o empezar
+**Decisión central:** cuándo sale más barato corregir hacia adelante, rebobinar o empezar
 limpio.
 
 **Evidencia:** estado recuperado y continuidad lograda sin recontar toda la
