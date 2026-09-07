@@ -102,8 +102,9 @@ la respuesta no dice, o dice mal, porque no está escrito en ningún archivo del
 repositorio.
 
 Es probable que encuentres al menos una: por qué tareas v2 se implementó en
-dos pasadas, por qué existe una migración vacía en el historial, o alguna
-decisión que solo mencionaste en la conversación y nunca en un commit.
+dos pasadas, por qué la primera migración de Alembic del historial no cambia
+nada de esquema, o alguna decisión que solo mencionaste en la conversación y
+nunca en un commit.
 
 ### 5. Cerrar el hueco
 

@@ -78,13 +78,16 @@ empezar limpio: descartar la rama entera y volver a plantear el encargo desde
 es el correcto por defecto; la pregunta es qué se pierde con cada uno.
 
 **`/rewind` revierte lo que Claude editó con su herramienta de archivos, no lo
-que ejecutó con un comando.** Cuando Claude aplica una migración con `uv run
-alembic upgrade head`, eso corre como un comando de shell: cambia tu base de
-datos, no un archivo que `/rewind` esté vigilando. Si rebobinas a un punto
-anterior a esa migración, el archivo de la migración desaparece de tu
-repositorio, pero la base de datos sigue exactamente donde la dejó el comando.
-Los dos dejan de coincidir, y ese desajuste es real: lo vas a provocar y a
-resolver hoy.
+que ejecutó con un comando.** Crear una migración con `alembic revision` y
+aplicarla con `alembic upgrade head` corren los dos como comandos de shell: ni
+el archivo que crean ni el cambio que dejan en tu base de datos son algo que
+`/rewind` esté vigilando. Si rebobinas a un punto anterior a esos dos
+comandos, el archivo sigue en tu repositorio —sin trackear, porque nunca lo
+confirmaste— y la base de datos sigue exactamente donde la dejó el comando. Lo
+único que rebobina de verdad es la conversación: Claude deja de recordar que
+los ejecutó, aunque los dos efectos siguen delante tuyo. Ese desajuste entre
+lo que la conversación recuerda y lo que tu repositorio tiene es real: lo vas
+a provocar y a resolver hoy.
 
 **Tu repositorio es el traspaso, o no lo es.** `/resume` te devuelve tu
 conversación entera, con cada herramienta que se ejecutó. Eso solo sirve si
@@ -155,9 +158,9 @@ La sesión está completa si:
 
 Detén los contenedores sin eliminar volúmenes, igual que en la sesión 5. El
 Lab 02 no toca el volumen: el desajuste que provoca se recupera con
-`alembic stamp`, sin borrar ningún dato. Si hiciste el desafío opcional y ahí
-sí recreaste el volumen, confirma que el contenedor vuelve a estar sano antes
-de cerrar.
+`alembic downgrade` y borrando el archivo de la migración vacía, sin tocar
+ningún dato real. Si hiciste el desafío opcional y ahí sí recreaste el
+volumen, confirma que el contenedor vuelve a estar sano antes de cerrar.
 
 ## Desafío Opcional
 

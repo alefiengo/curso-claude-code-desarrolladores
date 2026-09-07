@@ -39,26 +39,32 @@ revés.
 
 ## El Desajuste de una Migración
 
-Cuando rebobinas a un punto anterior a que Claude aplicara una migración:
+Cuando rebobinas a un punto anterior a que Claude creara y aplicara una
+migración:
 
-1. El archivo de la migración desaparece de tu repositorio —era una edición
-   de archivo, y eso sí lo revierte `/rewind`.
+1. El archivo de la migración sigue en tu repositorio, sin trackear —lo creó
+   un comando, `alembic revision`, y eso `/rewind` no lo toca.
 2. La base de datos sigue exactamente donde la dejó el comando
-   `alembic upgrade head` —eso no era una edición de archivo, y `/rewind` no
-   lo toca.
-3. `alembic current` deja de poder resolver la revisión marcada contra los
-   archivos que existen: te avisa con un error, o con un identificador que no
-   reconoces.
+   `alembic upgrade head` —tampoco era una edición de archivo.
+3. `alembic current` resuelve sin error: el archivo y la marca de la base de
+   datos siguen coincidiendo entre sí. Lo que cambió es que la conversación ya
+   no recuerda haber creado ni aplicado nada de eso.
+
+El desajuste no es entre el archivo y la base de datos: los dos sobreviven
+juntos. Es entre lo que tu conversación cree que pasó y lo que tu repositorio
+y tu base de datos todavía tienen.
 
 | Comando | Para qué |
 |---|---|
 | `alembic current` | Ver qué revisión cree la base de datos que tiene |
+| `alembic downgrade <revisión>` | Deshacer una migración de verdad, ejecutando su función de bajada —solo funciona si el archivo todavía existe |
 | `alembic stamp <revisión>` | Marcar la tabla de control con esa revisión, **sin ejecutar ningún cambio de esquema** |
 
-`stamp` solo es una recuperación segura cuando sabes que no hay ningún
-cambio de esquema real pendiente de deshacer —como una migración vacía—. Si
-la migración sí cambiaba el esquema, marcar la tabla no borra la columna ni
-la tabla que ya se creó: solo corrige el número, no el contenido.
+Mientras el archivo siga ahí, `downgrade` es la recuperación normal: baja el
+cambio y puedes borrar el archivo después. `stamp` solo entra cuando el
+archivo de verdad ya no existe —porque lo borraste tú, no porque lo haya
+borrado `/rewind`— y por eso no puede deshacer ningún cambio de esquema real:
+solo corrige el número que la base de datos cree tener.
 
 ## `/resume` No Es un Traspaso
 
@@ -77,7 +83,7 @@ puede responder con lo que hay escrito.
 | Señal | Causa habitual |
 |---|---|
 | El selector de `/rewind` no muestra el punto que buscas | Lista tus mensajes, no los de Claude. Busca el encargo que diste tú, no la respuesta |
-| `alembic current` no muestra ningún desajuste tras rebobinar | El rebobinado no llegó a borrar el archivo de la migración. Comprueba con `git status` |
-| `alembic stamp` falla o no encuentra la revisión | Revisa que el identificador es el anterior a la migración que rebobinaste, completo y sin espacios |
+| `alembic current` no muestra ningún error tras rebobinar | Es lo esperado: ahí no vas a ver el desajuste. Compara contra lo que dice la conversación cuando le preguntas por esa migración |
+| `alembic downgrade` falla o no encuentra la revisión | Revisa que el identificador es el anterior a la migración que rebobinaste, completo y sin espacios, y que el archivo de esa migración sigue en `alembic/versions/` |
 | `claude --resume <nombre>` no encuentra la sesión | El nombre se puso con `/rename` dentro de la conversación; sin ese paso, retómala por la lista |
 | Después de `/clear`, la respuesta parece "recordar" la conversación | Está leyéndolo del repositorio, no de tu memoria de hoy. Comprueba de dónde lo saca |

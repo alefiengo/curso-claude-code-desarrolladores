@@ -103,44 +103,64 @@ en verde. Pide una migración que no cambia nada:
 
 ```text
 Crea una revisión de Alembic vacía, sin ningún cambio de esquema —igual que la
-revisión inicial que ya tienes en el historial del proyecto—, y aplícala. Dime
-la revisión anterior y la nueva revisión, con sus identificadores completos.
+revisión inicial que ya tienes en el historial del proyecto—, y aplícala.
+Dime dos identificadores completos: el de la revisión que era la cabeza antes
+de este cambio, y el de la revisión vacía que acabas de crear.
 ```
 
-Anota los dos identificadores. Ahora rebobina: `Esc Esc` con el campo de texto
-vacío, y elige el punto justo antes de ese encargo. Cuando te ofrezca las
-opciones de restaurar, elige la que restaura código **y** conversación.
+Anota los dos, cada uno para algo distinto:
+
+- **La de antes del cambio** es el punto al que vuelves en el paso 6, con
+  `downgrade`.
+- **La revisión vacía** es el número que debería seguir devolviendo
+  `alembic current` después de rebobinar. La anotas ahora para comparar tú
+  mismo el número, en vez de fiarte de lo que te resuma la conversación en
+  ese momento.
+
+Ahora rebobina: `Esc Esc` con el campo de texto vacío, y elige el punto justo
+antes de ese encargo. Cuando te ofrezca las opciones de restaurar, elige la
+que restaura código **y** conversación.
 
 Sin pedirle que arregle nada:
 
 ```text
-Ejecuta uv run alembic current y dime exactamente qué responde.
+Dime si el archivo de la migración vacía sigue en alembic/versions/, con
+git status. Y ejecuta uv run alembic current: dime exactamente qué revisión
+responde.
 ```
 
-Lo que tiene que haber ocurrido: el archivo de la migración vacía ya no está
-—lo borró el rebobinado—, pero la base de datos sigue marcada con esa
-revisión. Alembic no puede resolverla contra los archivos que tiene delante:
-te lo dice con un error, o con un identificador que no reconoces en tu
-historial. Cualquiera de los dos confirma lo mismo: la conversación volvió
-atrás, la base de datos no.
+Compara esa revisión con la revisión vacía que anotaste: tiene que ser la
+misma.
+
+Lo que tiene que haber ocurrido: los dos siguen ahí. Ese archivo lo creó un
+comando —`alembic revision`—, no la herramienta de edición de Claude, así que
+el rebobinado no lo tocó: `git status` lo muestra sin trackear, porque nunca
+llegaste a confirmarlo. La base de datos tampoco cambió: sigue marcada con esa
+revisión, y `alembic current` la resuelve sin error contra el archivo que
+sigue delante. Lo único que rebobinó de verdad fue la conversación: pregúntale
+a Claude por esa migración y no va a recordarla, aunque los dos efectos —el
+archivo y el cambio en la base de datos— siguen intactos.
 
 ### 6. Recuperar sin arriesgar nada
 
-La migración era vacía, así que la base de datos no tiene ningún cambio de
-esquema pendiente de deshacer. Marca la tabla de control con la revisión
-correcta, sin ejecutar nada:
+El archivo nunca desapareció, así que lo deshaces de la forma normal, sin
+trucos:
 
 ```text
-Ejecuta uv run alembic stamp [pega aquí el identificador que anotaste antes de
-la migración vacía]. Después confirma con alembic current que coincide con el
-archivo más reciente del repositorio.
+Ejecuta uv run alembic downgrade [pega aquí el identificador que anotaste
+antes de la migración vacía]. Después borra el archivo de esa migración de
+alembic/versions/, y confirma con alembic current que vuelve a coincidir con
+el archivo más reciente del repositorio.
 ```
 
-Esto funciona porque la migración no cambiaba nada de verdad. Si hubiera sido
-una migración real —como la que añadió `due_at`—, marcar la tabla no habría
-bastado: la columna seguiría ahí, sin ningún archivo que la explique. Por eso
-el paso 5 se hizo con una migración vacía, y por eso corregiste v2 hacia
-adelante en el paso 4, en vez de rebobinarla.
+Esto funciona porque el archivo seguía en tu repositorio: `/rewind` solo hizo
+que la conversación dejara de mencionarlo, no que dejara de existir. El
+desajuste real de hoy no fue entre un archivo y una base de datos: fue entre
+lo que tu conversación recuerda y lo que tu repositorio y tu base de datos
+todavía tienen. Si el archivo de verdad hubiera desaparecido —lo cual no pasó
+aquí, y es justo lo que investiga el desafío opcional—, `downgrade` ya no
+tendría con qué deshacer el cambio, y `alembic stamp` dejaría de ser una
+recuperación completa.
 
 ## Validación
 
@@ -173,7 +193,7 @@ El lab está completo si:
 - [ ] v2 está en verde, sin nada fuera del alcance de fechas límite.
 - [ ] `GET /tasks?overdue=true` excluye la tarea sin fecha y la tarea vencida pero `HECHA`.
 - [ ] `due_at` se serializa en UTC con `Z`, sin desplazamiento y sin microsegundos.
-- [ ] Provocaste el desajuste entre el archivo de una migración y el estado de la base de datos, y lo viste con tus propios ojos.
+- [ ] Comprobaste que el archivo de la migración y el cambio en la base de datos sobrevivieron al rebobinado, aunque la conversación ya no los mencionaba.
 - [ ] `alembic current` coincide otra vez con el archivo más reciente del repositorio.
 - [ ] Sabes decir, sin mirar la referencia rápida, qué revierte `/rewind` y qué no.
 
@@ -188,7 +208,7 @@ Ninguna. El Lab 03 entrega e integra lo que dejaste aquí.
 | El desvío del paso 3 es tan grande que corregirlo se siente como reescribir todo | No lo corrijas ni lo rebobines: descarta la rama y vuelve a `feature/tasks-v2` desde `main`, con el encargo del paso 2 pero más acotado. Empezar limpio es la tercera opción, y a veces es la más barata |
 | El encargo ancho no produjo ningún desvío | Es un resultado válido. Sigue al paso 5 con lo que tienes: v2 ya está en verde |
 | No encuentras el punto exacto en el selector de `/rewind` | El selector lista tus mensajes, no los de Claude. Busca el que diste en el paso 5, el de la migración vacía |
-| `alembic current` no muestra ningún error tras el rebobinado | Puede que el rebobinado no haya llegado a borrar el archivo de la migración. Comprueba con `git status` si el archivo sigue en `alembic/versions/` |
-| `alembic stamp` no encuentra la revisión que le diste | Revisa que copiaste el identificador **anterior** a la migración vacía, no el nuevo |
-| Te preocupa haber roto algo de verdad | No: la migración era vacía, sin cambios de esquema. El único desajuste posible es de bookkeeping, y `stamp` lo corrige sin tocar ningún dato |
-| Quieres probar esto con una migración que sí cambia el esquema | Es el desafío opcional de esta sesión. No lo hagas aquí: sin una migración vacía de por medio, la recuperación no es tan simple |
+| `alembic current` no muestra ningún error, y no sabes qué comprobar | Es lo esperado: ahí no vas a ver el desajuste. Compara lo que dice la conversación cuando le preguntas por esa migración —nada— contra lo que `git status` y `alembic current` todavía muestran |
+| `alembic downgrade` falla o no encuentra la revisión | Revisa que copiaste el identificador **anterior** a la migración vacía, no el nuevo, y que el archivo de esa migración sigue en `alembic/versions/` |
+| Te preocupa haber roto algo de verdad | No: el archivo nunca desapareció, así que `downgrade` deshace la migración de la forma normal. El riesgo real aparece si tú mismo borras el archivo antes de bajarla —eso es lo que investiga el desafío opcional |
+| Quieres probar esto con una migración que sí cambia el esquema | Es el desafío opcional de esta sesión: ahí el archivo sí llega a desaparecer de verdad, y `downgrade` deja de ser una opción |
