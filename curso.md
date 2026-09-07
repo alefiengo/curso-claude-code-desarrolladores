@@ -144,71 +144,79 @@ que estar escrito antes de concederla.
 skills versionadas, un plan aprobado antes del primer archivo de código y un
 historial con una intención por commit.
 
-#### Sesión 6 — Interrumpir, recuperar y continuar
+#### Sesión 6 — Interrumpir y recuperar
 
 Al implementar tareas y filtros, un encargo ancho se lleva por delante trabajo ya
 terminado. Se prueban dos caminos: corregir sobre el contexto contaminado o
 rebobinar. Rebobinar deja al descubierto qué no cubre un checkpoint —la base de
-datos ya migrada, entre otras cosas—. Después se cierra la sesión y otra persona
-retoma con un traspaso mínimo.
+datos ya migrada, entre otras cosas—. La sesión cierra comprobando el contrato
+completo contra el servidor real, no solo contra la suite.
 
 **Decisión central:** cuándo sale más barato corregir hacia adelante, rebobinar o empezar
 limpio.
 
-**Evidencia:** estado recuperado y continuidad lograda sin recontar toda la
-conversación.
+**Evidencia:** el desvío corregido o rebobinado, el desajuste de `/rewind`
+resuelto, y el contrato completo demostrado contra la API corriendo.
 
 ### Bloque 3 — Verificar, extender y automatizar
 
 #### Sesión 7 — Reproducir antes de explicar
 
-Una entrada Unicode atraviesa una validación aparentemente correcta. Claude debe
-reproducir el fallo antes de proponer la causa, distinguir un fallo útil de un
-test mal montado y cerrar con una regresión. Una comprobación visual muestra el
-límite de una captura frente a una prueba de comportamiento.
+Una skill propia reparte commits reescribiendo código en vez de usar el índice
+de Git, y una entrada Unicode atraviesa una validación aparentemente correcta.
+Claude reproduce los dos fallos antes de proponer una causa, y las reglas que
+los hubieran evitado se escriben en `.claude/rules/`. La sesión cierra
+comprobando si el repositorio se explica solo a alguien que no vivió la
+conversación, con una colección de peticiones y un README que cualquiera puede
+repetir.
 
-**Decisión central:** qué evidencia demuestra el fallo y qué evidencia demuestra
-la corrección.
+**Decisión central:** qué evidencia demuestra un fallo, y qué convierte una
+corrección en algo que no vuelve a pasar.
 
-**Evidencia:** reproducción mínima, regresión permanente y explicación respaldada
-por archivo y línea.
+**Evidencia:** dos fallos reproducidos y cerrados, tres reglas de proyecto
+comprobadas, y el contrato completo demostrado sin depender de esta
+conversación.
 
-#### Sesión 8 — Convertir repetición en una herramienta evaluada
+#### Sesión 8 — Convertir reglas en guardarraíles, y delegar con contexto aislado
 
-Un procedimiento de verificación ya se repitió varias veces y produce cierres
-distintos. El estudiante lo convierte en skill, decide qué queda en lenguaje
-natural y qué pasa a código, y lo evalúa con casos válidos, inválidos y adversos.
+Una regla escrita en la sesión 7 persuade, pero no obliga: es contexto que
+Claude lee, no una condición que se cumpla sin importar lo que decida. El
+estudiante configura un hook donde una regla no basta, con casos permitidos y
+bloqueados. Después entrega una revisión a un subagente con contexto aislado,
+y decide qué autoridad y qué herramientas le concede a un trabajo que no va a
+supervisar turno a turno.
 
-**Decisión central:** cuándo una repetición merece una skill y cuándo solo
-necesita una instrucción más clara.
+**Decisión central:** qué debe ejecutarse siempre sin importar la decisión de
+Claude, y qué autoridad delegas a un contexto que no supervisas paso a paso.
 
-**Evidencia:** skill versionado, casos de evaluación y prueba de que no edita el
-proyecto cuando solo debe verificar.
+**Evidencia:** un hook probado con casos positivos y negativos, y una revisión
+delegada con hallazgos triados.
 
-#### Sesión 9 — Convertir reglas en guardarraíles
+#### Sesión 9 — Evaluar y conectar sistemas externos
 
-El estudiante diferencia instrucciones, permisos, sandbox y hooks. Configura el
-mínimo privilegio necesario, prueba lo permitido y lo prohibido, y añade una
-puerta automática donde una recomendación no basta.
+El estudiante quiere que Claude consulte PostgreSQL directamente y administre
+colecciones de Postman, sin `psql` suelto ni copiar y pegar. Evalúa las dos
+conexiones MCP por alcance, datos, permisos y coste antes de habilitarla o
+rechazarla. Con esa disciplina fresca, planifica el incremento del BFF con la
+misma skill de planificación que ya construyó, sin implementarlo todavía.
 
-**Decisión central:** qué debe persuadirse, qué debe ejecutarse siempre y qué no
-puede permitirse.
+**Decisión central:** qué alcance, qué datos y qué permisos justifican
+habilitar una conexión externa.
 
-**Evidencia:** matriz de permisos y hooks probados con casos positivos y
-negativos.
+**Evidencia:** dos conexiones MCP evaluadas —aceptada o rechazada, con
+motivo— y el plan del BFF aprobado antes del primer archivo de código.
 
 #### Sesión 10 — Delegar y ejecutar sin nadie delante
 
-Una revisión se entrega a un subagente con contexto aislado. Una conexión MCP se
-evalúa por alcance, datos, permisos y coste antes de habilitarse. Finalmente el
-mismo contrato de verificación se ejecuta sin interfaz y produce salida
-estructurada para CI.
+Con el plan del BFF ya aprobado, el estudiante dirige su implementación con
+`/goal`, sin supervisar cada turno. El mismo contrato de verificación se
+ejecuta después sin interfaz y produce salida estructurada para CI.
 
-**Decisión central:** qué contexto, herramientas y autoridad recibe una ejecución
-que no estás observando.
+**Decisión central:** qué autoridad recibe una ejecución que no estás
+observando, y qué evidencia demuestra que terminó bien.
 
-**Evidencia:** hallazgos triados, conexión justificada o rechazada y ejecución no
-interactiva reproducible.
+**Evidencia:** el BFF implementado con `/goal`, y una ejecución no interactiva
+reproducible.
 
 ## Proyecto Integrador
 

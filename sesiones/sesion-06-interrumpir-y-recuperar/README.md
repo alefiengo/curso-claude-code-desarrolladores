@@ -19,8 +19,8 @@ punto que crees.
 |---|---:|
 | [Lab 01 — Cerrar y planificar](labs/01-cerrar-y-planificar/README.md) | 30 |
 | [Lab 02 — El encargo ancho](labs/02-el-encargo-ancho/README.md) | 45 |
-| [Lab 03 — Traspaso mínimo](labs/03-traspaso-minimo/README.md) | 35 |
-| Cierre y decisión transferible | 10 |
+| [Lab 03 — Cerrar el contrato](labs/03-cerrar-el-contrato/README.md) | 30 |
+| Cierre y decisión transferible | 15 |
 
 ## Materiales
 
@@ -42,7 +42,7 @@ informa.
 |---|---|---|
 | [01 — Cerrar y planificar](labs/01-cerrar-y-planificar/README.md) | Planificas tareas v1 y v2 de una vez con tu skill, implementas v1 y cierras el `409` que quedó sin probar en la sesión 5 | Que una skill reutilizada no necesita reescribirse: el procedimiento sigue siendo el mismo, solo cambia el contrato al que apunta |
 | [02 — El encargo ancho](labs/02-el-encargo-ancho/README.md) | Le das a Claude un encargo grande para v2, sin pasar por el plan que ya tenías escrito, y revisas qué hizo de más | Que corregir hacia adelante y rebobinar no cuestan lo mismo, y que `/rewind` no toca lo que ya cambiaste con un comando |
-| [03 — Traspaso mínimo](labs/03-traspaso-minimo/README.md) | Cierras el contrato de tareas, y compruebas si tu repositorio le explica el proyecto a alguien que no vivió esta conversación | Que retomar tu propio trabajo no es lo mismo que retomarlo otra persona, y qué le falta a tu repositorio para lo segundo |
+| [03 — Cerrar el contrato](labs/03-cerrar-el-contrato/README.md) | Compruebas el contrato completo —v1 y v2— contra la API corriendo, publicas e integras tareas v2 | Que un contrato completo se demuestra contra el servidor real, no solo contra la suite |
 
 ## Al finalizar esta sesión podrás
 
@@ -55,7 +55,8 @@ informa.
 - Explicar qué revierte `/rewind` y qué no, con un caso real delante.
 - Recuperar de forma segura un desajuste entre tus archivos y el estado de una
   herramienta externa, sin arriesgar datos que sí importan.
-- Comprobar si tu repositorio se explica solo, en vez de suponerlo.
+- Demostrar que un contrato completo funciona contra el servidor real, no
+  solo contra la suite.
 
 ## Conceptos Clave
 
@@ -89,28 +90,20 @@ los ejecutó, aunque los dos efectos siguen delante tuyo. Ese desajuste entre
 lo que la conversación recuerda y lo que tu repositorio tiene es real: lo vas
 a provocar y a resolver hoy.
 
-**Tu repositorio es el traspaso, o no lo es.** `/resume` te devuelve tu
-conversación entera, con cada herramienta que se ejecutó. Eso solo sirve si
-eres tú, en tu máquina, con esa conversación guardada. Alguien que clona tu
-repositorio no tiene nada de eso: solo tiene lo que escribiste en los
-commits, el contrato y la configuración. Si esa persona no puede reconstruir
-las decisiones con lo que hay escrito, el traspaso no existe, aunque tú
-recuerdes cada detalle.
-
 ## Comandos Nuevos
 
 | Comando o control | Uso |
 |---|---|
-| `--continue` | Retoma la conversación más reciente de este directorio, sin selector |
-| `/rename` | Pone nombre a la sesión, para encontrarla y retomarla por ese nombre |
 | `/branch` | Copia la conversación hasta este punto y cambia a la copia, dejando la original intacta |
 | `/fork` | Copia la conversación en una sesión nueva, en segundo plano, y tú sigues en esta |
 
-`Esc` apareció en la sesión 1. `/rewind`, `Esc Esc` y `/resume` aparecieron en
-la sesión 4. Hoy `/rewind` se usa con una pregunta distinta: no solo qué
-revierte, sino qué **no** revierte, con un caso real delante. Y `/resume` se
-usa para algo que la sesión 4 no necesitaba: comprobar si lo que recuperas te
-sirve solo a ti, o le sirve a cualquiera.
+Ninguno de los dos se usa hoy con hands-on: aparecen para que los distingas
+antes de necesitarlos. La [referencia rápida](referencia-rapida.md) explica
+cuándo elegir uno u otro.
+
+`Esc` apareció en la sesión 1. `/rewind` y `Esc Esc` aparecieron en la
+sesión 4. Hoy `/rewind` se usa con una pregunta distinta: no solo qué
+revierte, sino qué **no** revierte, con un caso real delante.
 
 `/diff` y `/context` ya aparecieron. Hoy `/diff` es la herramienta con la que
 decides si un encargo se salió de lo pedido, y `/context` cierra la sesión
@@ -150,7 +143,6 @@ La sesión está completa si:
 - [ ] `GET /tasks?overdue=true` solo devuelve tareas vencidas y sin estado `HECHA`.
 - [ ] La migración sube, baja y vuelve a subir sin error, y `alembic current` coincide con el archivo más reciente del repositorio.
 - [ ] Sabes decir un caso concreto donde `/rewind` no revirtió algo que esperabas.
-- [ ] Le pediste a una conversación sin tu contexto que describiera el proyecto, y comparaste su respuesta con lo que tú sabes.
 - [ ] Ninguna rama queda abierta sin integrar.
 - [ ] Un CRUD completo de un proyecto y de una tarea responde lo que dice el contrato, endpoint por endpoint.
 
@@ -175,7 +167,6 @@ Preguntas de repaso:
 - ¿Qué encargo diste en el Lab 02, y qué hizo Claude que no le pediste?
 - Para ese desvío, ¿corregir hacia adelante te habría costado más o menos que rebobinar?
 - Después de rebobinar en el paso de la migración, ¿qué comando te reveló el desajuste, y qué te dijo exactamente?
-- ¿Qué le faltaba a tu repositorio para que una conversación sin contexto describiera bien el proyecto, y qué le añadiste?
 - De las dos skills que ya tienes, ¿cuál usaste hoy sin cambiarla, y sobre qué contrato distinto?
 
 ## Versión
@@ -199,7 +190,6 @@ abiertas:
 | El plan de tareas, en `docs/` | Lo escribe tu skill en el Lab 01, cubriendo v1 y v2 |
 | Migraciones, modelos y endpoints de `tasks` | Implementación de los Labs 01 y 02 |
 | El contrato de Proyectos, cerrado | El `409` que la sesión 5 dejó sin probar, cerrado en el Lab 01 |
-| Cualquier ajuste al traspaso escrito | Lo que el Lab 03 encontró que faltaba |
 
 El contrato completo de la API —Proyectos y Tareas, v1 y v2— está implementado
 y probado. Ningún endpoint nuevo se añade después de hoy.

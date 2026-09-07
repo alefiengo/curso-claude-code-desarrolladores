@@ -7,13 +7,9 @@
 | `/rewind` | Abre el selector de puntos anteriores de la conversación y el código | Lab 02 |
 | `Esc Esc` | Abre el mismo selector, con el campo de texto vacío | Lab 02 |
 | `Esc` | Interrumpe el turno en curso | En cuanto veas una desviación |
-| `/resume` | Retoma una conversación anterior de este directorio, con su historial completo | Lab 03 |
-| `--continue` | Retoma la conversación más reciente de este directorio, sin selector | Lab 03 |
-| `/rename` | Pone nombre a la sesión actual | Lab 03 |
 | `/branch` | Copia la conversación hasta este punto y cambia a la copia, dejando la original intacta | Referencia |
 | `/fork` | Copia la conversación en una sesión nueva, en segundo plano, y tú sigues en esta | Referencia |
-| `/clear` | Vacía el contexto de la conversación, sin perder el archivo de la sesión | Lab 03, para simular retomar sin contexto |
-| `/diff` | Revisa los cambios antes de confirmar | Lab 02 |
+| `/diff` | Revisa los cambios antes de confirmar | Lab 02 y Lab 03 |
 | `/context` | Muestra qué ocupa la ventana de contexto | Al cerrar la sesión |
 
 Ni `/branch` ni `/fork` se usan hoy con hands-on, pero conviene distinguirlos:
@@ -66,18 +62,6 @@ archivo de verdad ya no existe —porque lo borraste tú, no porque lo haya
 borrado `/rewind`— y por eso no puede deshacer ningún cambio de esquema real:
 solo corrige el número que la base de datos cree tener.
 
-## `/resume` No Es un Traspaso
-
-| | `/resume` o `--continue` | Traspaso escrito |
-|---|---|---|
-| Quién puede usarlo | Tú, en esta máquina | Cualquiera con el repositorio |
-| Qué trae | La conversación entera, con cada herramienta ejecutada | Solo lo que quedó en commits, PRs y documentación |
-| Cuándo deja de servir | Si borras la sesión, cambias de máquina, o pasa el tiempo de retención | Nunca, mientras el repositorio exista |
-
-La prueba de si tu traspaso funciona no es preguntarte a ti mismo: es
-preguntarle a una conversación que nunca vivió lo que tú viviste, y ver si
-puede responder con lo que hay escrito.
-
 ## Si Algo Falla
 
 | Señal | Causa habitual |
@@ -85,5 +69,3 @@ puede responder con lo que hay escrito.
 | El selector de `/rewind` no muestra el punto que buscas | Lista tus mensajes, no los de Claude. Busca el encargo que diste tú, no la respuesta |
 | `alembic current` no muestra ningún error tras rebobinar | Es lo esperado: ahí no vas a ver el desajuste. Compara contra lo que dice la conversación cuando le preguntas por esa migración |
 | `alembic downgrade` falla o no encuentra la revisión | Revisa que el identificador es el anterior a la migración que rebobinaste, completo y sin espacios, y que el archivo de esa migración sigue en `alembic/versions/` |
-| `claude --resume <nombre>` no encuentra la sesión | El nombre se puso con `/rename` dentro de la conversación; sin ese paso, retómala por la lista |
-| Después de `/clear`, la respuesta parece "recordar" la conversación | Está leyéndolo del repositorio, no de tu memoria de hoy. Comprueba de dónde lo saca |

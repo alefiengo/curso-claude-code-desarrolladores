@@ -41,9 +41,9 @@ configuración:
 | Grado | Dónde vive el criterio | Sesión |
 |---|---|---:|
 | En el prompt | "ejecuta el test y arregla lo que falle" | 1 |
-| En la sesión | `/goal`, con una condición comprobable | Sin asignar |
-| En un programa | Stop hook: un código de salida que no se reinterpreta | 9 |
-| En otro agente | Un revisor con contexto limpio | Sin asignar |
+| En la sesión | `/goal`, con una condición comprobable | 10 |
+| En un programa | Stop hook: un código de salida que no se reinterpreta | 8 |
+| En otro agente | Un revisor con contexto limpio | 8 |
 
 ### Modo de fallo
 
@@ -96,7 +96,7 @@ fuera de alcance, decisiones ya tomadas y el siguiente comando.
 No es la conversación exportada. Una exportación completa obliga a quien la lee
 a reconstruirlo todo; el handoff ya trae la conclusión.
 
-Se trabaja en la [sesión 6](../sesiones/sesion-06-interrumpir-y-recuperar/README.md).
+Se trabaja en la [sesión 7](../sesiones/sesion-07-reproducir-y-depurar/README.md).
 
 ## Verificación y pruebas
 
@@ -171,7 +171,7 @@ eventos y condiciones que admiten bloqueo, puede impedir una operación. Los
 permisos se escriben en la
 [sesión 4](../sesiones/sesion-04-ejecutar-y-publicar/README.md); el sandbox y
 los hooks se trabajan en la
-sesión 9 _(aún no publicada)_.
+sesión 8 _(aún no publicada)_.
 
 ### Solicitud de cambios
 

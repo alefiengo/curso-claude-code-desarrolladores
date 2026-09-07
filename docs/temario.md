@@ -88,33 +88,37 @@ cuestionar, y al menos dos herramientas versionadas en tu repositorio.
 **Situación:** un encargo demasiado amplio se lleva por delante trabajo que ya
 funcionaba, y rebobinar no siempre te devuelve al punto que crees.
 
-**Conceptos:** costo de corregir hacia adelante frente a rebobinar, qué revierte
-un checkpoint y qué no —un comando ejecutado no es un archivo editado—, y la
-diferencia entre retomar tu propia conversación y que el repositorio se explique
-solo.
+**Conceptos:** costo de corregir hacia adelante frente a rebobinar, y qué
+revierte un checkpoint y qué no —un comando ejecutado no es un archivo
+editado—.
 
 **Práctica:** cerrar el contrato completo de la API —proyectos y tareas—,
-reutilizar una skill de la sesión anterior sobre un contrato distinto,
+reutilizar una skill de la sesión anterior sobre un contrato distinto, y
 provocar y resolver el desajuste entre una migración rebobinada y la base de
-datos, y comprobar el propio repositorio con una conversación sin contexto.
+datos.
 
 **Sales con:** el contrato completo implementado, y un criterio para decidir
-entre redirigir, rebobinar o empezar limpio.
+entre corregir hacia adelante, rebobinar o empezar limpio.
 
 ## Bloque 3 — Verificar, Extender y Automatizar
 
 ### 7. Reproducir antes de explicar
 
-**Situación:** una entrada Unicode atraviesa una validación y la primera causa
-plausible no basta.
+**Situación:** una skill propia reparte commits reescribiendo código en vez de
+usar el índice de Git, y una entrada Unicode atraviesa una validación que
+parece correcta.
 
-**Conceptos:** reproducción, hipótesis, rojo correcto, causa raíz, regresión y
-límite de la evidencia visual.
+**Conceptos:** reproducción antes que explicación, causa raíz, regla de
+proyecto frente a `CLAUDE.md`, y la diferencia entre retomar tu propia
+conversación y que el repositorio se explique solo.
 
-**Práctica:** reproducir, corregir y proteger el fallo; contrastar captura con
-comportamiento ejecutable.
+**Práctica:** reproducir y corregir los dos fallos, escribir las reglas que
+los hubieran evitado, comprobar el propio repositorio con una conversación
+sin contexto, y dejar una colección de peticiones ejecutable que demuestra
+el contrato completo.
 
-**Sales con:** una corrección respaldada por una regresión permanente.
+**Sales con:** dos fallos corregidos con su regla escrita, y el contrato
+completo demostrado sin depender de esta conversación.
 
 ### 8. Convertir repetición en una herramienta evaluada
 

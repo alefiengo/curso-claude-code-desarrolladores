@@ -4,7 +4,7 @@ Este mapa orienta. `claude --help` y `/help` mandan en la versión instalada.
 
 Todo lo que aparece aquí se contrastó con dos fuentes: la instalación
 (Claude Code 2.1.252) y la [documentación oficial](https://code.claude.com/docs).
-Una sola no basta, y esa es también la regla que practicas en la sesión 7.
+Una sola no basta.
 
 ## Por Sesión
 
@@ -15,11 +15,11 @@ Una sola no basta, y esa es también la regla que practicas en la sesión 7.
 | 3 | `/clear`, `/compact`, `/btw`, `/autocompact` | Mantener señal en una conversación larga |
 | 4 | `/permissions`, `/rewind`, `Esc Esc`, `/resume` | Ejecutar un plan con límites y poder deshacer |
 | 5 | `/skills`, `/reload-skills`, `/plan`, `Ctrl+G` | Entregar un cambio e integrarlo con herramientas propias |
-| 6 | `--continue`, `/rename`, `/branch`, `/fork` | Interrumpir, recuperar y continuar |
-| 7 | `/verify` | Reproducir un fallo y demostrar su corrección |
-| 8 | `allowed-tools`, `disallowed-tools`, `/plugin` | Convertir repetición en una herramienta evaluada |
-| 9 | `/permissions`, `/hooks`, `--permission-mode` | Convertir reglas en guardarraíles |
-| 10 | `/agents`, `/subtask`, `/background`, `/tasks`, `/mcp`, `claude -p`, `--output-format json`, `--json-schema` | Delegar y ejecutar sin nadie delante |
+| 6 | `/branch`, `/fork` | Interrumpir y recuperar |
+| 7 | `/rename`, `--continue` | Reproducir un fallo y demostrar su corrección |
+| 8 | `/hooks`, `/agents`, `/list-agents`, `/subtask` | Convertir reglas en guardarraíles, y delegar con contexto aislado |
+| 9 | `/mcp` | Evaluar y conectar sistemas externos |
+| 10 | `/goal`, `/background`, `/tasks`, `claude -p`, `--output-format json`, `--json-schema` | Ejecutar sin nadie delante: construir el BFF |
 
 ## Etiquetas del Curso
 
@@ -28,11 +28,12 @@ Una sola no basta, y esa es también la regla que practicas en la sesión 7.
 - **Referencia:** se muestra para descubrimiento, no se memoriza.
 - **Creado en el lab:** skill o comando propio, no incorporado a Claude Code.
 
-Son opcionales `/plugin` (sesión 8) y `/mcp` (sesión 10): ningún paso
-obligatorio depende de ellos.
+Ninguna fila de las sesiones 8 a 10 está marcada como opcional todavía: el
+diseño se decidió el 07/09/2026 y aún no se escribió ningún lab.
 
-Las filas de la sesión 7 en adelante son **provisionales**. Manda siempre la
-sección **Comandos Nuevos** de cada sesión, que es la que se verifica contra la
+Las filas de la sesión 8 en adelante son **provisionales**: la sesión 7 ya
+está escrita y verificada, con su propia sección **Comandos Nuevos**. Manda
+siempre esa sección de cada sesión, que es la que se verifica contra la
 instalación antes de publicarse.
 
 No evalúes memorización de la tabla. Evalúa si la persona elige la herramienta

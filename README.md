@@ -60,7 +60,7 @@ Al terminar podrás:
 | [4](sesiones/sesion-04-ejecutar-y-publicar/README.md) | Un plan aprobado, ejecutado sin límites y sin publicar |
 | [5](sesiones/sesion-05-revisar-e-integrar/README.md) | El código funciona, pero el cambio no es revisable |
 | [6](sesiones/sesion-06-interrumpir-y-recuperar/README.md) | Una línea de trabajo se desvía o debe continuar otro día |
-| 7 _(aún no publicada)_ | Una explicación plausible reemplaza a la reproducción |
+| [7](sesiones/sesion-07-reproducir-y-depurar/README.md) | Una explicación plausible reemplaza a la reproducción |
 | 8 _(aún no publicada)_ | Un contrato entre servicios que ningún test vigila |
 | 9 _(aún no publicada)_ | Una instrucción se confunde con una garantía |
 | 10 _(aún no publicada)_ | Una ejecución aislada o automática puede exceder sus límites |
