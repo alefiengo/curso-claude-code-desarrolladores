@@ -2,16 +2,17 @@
 
 ## Objetivo
 
-Reproducir el fallo real de tu skill `segmentar-commits` antes de tocar el
-archivo, y cerrarlo con una prueba que se queda.
+Diagnosticar el fallo real de tu skill `segmentar-commits` —reescribe código
+en vez de repartirlo— contra un cambio real, corregirla antes de invocarla, y
+confirmar la corrección con ese mismo cambio.
 
 ## Por qué este lab
 
 Tu skill `segmentar-commits`, la que construiste en la sesión 5, lleva dos
 sesiones repartiendo commits sin que nadie mirara si el reparto que produce
 está realmente limpio. "Reparte en commits separados" sonaba completo. Hoy
-no arreglas nada hasta que el fallo esté delante tuyo, reproducido con un
-cambio real, no supuesto.
+no la corriges a ciegas: la revisas contra un cambio real antes de tocar el
+archivo, y confirmas la corrección invocándola de verdad.
 
 ## Requisitos
 
@@ -27,11 +28,12 @@ Este lab tiene 25 minutos:
 | Min | Debe existir |
 |---:|---|
 | 0–5 | Rama nueva y el punto de partida confirmado |
-| 5–15 | El reparto de `segmentar-commits` reproducido y diagnosticado con `git show` |
-| 15–25 | La skill corregida y probada de nuevo sobre el mismo cambio |
+| 5–10 | Un cambio real generado, sin confirmar, con el diff revisado |
+| 10–18 | La skill diagnosticada contra ese cambio y corregida si hacía falta |
+| 18–25 | La skill invocada de verdad y el reparto verificado con `git show` |
 
-**Si necesitas cortar aquí:** lo mínimo es el fallo reproducido y
-diagnosticado, aunque la corrección de la skill se termine después.
+**Si necesitas cortar aquí:** lo mínimo es la skill diagnosticada y
+corregida. La invocación de verificación se hace después.
 
 ## Paso a Paso
 
@@ -43,7 +45,7 @@ está actualizado, el árbol de trabajo está limpio, y la base de datos está
 levantada y con las migraciones aplicadas.
 ```
 
-### 2. Reproducir el reparto que reescribe en vez de repartir
+### 2. Generar un cambio real para poner a prueba la skill
 
 No invoques la skill todavía. Genera un cambio real para repartir:
 
@@ -54,59 +56,60 @@ completo primero.
 ```
 
 Revisa `/diff` y quédate con el tamaño real del cambio: cuántos archivos,
-cuántas piezas distintas. Ahora invoca tu skill:
+cuántas piezas distintas.
+
+### 3. Corregir la skill, no el resultado de hoy
+
+Con el cambio real delante, sin confirmarlo todavía, revisa la skill antes
+de correrla:
+
+```text
+Abre .claude/skills/segmentar-commits/SKILL.md. Con el cambio que acabas de
+generar delante, dime cómo va a armar cada commit: ¿usa git add sobre
+archivos o fragmentos del cambio que ya existe, o edita archivos para
+reconstruir cada estado intermedio?
+```
+
+Si la respuesta es que reescribe o reconstruye código, ese es el fallo real
+que reportaste: corrígelo antes de invocarla.
+
+```text
+Corrige segmentar-commits para que nunca reescriba código: cada commit se
+arma exclusivamente con git add, completo o con git add -p, sobre el cambio
+que ya existe en el árbol de trabajo. No cambies el criterio de reparto ni
+añadas ningún paso nuevo —la skill sigue haciendo lo mismo de antes, solo
+que ahora arma cada commit sin tocar una sola línea de código.
+```
+
+Si la skill ya usaba `git add` correctamente, no hay nada que corregir: dilo
+en la validación y sigue igual al paso 4.
+
+### 4. Invocar la skill corregida y confirmar
 
 ```text
 /segmentar-commits
 ```
 
-Deja que reparta y confirme. Cuando termine, reconstruye lo que pasó, commit
-por commit:
+Revisa el reparto que propone. Cuando te convenza, apruébalo y deja que
+confirme.
 
 ```text
-Para cada commit que acabas de hacer, muéstrame su diff con git show. Dime
-si algún commit borra o modifica líneas que otro commit posterior vuelve a
-tocar, en vez de limitarse a un subconjunto de archivos o de líneas del
-cambio original.
+Para cada commit que acabas de hacer, muéstrame su diff con git show.
+Confirma que cada uno es un subconjunto limpio del diff original: sin
+líneas que no estaban ahí, sin que un commit posterior vuelva a tocar lo
+mismo.
 ```
 
-Lo que tiene que haber ocurrido, si tu skill tiene el fallo que reportaste:
-al menos un commit no es un subconjunto limpio del diff original —tiene
-líneas que no estaban ahí, o que un commit siguiente vuelve a tocar—. Eso
-significa que la skill no repartió el cambio: lo reescribió commit a commit,
-usando su herramienta de edición en vez del índice de Git.
-
-Si los commits sí son subconjuntos limpios del diff original, tu skill no
-tiene este fallo. Es un resultado válido: dilo en la validación, deja los
-commits tal como quedaron, y sigue con el Lab 02 igual.
-
-### 3. Corregir la skill, no el resultado de hoy
-
-Si reprodujiste el fallo, el problema no está en el campo `priority`: está
-en el archivo de la skill.
-
-```text
-Deshaz los commits de segmentar-commits con git reset --soft, conservando
-todos los cambios sin confirmar. Después abre
-.claude/skills/segmentar-commits/SKILL.md y dime cómo arma cada commit hoy:
-¿usa git add sobre archivos o fragmentos del cambio que ya existe, o edita
-archivos para reconstruir cada estado intermedio?
-```
-
-Corrige el procedimiento para que cada commit se arme exclusivamente con
-`git add` —de archivos completos o de fragmentos con `git add -p`— sobre el
-cambio que ya está en el árbol de trabajo. La skill no debe volver a escribir
-ni una línea de código: solo decide qué parte del cambio existente entra en
-cada commit.
+Si algún commit no es un subconjunto limpio, la corrección del paso 3 no
+bastó: vuelve al archivo de la skill, no al resultado de hoy.
 
 ```text
 /skills
 ```
 
-Comprueba que Claude Code sigue reconociendo la skill después de editarla, y
-vuelve a invocarla sobre el mismo cambio de `priority`. Repite la
-comprobación del paso 2. Cuando los commits sean subconjuntos limpios,
-confirma la corrección de la skill en su propio commit `chore:`.
+Comprueba que Claude Code sigue reconociendo la skill después de editarla.
+Si la corregiste en el paso 3, confirma esa corrección en su propio commit
+`chore:` antes de seguir.
 
 ## Validación
 
@@ -121,21 +124,22 @@ Sin cambiar nada, dime:
 
 El lab está completo si:
 
-- [ ] Sabes decir, con el `/diff` y `git show` delante, si `segmentar-commits` tenía el fallo del reparto o no.
-- [ ] Si lo tenía, la skill ya arma cada commit con `git add`, no reescribiendo archivos.
+- [ ] Revisaste `.claude/skills/segmentar-commits/SKILL.md` contra un cambio real antes de invocarla.
+- [ ] Si tenía el fallo, ya arma cada commit con `git add`, no reescribiendo archivos.
+- [ ] Los commits que produjo `/segmentar-commits` son subconjuntos limpios del diff original, confirmado con `git show`.
 - [ ] Nada de esto quedó publicado: los commits existen solo en `feature/segmentar-commits`.
 
 ## Limpieza
 
 Ninguna. El Lab 02 trabaja sobre este mismo estado, sin publicar todavía.
-Antes de seguir, `/context`: mira cuánto ocupó reproducir y corregir un
+Antes de seguir, `/context`: mira cuánto ocupó diagnosticar y corregir un
 fallo real de una skill.
 
 ## Problemas Frecuentes
 
 | Situación | Qué hacer |
 |---|---|
-| No encuentras ningún commit "sucio" en el paso 2 | Es un resultado válido para tu skill. No fuerces el paso 3: deja los commits tal como quedaron y sigue con el Lab 02 |
-| `git reset --soft` te deja en un estado que no reconoces | Comprueba con `git status` y `git log` antes de seguir: `--soft` mueve la rama, no toca el árbol de trabajo ni el índice |
+| No sabes si la skill tiene el fallo sin verla correr | Es parte del método: lee el procedimiento exacto que describe el archivo contra el diff real que generaste en el paso 2, no le preguntes en abstracto |
+| La skill dice en el paso 3 que ya usa `git add`, pero el paso 4 muestra un commit sucio | La respuesta del paso 3 fue optimista o incompleta: vuelve a leer el archivo completo, no el resumen que dio Claude |
 | La skill sigue reescribiendo código después de corregida | Revisa si la corrección quedó como una preferencia ("intenta usar git add") en vez de una regla ("nunca reescribe código"): la redacción débil es el fallo más común al corregir una skill |
-| Necesitas cortar el lab | Lo mínimo es el fallo reproducido y diagnosticado. Deja la skill sin corregir y termínalo después |
+| Necesitas cortar el lab | Lo mínimo es la skill diagnosticada y corregida. La invocación de verificación del paso 4 se hace después |
