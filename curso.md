@@ -177,53 +177,67 @@ corrección en algo que no vuelve a pasar.
 comprobadas, y el contrato completo demostrado sin depender de esta
 conversación.
 
-#### Sesión 8 — Convertir reglas en guardarraíles, y delegar con contexto aislado
+#### Sesión 8 — Describir el sistema sin que la descripción envejezca
 
-Una regla escrita en la sesión 7 persuade, pero no obliga: es contexto que
-Claude lee, no una condición que se cumpla sin importar lo que decida. El
-estudiante configura un hook donde una regla no basta, con casos permitidos y
-bloqueados. Después entrega una revisión a un subagente con contexto aislado,
-y decide qué autoridad y qué herramientas le concede a un trabajo que no va a
-supervisar turno a turno.
+La especificación OpenAPI la genera el framework, y el diagrama y el
+diccionario de datos salen de los modelos y las migraciones: ninguno de los
+tres hace falta escribirlo a mano, y una skill nueva los produce a demanda.
+Lo que sí hace falta es decidir qué manda cuando la especificación generada y
+el contrato escrito dejan de coincidir, y qué impide que vuelvan a separarse.
+Una regla escrita en la sesión 7 persuade, pero no obliga: aquí entran dos
+hooks, uno que bloquea antes y otro que actúa después, y la diferencia entre
+los dos eventos es la lección.
 
-**Decisión central:** qué debe ejecutarse siempre sin importar la decisión de
-Claude, y qué autoridad delegas a un contexto que no supervisas paso a paso.
+**Decisión central:** qué descripción del sistema se genera desde el código y
+se verifica sola, y qué debe ejecutarse siempre sin importar lo que decida
+Claude.
 
-**Evidencia:** un hook probado con casos positivos y negativos, y una revisión
-delegada con hallazgos triados.
+**Evidencia:** la especificación OpenAPI versionada y confrontada con el
+contrato, el diagrama y el diccionario de datos en `docs/`, y dos hooks
+probados en los dos sentidos.
 
-#### Sesión 9 — Evaluar y conectar sistemas externos
+#### Sesión 9 — Delegar con contexto aislado
 
-El estudiante quiere que Claude consulte PostgreSQL directamente y administre
-colecciones de Postman, sin `psql` suelto ni copiar y pegar. Evalúa las dos
-conexiones MCP por alcance, datos, permisos y coste antes de habilitarla o
-rechazarla. Con esa disciplina fresca, planifica el incremento del BFF con la
-misma skill de planificación que ya construyó, sin implementarlo todavía.
+Una revisión que necesita criterio, y que el estudiante no va a supervisar
+turno a turno, se entrega a un subagente con contexto propio. La decisión no
+es si delegar: es con cuánta autoridad. Se construyen tres, y el tercero es el
+que rompe la receta: un revisor de código y un auditor de seguridad comparten
+autoridad —solo lectura, sin poder editar lo que revisan— y solo cambian de
+lente; el que resume la suite necesita ejecutar, y sigue sin poder escribir.
+Después se tría lo que devuelven: hallazgo real frente a ruido de alguien que
+no sabe qué se decidió a propósito.
 
-**Decisión central:** qué alcance, qué datos y qué permisos justifican
-habilitar una conexión externa.
+**Decisión central:** qué contexto, qué herramientas y qué autoridad recibe
+un trabajo que no estás observando.
 
-**Evidencia:** dos conexiones MCP evaluadas —aceptada o rechazada, con
-motivo— y el plan del BFF aprobado antes del primer archivo de código.
+**Evidencia:** tres subagentes acotados y versionados, cada uno con la
+autoridad mínima de su oficio, y sus hallazgos triados en aceptados y
+rechazados con motivo.
 
-#### Sesión 10 — Delegar y ejecutar sin nadie delante
+#### Sesión 10 — Conectar sistemas externos, y soltar el volante
 
-Con el plan del BFF ya aprobado, el estudiante dirige su implementación con
-`/goal`, sin supervisar cada turno. El mismo contrato de verificación se
-ejecuta después sin interfaz y produce salida estructurada para CI.
+Nueve sesiones ejecutando Docker, PostgreSQL y peticiones HTTP a mano o por
+shell. El estudiante conecta los tres como MCP y evalúa cada uno antes de
+habilitarlo: qué alcance pide, a qué datos llega, qué permisos concede y qué
+reemplaza de verdad. Después trabaja sin mirar: `/goal` itera hasta cumplir
+una condición, y el mismo contrato de verificación se ejecuta sin interfaz con
+salida estructurada. Lo que hace honesto ese bucle no es la promesa del
+modelo: es un hook que comprueba la condición al final de cada turno y no le
+deja parar hasta que se cumple. Cierra podando lo que diez sesiones
+acumularon en `.claude/`.
 
-**Decisión central:** qué autoridad recibe una ejecución que no estás
-observando, y qué evidencia demuestra que terminó bien.
+**Decisión central:** qué alcance y qué permisos justifican una conexión
+externa, y qué comprobación tiene que existir antes de dejar de mirar.
 
-**Evidencia:** el BFF implementado con `/goal`, y una ejecución no interactiva
-reproducible.
+**Evidencia:** tres conexiones MCP justificadas, una ejecución no interactiva
+reproducible, y un `.claude/` podado con lo que se queda y por qué.
 
 ## Proyecto Integrador
 
-El proyecto es una API de gestión de tareas con PostgreSQL, a la que más
-adelante se antepone un BFF. Su dominio es deliberadamente convencional para que
-las decisiones difíciles sean de ingeniería asistida: contrato, migración,
-contexto, verificación, entrega, permisos y automatización.
+El proyecto es una API de gestión de tareas con PostgreSQL. Su dominio es
+deliberadamente convencional para que las decisiones difíciles sean de
+ingeniería asistida: contrato, migración, contexto, verificación, entrega,
+permisos y automatización.
 
 No se construye una aplicación distinta en cada sesión. El mismo repositorio
 acumula historia, decisiones y herramientas, de modo que también aparecen los

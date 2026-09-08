@@ -120,45 +120,56 @@ el contrato completo.
 **Sales con:** dos fallos corregidos con su regla escrita, y el contrato
 completo demostrado sin depender de esta conversación.
 
-### 8. Convertir repetición en una herramienta evaluada
+### 8. Describir el sistema sin que la descripción envejezca
 
-**Situación:** el mismo procedimiento de verificación se repite y cambia entre
-ejecuciones.
+**Situación:** la especificación que describe tu API y el contrato que
+prometiste dejan de coincidir, y nadie se entera.
 
-**Conceptos:** skills bajo demanda, descubrimiento, instrucciones frente a
-código, efectos permitidos y evaluación de una herramienta de IA.
+**Conceptos:** descripción generada frente a escrita a mano, deriva entre
+código y contrato, y la diferencia entre persuadir, decidir la autoridad y
+garantizar —instrucción, regla, permiso, hook—.
 
-**Práctica:** construir un skill de verificación y someterlo a casos válidos,
-inválidos y adversos.
+**Práctica:** exportar la especificación OpenAPI y confrontarla con el
+contrato; construir una skill que genere el diagrama y el diccionario de datos
+desde los modelos y las migraciones; y configurar dos hooks —uno que bloquea
+el commit cuando la descripción quedó desincronizada, otro que la regenera al
+editar los modelos—, probados con un caso permitido y uno bloqueado.
 
-**Sales con:** un skill versionado cuya utilidad y límites fueron probados.
+**Sales con:** una descripción del sistema que se regenera y se verifica sola,
+y dos guardarraíles probados en los dos sentidos.
 
-### 9. Convertir reglas en guardarraíles
+### 9. Delegar con contexto aislado
 
-**Situación:** "no hagas X" es una instrucción; una ejecución automática necesita
-una garantía más fuerte.
+**Situación:** una segunda opinión contaminada por la conversación que produjo
+el cambio no es independiente.
 
-**Conceptos:** permisos, sandbox, hooks, mínimo privilegio, caso negativo y
-diferencia entre persuadir, disparar y bloquear.
+**Conceptos:** contexto aislado, autoridad acotada de un trabajo delegado,
+revisión adversaria y triaje de hallazgos.
 
-**Práctica:** configurar solo la autoridad necesaria y demostrar tanto lo que se
-permite como lo que se rechaza.
+**Práctica:** crear tres subagentes con la autoridad mínima de su oficio —un
+revisor de código y un auditor de seguridad que solo leen, y uno que ejecuta
+la suite para resumirla y aun así no escribe—, delegarles trabajo real, y
+triar sus hallazgos en aceptados y rechazados con motivo.
 
-**Sales con:** permisos y hooks auditables, no una configuración aceptada por fe.
+**Sales con:** tres subagentes acotados y versionados, y hallazgos triados con
+criterio propio.
 
-### 10. Delegar y ejecutar sin nadie delante
+### 10. Conectar sistemas externos, y soltar el volante
 
-**Situación:** una segunda opinión contaminada por la conversación no es
-independiente, y una ejecución en CI no puede detenerse a pedir permiso.
+**Situación:** llevas nueve sesiones ejecutando Docker, PostgreSQL y peticiones
+HTTP a mano; y tu verificación solo corre cuando alguien se acuerda de mirarla.
 
-**Conceptos:** contexto aislado, revisión adversaria, alcance de MCP, ejecución
-no interactiva, salida estructurada y límites operativos.
+**Conceptos:** alcance de un MCP, datos a los que llega, permisos que concede,
+coste; condición comprobable frente a promesa del modelo; ejecución no
+interactiva y salida estructurada; y poda de lo acumulado en `.claude/`.
 
-**Práctica:** delegar una revisión, evaluar una conexión externa y ejecutar la
-verificación en un flujo automatizado.
+**Práctica:** conectar y evaluar tres servidores MCP —Docker, Postman y
+PostgreSQL—; dejar a Claude trabajando contra una condición con `/goal` y
+ejecutar la misma verificación sin interfaz; y podar `.claude/`, `CLAUDE.md` y
+el `README.md` final.
 
-**Sales con:** una entrega revisada y un proceso no interactivo con autoridad
-explícita.
+**Sales con:** tres conexiones justificadas, una ejecución no interactiva
+reproducible, y un repositorio del que sabes decir qué se queda y por qué.
 
 ## La Decisión que Conecta Todo
 

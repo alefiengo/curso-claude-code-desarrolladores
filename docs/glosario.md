@@ -42,8 +42,8 @@ configuración:
 |---|---|---:|
 | En el prompt | "ejecuta el test y arregla lo que falle" | 1 |
 | En la sesión | `/goal`, con una condición comprobable | 10 |
-| En un programa | Stop hook: un código de salida que no se reinterpreta | 8 |
-| En otro agente | Un revisor con contexto limpio | 8 |
+| En un programa | Stop hook: un código de salida que no se reinterpreta | 10 |
+| En otro agente | Un revisor con contexto limpio | 9 |
 
 ### Modo de fallo
 
@@ -154,24 +154,31 @@ entra en contexto en cada sesión.
 
 Las dos se revisan con `/memory`.
 
-### Permiso, sandbox y hook
+### Instrucción, regla, permiso y hook
 
-Tres capas distintas, que se confunden con facilidad:
+Cinco mecanismos que se confunden con facilidad. Solo cuatro son capas de
+control —deciden si algo puede ocurrir—; una skill fija un procedimiento:
 
 | Capa | Qué hace | Qué no garantiza |
 |---|---|---|
 | Instrucción | Orienta la decisión del modelo | Nada: puede omitirse |
 | Skill | Fija el procedimiento que se sigue | Que el modelo no decida otra cosa |
+| Regla | Fija una convención del proyecto, siempre o por ruta | Que el modelo la cumpla: sigue siendo contexto |
 | Permiso | Decide qué herramienta puede intentarse | Que el efecto no se logre por otra vía |
-| Sandbox | Acota qué puede alcanzar el proceso | Que lo permitido sea inofensivo |
 | Hook | Ejecuta código tuyo en un evento | Que tu script sea correcto |
 
 Una instrucción orienta. Un hook ejecuta una acción en un evento y, solo en los
-eventos y condiciones que admiten bloqueo, puede impedir una operación. Los
-permisos se escriben en la
-[sesión 4](../sesiones/sesion-04-ejecutar-y-publicar/README.md); el sandbox y
-los hooks se trabajan en la
-sesión 8 _(aún no publicada)_.
+eventos y condiciones que admiten bloqueo, puede impedir una operación. Las
+reglas de proyecto se escriben en la
+[sesión 7](../sesiones/sesion-07-reproducir-y-depurar/README.md), los permisos
+en la [sesión 4](../sesiones/sesion-04-ejecutar-y-publicar/README.md), y los
+hooks en la
+[sesión 8](../sesiones/sesion-08-generar-y-garantizar/README.md).
+
+El **sandbox** de Bash existe y acota qué puede alcanzar un proceso, pero
+ningún laboratorio del curso lo usa: para acotar el alcance de un trabajo
+delegado, la sesión 9 recorta las herramientas del subagente, que es la
+decisión que sí cambia el resultado.
 
 ### Solicitud de cambios
 

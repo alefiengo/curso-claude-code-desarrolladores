@@ -2,9 +2,10 @@
 
 Este mapa orienta. `claude --help` y `/help` mandan en la versión instalada.
 
-Todo lo que aparece aquí se contrastó con dos fuentes: la instalación
-(Claude Code 2.1.252) y la [documentación oficial](https://code.claude.com/docs).
-Una sola no basta.
+Todo lo que aparece aquí se contrastó con dos fuentes: la instalación y la
+[documentación oficial](https://code.claude.com/docs). Una sola no basta. Las
+filas 1 a 7 se verificaron con Claude Code 2.1.252; las filas 8 a 10, con
+2.1.263 —de donde salió que `/agents` está retirado—.
 
 ## Por Sesión
 
@@ -17,9 +18,9 @@ Una sola no basta.
 | 5 | `/skills`, `/reload-skills`, `/plan`, `Ctrl+G` | Entregar un cambio e integrarlo con herramientas propias |
 | 6 | `/branch`, `/fork` | Interrumpir y recuperar |
 | 7 | `/rename`, `--continue` | Reproducir un fallo y demostrar su corrección |
-| 8 | `/hooks`, `/agents`, `/list-agents`, `/subtask` | Convertir reglas en guardarraíles, y delegar con contexto aislado |
-| 9 | `/mcp` | Evaluar y conectar sistemas externos |
-| 10 | `/goal`, `/background`, `/tasks`, `claude -p`, `--output-format json`, `--json-schema` | Ejecutar sin nadie delante: construir el BFF |
+| 8 | `/hooks` | Generar la descripción del sistema y garantizar que no envejezca |
+| 9 | `.claude/agents/`, `/subtask` | Delegar con contexto aislado |
+| 10 | `/mcp`, `/goal`, `claude -p`, `--output-format json` | Conectar sistemas externos, y trabajar sin nadie delante |
 
 ## Etiquetas del Curso
 

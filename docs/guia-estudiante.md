@@ -8,8 +8,9 @@ El curso avanza en tres bloques:
    proyecto y mantener señal durante trabajo largo.
 2. **Ejecutar, entregar y recuperar:** llevar un plan acordado hasta código
    publicado, entregarlo con evidencia y recuperarse de una desviación.
-3. **Verificar, extender y automatizar:** depurar, construir herramientas
-   reutilizables, acotar permisos y ejecutar sin nadie delante.
+3. **Verificar, extender y automatizar:** depurar desde una reproducción,
+   generar la descripción del sistema y garantizarla con hooks, delegar en
+   subagentes acotados y ejecutar sin nadie delante.
 
 Cada sesión deja una decisión transferible y una evidencia revisable. Algunas
 hacen crecer la API; otras mejoran las instrucciones o herramientas que la

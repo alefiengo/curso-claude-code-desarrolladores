@@ -250,20 +250,6 @@ claude
 
 La primera ejecución abre el flujo de inicio de sesión en el navegador.
 
-### Sandbox: dos paquetes en Linux y WSL
-
-El sandbox de Bash que se usa en la sesión 8 funciona en Linux, macOS y WSL 2, y
-**no** en Windows nativo. En macOS no hay nada que instalar. En Linux y WSL 2
-necesita dos paquetes:
-
-```bash
-sudo apt-get install bubblewrap socat
-```
-
-Sin ellos, `/sandbox` abre una pestaña de dependencias en lugar de funcionar.
-Instálalos ahora: es un `apt-get` de treinta segundos que evita perder el paso 6
-del laboratorio.
-
 Diagnóstico:
 
 ```bash

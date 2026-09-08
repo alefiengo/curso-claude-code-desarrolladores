@@ -9,7 +9,8 @@ abierta salvo las restricciones de seguridad, migración y verificación.
 - IDs enteros positivos generados por la base.
 - `404` para recurso inexistente, `409` para conflicto y `422` para entrada inválida.
 - Los códigos de las tablas siguientes son parte del contrato: son lo que
-  afirman los tests, y lo que la sesión 10 compara al revisar. No los cambies
+  afirman los tests, y aquello contra lo que se compara la descripción que genera
+  el código en la sesión 8. No los cambies
   sin cambiar antes este documento.
 - Errores con forma estable: `{"detail": "<mensaje>"}`, donde el mensaje es una
   cadena legible. Para un `422` de validación se admite además la forma que

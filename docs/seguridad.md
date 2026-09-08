@@ -32,7 +32,8 @@ del repositorio o contactar un dominio ajeno a la tarea:
 
 Los permisos deciden qué herramientas puede intentar usar Claude. El sandbox
 limita a nivel del sistema lo que pueden hacer Bash y sus procesos hijos. Son
-capas complementarias, no sustitutas.
+capas complementarias, no sustitutas. Ningún laboratorio del curso configura
+el sandbox: aparece aquí porque existe y conviene saber qué resuelve.
 
 En las primeras sesiones usa el modo predeterminado. `acceptEdits` es adecuado
 cuando ya sabes qué archivos entran. `dontAsk` sirve para automatizaciones con

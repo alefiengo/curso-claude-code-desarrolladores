@@ -10,9 +10,8 @@ base verificada.
 
 ## La Aplicación
 
-API REST para gestión de tareas, con base de datos relacional. Más adelante en
-el curso se le antepone un **BFF**: un servicio propio que consume la API y
-compone lo que necesita un cliente concreto.
+API REST para gestión de tareas, con base de datos relacional. Un solo
+servicio: el curso no añade capas nuevas después de cerrar su contrato.
 
 El dominio es deliberadamente convencional. Lo que se practica es cómo trabajar
 con el agente, no el diseño de la aplicación.
@@ -22,7 +21,6 @@ con el agente, no el diseño de la aplicación.
 | Componente | Tecnología |
 |---|---|
 | API | FastAPI, Python 3.12 |
-| BFF | FastAPI, Python 3.12, en el mismo repositorio |
 | Base de datos | PostgreSQL 18 |
 | Entorno y dependencias | uv |
 | Tests | pytest |
@@ -58,9 +56,8 @@ separado:
 | 3 | El plan de persistencia, acordado y escrito antes de generar código |
 | 4 | Persistencia, migración, catálogo de estados y `GET /states`; los permisos del proyecto versionados; el repositorio publicado |
 
-De la sesión 5 en adelante el proyecto completa el resto del contrato y, más
-tarde, suma el BFF. Cada sesión declara en su propia página qué añade y en qué
-estado deja el repositorio.
+De la sesión 5 a la 6 el proyecto completa el resto del contrato. Cada sesión
+declara en su propia página qué añade y en qué estado deja el repositorio.
 
 La API crece en rebanadas finas, una por sesión. Es deliberado: cada sesión
 introduce **el mínimo de dominio que hace necesaria su herramienta**, y el resto
@@ -68,36 +65,19 @@ de los minutos son para Claude Code.
 
 Al terminar la sesión 6, el contrato completo —salud, estados, proyectos y
 tareas, con sus fechas límite— está implementado. Ninguna capacidad nueva se
-añade después: el [proyecto final](proyecto-final.md) trabaja sobre lo que
-falta a propósito —el BFF, u otra capacidad que el contrato de hoy no cubre—,
-nunca sobre algo que ya resolviste en un lab.
+añade después: las sesiones 7 a 10 trabajan sobre el sistema que rodea a la
+API, no sobre su contrato. El [proyecto final](proyecto-final.md) trabaja
+sobre una capacidad que el contrato de hoy no cubre, nunca sobre algo que ya
+resolviste en un lab.
 
 ## Arquitectura
 
-### Mientras se construye la API
+Un solo servicio, de principio a fin del curso:
 
 ```text
   API :8000
     |
     +-- PostgreSQL :5432
-```
-
-### Cuando entra el BFF
-
-Un segundo servicio se antepone a la API. Nada de la API cambia por ello, y ese
-es justamente el punto: aparece un contrato entre dos servicios que ningún test
-de la API vigila.
-
-```text
-  BFF :8001 --> API :8000 --> PostgreSQL :5432
-```
-
-### En el proyecto final
-
-Un frontend consume el BFF, y el recorrido completo queda en tus manos:
-
-```text
-  frontend --> BFF --> API --> PostgreSQL
 ```
 
 ### Alrededor del código

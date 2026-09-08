@@ -32,8 +32,8 @@ certeza de que la migración completa del proyecto sube y baja sin error.
 
 ## Requisitos
 
-- Lab 02 terminado: `main` en verde con el fallo del Lab 01 y las reglas del
-  Lab 02, integrados.
+- Lab 02 terminado: `main` en verde con la corrección del Lab 01 y las reglas
+  del Lab 02, integradas.
 
 ## Ritmo de Trabajo
 

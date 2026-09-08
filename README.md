@@ -61,8 +61,8 @@ Al terminar podrás:
 | [5](sesiones/sesion-05-revisar-e-integrar/README.md) | El código funciona, pero el cambio no es revisable |
 | [6](sesiones/sesion-06-interrumpir-y-recuperar/README.md) | Una línea de trabajo se desvía o debe continuar otro día |
 | [7](sesiones/sesion-07-reproducir-y-depurar/README.md) | Una explicación plausible reemplaza a la reproducción |
-| 8 _(aún no publicada)_ | Un contrato entre servicios que ningún test vigila |
-| 9 _(aún no publicada)_ | Una instrucción se confunde con una garantía |
+| [8](sesiones/sesion-08-generar-y-garantizar/README.md) | La descripción del sistema envejece sin que nadie lo note |
+| 9 _(aún no publicada)_ | Una segunda opinión contaminada por la conversación que la produjo |
 | 10 _(aún no publicada)_ | Una ejecución aislada o automática puede exceder sus límites |
 
 Consulta el [temario detallado](docs/temario.md) para ver las decisiones y los

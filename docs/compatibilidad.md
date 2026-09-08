@@ -7,9 +7,9 @@ opcional para que una diferencia de plan o versión no bloquee el curso.
 
 - Base general revisada contra **Claude Code 2.1.247** y la documentación
   disponible el **17 de agosto de 2026**.
-- Las sesiones 1 y 2, ya reconstruidas, se volvieron a verificar con **Claude
-  Code 2.1.247** y la documentación disponible el **27 de agosto de 2026**. La
-  versión declarada en cada sesión manda sobre esta referencia general.
+- Cada sesión declara en su sección **Versión** con qué versión se verificó, y
+  esa declaración manda sobre esta referencia general: la sesión 8 se verificó
+  con **2.1.263**, y las anteriores con versiones más antiguas.
 - Ejecuta `claude --version`, `claude doctor` y `claude --help` antes de la sesión 1.
 - Dentro de Claude Code, `/help` es la fuente de verdad de tu instalación.
 - Actualiza antes del curso. No actualices entre dos pasos de un mismo lab.
@@ -50,17 +50,17 @@ no vienen garantizados en los tres sistemas:
 
 | Comando | Dónde falta | Qué hacer |
 |---|---|---|
-| `timeout` | **macOS**: no viene de serie | `brew install coreutils` y usar `gtimeout`, o sustituirlo por el límite de tu terminal. Lo usan tres pasos de la sesión 10 |
-| `npx` | Sistemas sin Node instalado | Solo lo usa el paso opcional de MCP en la sesión 9. Sin Node, registra la decisión de la tabla y salta la conexión |
+| `timeout` | **macOS**: no viene de serie | `brew install coreutils` y usar `gtimeout`, o sustituirlo por el límite de tu terminal. Lo usa la sesión 10, todavía sin escribir |
+| `npx` | Sistemas sin Node instalado | Solo lo usan las conexiones MCP de la sesión 10. Sin Node, registra la decisión de la tabla y salta la conexión |
 | `curl` | Habitual, pero no obligatorio | Desde la sesión 5 se usa para comprobar la API contra el servidor, no solo con las pruebas. Lo ejecuta Claude; si falta en tu sistema, pídele que instale el paquete de tu distribución |
 | `sed -i` | **macOS**: la sintaxis difiere de Linux | El material no lo usa: donde hace falta editar un archivo desde la terminal, usa Python |
 
 Ninguno es obligatorio para completar una sesión. Si te falta alguno, el paso lo
 dice y ofrece la ruta alternativa.
 
-Los subagentes nombrados se crean escribiendo el archivo en `.claude/agents/`.
-En 2.1.247, `/agents` existe pero está marcado como retirado y solo remite a esa
-carpeta: el material no depende de él en ninguna sesión.
+Los subagentes nombrados se crean escribiendo el archivo en `.claude/agents/`,
+o pidiéndoselo a Claude. En 2.1.263, `/agents` aparece marcado como retirado y
+solo remite a esa carpeta: el material no depende de él en ninguna sesión.
 
 No se usan como requisito comandos que solo existan en una instalación local o
 en un plugin no documentado. Si el curso crea un comando propio, el material lo

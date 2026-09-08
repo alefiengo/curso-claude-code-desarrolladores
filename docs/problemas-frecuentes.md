@@ -32,7 +32,6 @@ Consulta esta guía antes de pedir soporte.
 | `-p` aborta al intentar una herramienta | En modo no interactivo no puede resolver una aprobación | Configurar `--allowedTools` o `dontAsk` con allowlist; consultar la sesión 10 |
 | Auto mode no aparece | El plan, proveedor, modelo, versión o política no cumple sus requisitos | Usar el modo **Manual** (`default`) o `acceptEdits`; revisar `compatibilidad.md` |
 | Un Stop hook repite el mismo fallo | La condición sigue roja o el script no tiene salida | Interrumpir, ejecutar el script fuera del hook y revisar timeout/diagnóstico |
-| Docker falla dentro del sandbox | Docker necesita acceso que el sandbox no ofrece | Mantenerlo fuera solo con aprobación puntual; no abrir Bash globalmente |
 
 ## Git
 
