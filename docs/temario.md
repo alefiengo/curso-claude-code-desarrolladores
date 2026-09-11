@@ -153,7 +153,7 @@ edición—, comparar tres revisiones del mismo cambio según el contexto que
 lleva cada una, y triar los hallazgos en aceptados y rechazados con motivo.
 
 **Sales con:** cuatro subagentes acotados y versionados, y hallazgos triados
-con criterio propio.
+con criterio propio en la solicitud de cambios.
 
 ### 10. Conectar sistemas externos, y soltar el volante
 

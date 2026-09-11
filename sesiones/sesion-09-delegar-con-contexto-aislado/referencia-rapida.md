@@ -36,9 +36,9 @@ supuestos, así que su acuerdo vale menos como segunda opinión.
 | La jerarquía de `CLAUDE.md` del proyecto | Los archivos que Claude ya leyó en tu hilo |
 | Una foto del estado del repositorio | Lo que otro subagente encontró antes |
 
-Por eso, si quieres que vea un informe anterior, alguien tiene que dejarlo en
-disco: de un subagente solo vuelve el resumen, y lo que no se guarda se
-pierde.
+Por eso, si quieres que sepa algo que solo está en tu conversación —lo que
+encontró otro agente, por ejemplo—, se lo pasas **dentro del encargo**. No
+hace falta inventar un archivo para eso.
 
 Lo que sí lo acompaña son tus hooks: los dos que configuraste en la sesión 8
 se disparan igual cuando el que llama a la herramienta es un subagente.
@@ -83,5 +83,5 @@ tu lista `deny` impide usar un subagente concreto sin tocar su archivo—.
 | Devuelve buenas prácticas genéricas | Le falta oficio en el archivo, no contexto: escribe contra qué revisa y en qué orden |
 | Hace más de lo que le pediste | Le declaraste de más, o no le declaraste nada y heredó todo |
 | No puede leer un archivo que necesita | Mira `/permissions`: una regla `deny` de la sesión 4 es la primera candidata |
-| Su informe se perdió al seguir trabajando | Solo vuelve el resumen: guárdalo en `evidencias/` antes de continuar |
+| Su informe se perdió al seguir trabajando | Solo vuelve el resumen, y vive en la conversación: si lo vas a necesitar más tarde, cópialo a tus notas o vuelve a invocarlo |
 | Los tres veredictos coinciden en todo | Resultado válido. Anota cuál llegó habiendo leído el relato del autor, que es lo que este lab mide |

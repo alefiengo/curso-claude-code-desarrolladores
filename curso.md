@@ -212,8 +212,9 @@ propósito.
 un trabajo que no estás observando.
 
 **Evidencia:** cuatro subagentes acotados y versionados, cada uno con la
-autoridad mínima de su oficio, y sus hallazgos triados en aceptados y
-rechazados con motivo, citando cada rechazo dónde está escrita la decisión.
+autoridad mínima de su oficio, y sus hallazgos triados en la solicitud de
+cambios —aceptados y rechazados con motivo, citando cada rechazo dónde está
+escrita la decisión—. La sesión no añade ningún documento al repositorio.
 
 #### Sesión 10 — Conectar sistemas externos, y soltar el volante
 

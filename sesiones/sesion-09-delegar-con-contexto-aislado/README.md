@@ -16,10 +16,10 @@ conversación que produjo el cambio no es independiente.**
 
 | Bloque | Minutos |
 |---|---:|
-| [Lab 01 — El que sí puede escribir](labs/01-el-que-si-puede-escribir/README.md) | 30 |
-| [Lab 02 — El revisor que no estuvo ahí](labs/02-el-revisor-que-no-estuvo-ahi/README.md) | 30 |
-| [Lab 03 — Misma autoridad, otra lente](labs/03-misma-autoridad-otra-lente/README.md) | 20 |
-| [Lab 04 — Lo que sobrevive al triaje](labs/04-lo-que-sobrevive-al-triaje/README.md) | 25 |
+| [Lab 01 — El que sí puede escribir](labs/01-el-que-si-puede-escribir/README.md) | 28 |
+| [Lab 02 — El revisor que no estuvo ahí](labs/02-el-revisor-que-no-estuvo-ahi/README.md) | 28 |
+| [Lab 03 — Misma autoridad, otra lente](labs/03-misma-autoridad-otra-lente/README.md) | 22 |
+| [Lab 04 — Lo que sobrevive al triaje](labs/04-lo-que-sobrevive-al-triaje/README.md) | 27 |
 | Cierre y decisión transferible | 15 |
 
 ## Materiales
@@ -43,7 +43,7 @@ devuelven un resumen.
 | Lab | Qué haces | Qué descubres |
 |---|---|---|
 | [01 — El que sí puede escribir](labs/01-el-que-si-puede-escribir/README.md) | Construyes el único subagente con autoridad para escribir y le sueltas un refactor acotado sin supervisarlo | Que lo que vuelve de un trabajo delegado es el relato del agente, y que el diff cuenta otra cosa |
-| [02 — El revisor que no estuvo ahí](labs/02-el-revisor-que-no-estuvo-ahi/README.md) | Pides la misma revisión tres veces: con la skill de fábrica, con `/subtask` y con un subagente limpio | Que el veredicto cambia según cuánto de tu conversación haya leído quien revisa |
+| [02 — El revisor que no estuvo ahí](labs/02-el-revisor-que-no-estuvo-ahi/README.md) | Haces la misma pregunta tres veces: en tu sesión, con `/subtask` y con un subagente limpio | Que el veredicto cambia según cuánto de tu conversación haya leído quien revisa |
 | [03 — Misma autoridad, otra lente](labs/03-misma-autoridad-otra-lente/README.md) | Ejecutas `/security-review` y después construyes un auditor con las mismas herramientas exactas que el revisor | Que el recorte de herramientas define lo que un agente no puede hacer, no lo que sabe mirar |
 | [04 — Lo que sobrevive al triaje](labs/04-lo-que-sobrevive-al-triaje/README.md) | Construyes uno que ejecuta comprobaciones sin herramientas de edición, y trías sus hallazgos | Que un hallazgo correcto en general puede ser ruido aquí, y que distinguirlo es tuyo |
 
@@ -54,8 +54,8 @@ devuelven un resumen.
 - Distinguir las tres formas de delegar por el contexto que llevan: tu hilo,
   un delegado que hereda tu conversación, y un agente que arranca limpio.
 - Decir qué carga un subagente al arrancar y qué no verá nunca.
-- Preparar el material que un agente sin herramientas de ejecución necesita
-  para poder trabajar.
+- Pasarle a un agente limpio, dentro del encargo, lo que solo existe en tu
+  conversación.
 - Comparar una skill de revisión de fábrica con un revisor propio, y decir en
   qué se diferencian sus alcances.
 - Triar hallazgos con evidencia: aceptar solo lo comprobado y rechazar citando
@@ -80,9 +80,9 @@ permisos son los que miran el comando.
 **Lo que vuelve de un trabajo delegado es un resumen, y un resumen es un
 relato.** El agente trabaja en su propia ventana de contexto: sus pasos, sus
 dudas y lo que descartó se quedan ahí. Lo que llega a tu conversación es su
-versión de lo que hizo. Por eso la revisión se hace contra el diff, no contra
-el informe, y por eso quien lea el informe antes de revisar ya no es
-independiente.
+versión de lo que hizo. Por eso la revisión se hace contra el código y el
+diff, no contra el informe, y por eso quien lea el informe antes de revisar ya
+no es independiente.
 
 **Delegar tiene tres formas, y se distinguen por el contexto que llevan.** Tu
 propio hilo lo sabe todo. `/subtask` y `/fork` mandan el trabajo aparte pero
@@ -136,9 +136,9 @@ sin corregir nada:
 3. Qué archivos hay en .claude/agents/ y qué herramientas declara cada uno,
    en una tabla.
 4. Cuál de ellos puede escribir, cuál puede ejecutar y cuáles solo leen.
-5. Qué archivos de evidencias/ se crearon hoy y cuántas líneas tiene cada uno.
-6. Cuántas filas de evidencias/s09.md están aceptadas, rechazadas y
-   pendientes.
+5. Si el repositorio ganó hoy algún archivo que no esté en .claude/agents/.
+6. Qué dice la descripción de la solicitud de cambios de hoy sobre los
+   hallazgos: cuántos aceptados, cuántos rechazados y con qué motivo.
 7. uv run pytest -q y uv run ruff check .
 8. Si openapi.json coincide con la especificación que genera el código.
 9. Si queda alguna rama sin integrar.
@@ -150,7 +150,7 @@ La sesión está completa si:
 
 - [ ] Los cuatro subagentes están en `main`, cada uno con sus herramientas declaradas en el archivo.
 - [ ] Ninguno de los tres revisores declara herramientas de edición, y solo uno de ellos puede ejecutar.
-- [ ] Los dos informes y el triaje están en `evidencias/`.
+- [ ] El triaje está en la descripción de la solicitud de cambios, no en un documento inventado para la ocasión.
 - [ ] Cada hallazgo rechazado cita dónde está escrita la decisión que lo vuelve ruido.
 - [ ] El refactor del Lab 01 tiene un destino decidido y argumentado.
 - [ ] La suite está en verde y no queda ninguna rama sin integrar.
@@ -200,13 +200,13 @@ abiertas:
 | `.claude/agents/revisor-de-codigo.md` | Lab 02 |
 | `.claude/agents/auditor-de-seguridad.md` | Lab 03 |
 | `.claude/agents/consolidador-de-hallazgos.md` | Lab 04 |
-| `evidencias/s09-revisor.md` y `evidencias/s09-auditor.md` | Labs 02 y 03 |
-| `evidencias/s09.md`, con el triaje | Lab 04 |
 | El refactor integrado, corregido o descartado | Decisión del Lab 04 |
+| El triaje, en la descripción de la solicitud de cambios | Lab 04 |
 
-El contrato de la API sigue siendo el de la sesión 6. Lo que cambia hoy es
-quién puede tocar tu repositorio y con qué autoridad: cuatro agentes
-versionados, y una lista de lo que se decidió no arreglar.
+El contrato de la API sigue siendo el de la sesión 6, y el repositorio no gana
+ningún documento nuevo. Lo que cambia es quién puede tocarlo y con qué
+autoridad: cuatro agentes versionados, y una decisión escrita donde se toman
+las decisiones.
 
 ## Preparación para la Sesión 10
 

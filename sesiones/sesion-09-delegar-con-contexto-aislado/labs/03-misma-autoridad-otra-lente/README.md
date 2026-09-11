@@ -19,22 +19,23 @@ misma autoridad, vas a poder decir de dónde sale la diferencia.
 
 ## Requisitos
 
-- Lab 02 terminado: el informe del revisor en `evidencias/s09-revisor.md` y el
+- Lab 02 terminado: los hallazgos del revisor anotados en tu tabla y el
   refactor todavía sin confirmar.
 
 ## Ritmo de Trabajo
 
-Este lab tiene 20 minutos:
+Este lab tiene 22 minutos:
 
 | Min | Debe existir |
 |---:|---|
 | 0–5 | La revisión de fábrica ejecutada y anotado hasta dónde llegó, o anotado que tu instalación no la trae |
 | 5–12 | `.claude/agents/auditor-de-seguridad.md` revisado y guardado |
-| 12–18 | Su informe en `evidencias/s09-auditor.md` |
-| 18–20 | Anotada la diferencia entre los dos agentes de autoridad idéntica |
+| 12–19 | Sus hallazgos de vuelta, leídos enteros |
+| 19–22 | Anotada la diferencia entre los dos agentes de autoridad idéntica |
 
-**Si necesitas cortar aquí:** lo mínimo es el auditor escrito y su informe
-guardado. El Lab 04 lo necesita en disco.
+**Si necesitas cortar aquí:** lo mínimo es el auditor escrito. Como con el
+revisor, sus hallazgos se van con la conversación y el agente se queda: se
+vuelve a invocar cuando retomes.
 
 ## Paso a Paso
 
@@ -82,16 +83,15 @@ configuración y no ejecuta nada.
 Antes de guardarlo, comprueba que la línea de herramientas es **idéntica** a
 la del revisor. Ábrelos uno al lado del otro si hace falta.
 
-### 3. Ejecutarlo y guardar lo que devuelve
+### 3. Ejecutarlo
 
 ```text
 @agent-auditor-de-seguridad Audita este repositorio y dame tus hallazgos.
 ```
 
-```text
-Guarda el informe completo del auditor-de-seguridad en
-evidencias/s09-auditor.md, tal como lo devolvió.
-```
+Léelos enteros y quédate con ellos en la conversación. Hoy no se guarda nada:
+un informe de revisión no es documentación del proyecto, y lo que sobreviva al
+triaje del Lab 04 va a acabar en la descripción de la solicitud de cambios.
 
 Lo más probable es que aparezca algún hallazgo sobre algo que el curso decidió
 a propósito: que la API no tiene autenticación, que la contraseña de la base
@@ -120,8 +120,8 @@ Sin cambiar nada, dime:
    en una tabla.
 2. Si el revisor-de-codigo y el auditor-de-seguridad declaran exactamente las
    mismas herramientas.
-3. Cuántos hallazgos tiene evidencias/s09-auditor.md y cómo están ordenados.
-4. Si el archivo del auditor declara que no corrige, y con qué palabras.
+3. Si el archivo del auditor declara que no corrige, y con qué palabras.
+4. Si apareció algún archivo nuevo que no sea el del subagente.
 5. En qué rama estoy y si el refactor sigue sin confirmar.
 ```
 
@@ -129,13 +129,13 @@ El lab está completo si:
 
 - [ ] Ejecutaste la revisión de fábrica y sabes decir sobre qué miró.
 - [ ] `.claude/agents/auditor-de-seguridad.md` declara las mismas herramientas que el revisor.
-- [ ] Su informe está en `evidencias/s09-auditor.md`, ordenado por gravedad.
+- [ ] Sus hallazgos llegaron ordenados por gravedad y con archivo y línea cada uno.
 - [ ] Si algún hallazgo choca con una decisión ya tomada, lo dejaste sin tocar para el Lab 04; y si no lo hay, lo anotaste.
 - [ ] Puedes explicar en una frase por qué dos agentes con la misma autoridad devuelven cosas distintas.
 
 ## Limpieza
 
-Ninguna. El Lab 04 lee los dos informes. Antes de seguir, `/context`.
+Ninguna, y no queda ningún archivo nuevo. Antes de seguir, `/context`.
 
 ## Problemas Frecuentes
 
@@ -145,4 +145,4 @@ Ninguna. El Lab 04 lee los dos informes. Antes de seguir, `/context`.
 | El auditor devuelve treinta hallazgos genéricos | Le falta la exigencia de evidencia. Corrige el archivo para que cada hallazgo cite archivo y línea, y vuelve a invocarlo |
 | Dice que el repositorio es seguro y no encuentra nada | Vuelve a invocarlo señalando dos sitios concretos: el manejo de la configuración y los permisos de `.claude/`. Si insiste, anótalo como resultado y compáralo en el Lab 04 con lo que dijo el revisor |
 | Intenta abrir el `.env` y no puede | Mira tus permisos: la regla `deny` que escribiste en la sesión 4 es la primera candidata. Anótalo, porque significa que la autoridad del agente está acotada dos veces, por sus herramientas y por lo que tú autorizaste |
-| El informe es larguísimo | Guárdalo igual. El Lab 04 construye un agente precisamente para eso |
+| El informe es larguísimo | Déjalo estar. El Lab 04 construye un agente precisamente para eso |

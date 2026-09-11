@@ -28,14 +28,14 @@ línea.
 
 ## Ritmo de Trabajo
 
-Este lab tiene 30 minutos:
+Este lab tiene 28 minutos:
 
 | Min | Debe existir |
 |---:|---|
 | 0–4 | La rama abierta y el punto de partida confirmado |
-| 4–13 | `.claude/agents/refactorizador.md` revisado, con su límite escrito, y guardado |
-| 13–22 | El encargo entregado al agente y su resumen de vuelta |
-| 22–30 | El diff leído entero y comparado con lo que el resumen dice |
+| 4–12 | `.claude/agents/refactorizador.md` revisado, con su límite escrito, y guardado |
+| 12–20 | El encargo entregado al agente y su resumen de vuelta |
+| 20–28 | El diff leído entero y comparado con lo que el resumen dice |
 
 **Si necesitas cortar aquí:** lo mínimo es el archivo del agente guardado y
 confirmado. El encargo puede esperar, pero el Lab 02 necesita un cambio que
