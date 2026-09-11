@@ -1,17 +1,44 @@
-# Evaluación y Portafolio
+# Evaluación
 
-El curso no usa notas. Lo que sí te pide es evidencia de que sabes dirigir,
-verificar y recuperar trabajo hecho con un agente.
+La calificación del curso son dos cifras:
 
-El [diagnóstico inicial y la tarea de transferencia](diagnostico.md) permiten
-comparar conductas antes y después sin convertirlas en calificación.
+| Qué | Peso |
+|---|---:|
+| Cuestionario final sobre Claude Code | 80 % |
+| Asistencia a las sesiones en vivo | 20 % |
+
+Nada más entra en la nota. El trabajo de los laboratorios no se califica: se
+comprueba contra la validación de cada sesión, y su valor es que te deja
+preparado para el cuestionario.
+
+El [diagnóstico inicial y la tarea de transferencia](diagnostico.md) tampoco
+llevan nota: sirven para comparar conductas antes y después.
+
+## Cuestionario Final
+
+Se publica al terminar la última sesión, y tienes **24 horas desde su
+publicación** para responderlo.
+
+Cubre Claude Code: lo que practicaste durante las diez sesiones. No es un examen
+de sintaxis ni de memoria de comandos —para eso está
+[el mapa de comandos](comandos.md), y puedes consultarlo—, sino de las
+decisiones que el curso trabaja: qué pieza resuelve qué problema, cuándo elegir
+una y no otra, y qué se puede afirmar con la evidencia que deja cada una.
+
+No se entrega el repositorio ni ningún documento junto al cuestionario. Tu
+repositorio es la preparación, no el entregable: si dirigiste tú las diez
+sesiones, ya tienes las respuestas.
+
+Para prepararlo, el material que más rinde es el cierre de cada sesión —sus
+preguntas de repaso—, la referencia rápida de cada una y
+[el glosario](glosario.md).
 
 ## Evidencia por Sesión
 
 Tu evidencia es el repositorio, no un informe aparte. Cada sesión la deja escrita
 sola: los commits separan los incrementos, los tests fijan el comportamiento, el
-diff muestra el alcance y las salidas que guardas —un rojo, un parche, un
-`preflight.txt`— quedan versionadas donde el lab te las pide.
+diff muestra el alcance y las salidas que guardas quedan versionadas donde el lab
+te las pide.
 
 Lo único que Git no guarda por ti son dos respuestas, y las cierra cada sesión:
 
@@ -21,27 +48,10 @@ Lo único que Git no guarda por ti son dos respuestas, y las cierra cada sesión
 Nadie espera que Claude te haya dado la misma solución que a los demás. Lo que
 cuenta es que tu decisión y tu evidencia se sostengan.
 
-## Proyecto Final
+## Autocomprobación
 
-El enunciado, las rutas y las restricciones están en
-[Proyecto Final](../proyecto-integrador/proyecto-final.md). Aquí viven solo los
-entregables y la rúbrica.
-
-Entregables:
-
-- Especificación con fuera de alcance y criterios de aceptación.
-- Registro del plan y de al menos una corrección humana al plan.
-- Rama con commits acotados y diff revisable.
-- Tests o verificaciones que fallen antes y pasen después.
-- Evidencia de permisos y datos protegidos.
-- Revisión independiente en contexto aislado.
-- Nota de recuperación: qué camino elegiste cuando algo se desvió —corregir,
-  rebobinar o empezar limpio— y por qué.
-- Retrospectiva de una página.
-- `FINAL.md` con instrucciones de ejecución, decisiones, riesgos, rollback y
-  límites conocidos.
-
-## Rúbrica Formativa
+Esta tabla no se entrega y no se califica. Sirve para que te ubiques mientras
+avanza el curso, y para saber qué repasar antes del cuestionario.
 
 | Dimensión | Aún no | Competente | Sólido |
 |---|---|---|---|
@@ -49,9 +59,9 @@ Entregables:
 | Contexto | Carga indiscriminada | Selecciona fuentes relevantes | Mide, poda y justifica lo cargado |
 | Verificación | Confía en la respuesta | Ejecuta una comprobación pertinente | Comprobaciones independientes y en varias capas |
 | Control humano | Acepta el resultado | Revisa plan y diff | Detecta una decisión débil y la corrige |
-| Seguridad | Permisos amplios o secretos expuestos | Mínimo privilegio | Threat model y aislamiento proporcionales |
+| Autoridad y permisos | Permisos amplios o secretos expuestos | Mínimo privilegio, con una prueba negativa | Elige la capa que decide cada cosa —instrucción, regla, permiso o hook— y acota la autoridad de lo que delega |
 | Recuperación | No hay punto de retorno | Rama o checkpoint recuperable | Demuestra rollback y reanudación |
 | Comunicación | Enumera cambios | Explica evidencia y límites | Permite reproducir y auditar la decisión |
 
-Al terminar deberías estar en **Competente** en todas las dimensiones, y en
-**Sólido** al menos en verificación, control humano y una más.
+Al terminar el curso deberías reconocerte en **Competente** en todas las
+dimensiones, y en **Sólido** al menos en verificación, control humano y una más.

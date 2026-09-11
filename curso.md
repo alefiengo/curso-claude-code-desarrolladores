@@ -273,8 +273,10 @@ No hay nota numérica. Se evalúan hábitos observables:
 - declara lo que sigue sin estar probado.
 
 El diagnóstico y la tarea final usan problemas equivalentes para comparar el
-proceso, no la cantidad de código. La rúbrica está en
-[Evaluación y portafolio](docs/evaluacion.md).
+proceso, no la cantidad de código, y no llevan nota. La calificación son dos
+cifras: el cuestionario final sobre Claude Code vale el 80 % y la asistencia el
+20 %. Está descrito en [Evaluación](docs/evaluacion.md), junto con la tabla de
+autocomprobación.
 
 ## Fuentes y Versionado
 

@@ -63,7 +63,7 @@ Al terminar podrás:
 | [7](sesiones/sesion-07-reproducir-y-depurar/README.md) | Una explicación plausible reemplaza a la reproducción |
 | [8](sesiones/sesion-08-generar-y-garantizar/README.md) | La descripción del sistema envejece sin que nadie lo note |
 | [9](sesiones/sesion-09-delegar-con-contexto-aislado/README.md) | Una segunda opinión contaminada por la conversación que la produjo |
-| 10 _(aún no publicada)_ | Una ejecución aislada o automática puede exceder sus límites |
+| 10 _(aún no publicada)_ | Herramientas externas manejadas a mano, y una verificación que solo corre cuando alguien la mira |
 
 Consulta el [temario detallado](docs/temario.md) para ver las decisiones y los
 artefactos de cada sesión.
@@ -74,7 +74,7 @@ artefactos de cada sesión.
 - Al menos 70 % del tiempo se trabaja sobre código y evidencia.
 - Dos o más laboratorios encadenados por sesión.
 - Un proyecto integrador que crece mediante cambios revisables.
-- Evaluación formativa: no se premia memorizar comandos ni aceptar más código.
+- La nota sale de un cuestionario final sobre Claude Code (80 %) y de la asistencia (20 %); el trabajo de los labs no se califica.
 
 ## Perfil de Entrada
 

@@ -55,8 +55,9 @@ Los desafíos opcionales no se entregan y no son requisito para avanzar.
 
 ## Dedicación Fuera de Clase
 
-Reserva 35 minutos antes de la sesión 1 para el diagnóstico, 45 minutos al final
-para la tarea de transferencia y 4–6 horas para el proyecto final. Los desafíos
+Reserva 35 minutos antes de la sesión 1 para el diagnóstico y 45 minutos al
+final para la tarea de transferencia. El cuestionario que cierra el curso se
+responde dentro de las 24 horas siguientes a su publicación. Los desafíos
 opcionales añaden 30–45 minutos por sesión si decides realizarlos.
 
 ## El proyecto integrador
@@ -76,9 +77,13 @@ laboratorio de esa sesión y el contrato bastan para recuperarla.
 
 ## Evaluación
 
-No hay notas. Cada sesión cierra con una lista de comprobación y una evidencia
-breve de proceso. El proyecto final se revisa con una rúbrica formativa. Consulta
-[Evaluación y Portafolio](evaluacion.md).
+La nota del curso son dos cifras: el **cuestionario final** sobre Claude Code
+vale el **80 %**, y la **asistencia** a las sesiones en vivo el **20 %**. El
+cuestionario se responde dentro de las 24 horas siguientes a su publicación.
+
+El trabajo de los laboratorios no se califica: cada sesión cierra con una lista
+de comprobación y una evidencia breve de proceso, y eso es lo que te deja listo
+para el cuestionario. Consulta [Evaluación](evaluacion.md).
 
 El curso empieza con un [diagnóstico](diagnostico.md) y termina con una tarea
 equivalente. Lo que comparas son tus hábitos de trabajo, no tu velocidad

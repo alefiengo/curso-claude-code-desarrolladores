@@ -66,9 +66,7 @@ de los minutos son para Claude Code.
 Al terminar la sesión 6, el contrato completo —salud, estados, proyectos y
 tareas, con sus fechas límite— está implementado. Ninguna capacidad nueva se
 añade después: las sesiones 7 a 10 trabajan sobre el sistema que rodea a la
-API, no sobre su contrato. El [proyecto final](proyecto-final.md) trabaja
-sobre una capacidad que el contrato de hoy no cubre, nunca sobre algo que ya
-resolviste en un lab.
+API, no sobre su contrato.
 
 ## Arquitectura
 
@@ -105,5 +103,6 @@ Si faltas a una sesión, la ruta de recuperación son su laboratorio y el
 [contrato de la API](contrato-api.md), que dice qué debe cumplir el resultado.
 
 El [flujo de trabajo con Git](flujo-git.md) explica cómo se abre y se integra el
-trabajo de cada sesión. El curso cierra con el
-[proyecto final](proyecto-final.md).
+trabajo de cada sesión. El curso cierra con un
+[cuestionario sobre Claude Code](../docs/evaluacion.md), no con una entrega de
+este repositorio.

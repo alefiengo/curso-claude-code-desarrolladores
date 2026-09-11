@@ -8,8 +8,9 @@ opcional para que una diferencia de plan o versión no bloquee el curso.
 - Base general revisada contra **Claude Code 2.1.247** y la documentación
   disponible el **17 de agosto de 2026**.
 - Cada sesión declara en su sección **Versión** con qué versión se verificó, y
-  esa declaración manda sobre esta referencia general: la sesión 8 se verificó
-  con **2.1.263**, y las anteriores con versiones más antiguas.
+  esa declaración manda sobre esta referencia general: la sesión 9 se verificó
+  con **2.1.268**, la 8 con **2.1.263**, y las anteriores con versiones más
+  antiguas.
 - Ejecuta `claude --version`, `claude doctor` y `claude --help` antes de la sesión 1.
 - Dentro de Claude Code, `/help` es la fuente de verdad de tu instalación.
 - Actualiza antes del curso. No actualices entre dos pasos de un mismo lab.

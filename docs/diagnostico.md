@@ -3,8 +3,8 @@
 Estas dos actividades no llevan nota. Te sirven para ver si el curso te cambió
 la forma de trabajar, no solo lo que sabes de comandos.
 
-El diagnóstico lo haces antes de la primera sesión; la transferencia, junto al
-proyecto final. Ninguna consume las 20 horas de clase.
+El diagnóstico lo haces antes de la primera sesión; la transferencia, al
+terminar la última. Ninguna consume las 20 horas de clase.
 
 ## Diagnóstico Inicial — 35 Minutos
 

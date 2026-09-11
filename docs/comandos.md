@@ -4,8 +4,8 @@ Este mapa orienta. `claude --help` y `/help` mandan en la versión instalada.
 
 Todo lo que aparece aquí se contrastó con dos fuentes: la instalación y la
 [documentación oficial](https://code.claude.com/docs). Una sola no basta. Las
-filas 1 a 7 se verificaron con Claude Code 2.1.252; las filas 8 a 10, con
-2.1.263 —de donde salió que `/agents` está retirado—.
+filas 1 a 7 se verificaron con Claude Code 2.1.252; la 8, con 2.1.263 —de
+donde salió que `/agents` está retirado—; y las filas 9 y 10, con 2.1.268.
 
 ## Por Sesión
 
@@ -20,7 +20,7 @@ filas 1 a 7 se verificaron con Claude Code 2.1.252; las filas 8 a 10, con
 | 7 | `/rename`, `--continue` | Reproducir un fallo y demostrar su corrección |
 | 8 | `/hooks` | Generar la descripción del sistema y garantizar que no envejezca |
 | 9 | `.claude/agents/`, `@agent-<nombre>`, `/subtask`, `/security-review` | Delegar con contexto aislado |
-| 10 | `/mcp`, `/goal`, `claude -p`, `--output-format json` | Conectar sistemas externos, y trabajar sin nadie delante |
+| 10 | `/mcp`, `/goal`, `claude -p`, `--output-format json` | Conectar sistemas externos, y soltar el volante |
 
 ## Etiquetas del Curso
 

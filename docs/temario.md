@@ -195,6 +195,8 @@ El [proyecto integrador](../proyecto-integrador/README.md) es una API de tareas
 que acumula contrato, migraciones, defectos, historia Git y automatización. Cada
 sesión deja una evidencia revisable.
 
-El curso usa evaluación formativa. El diagnóstico inicial y la transferencia
-final comparan hábitos: investigar, acordar, comprobar, intervenir y revisar.
-Consulta [Evaluación y portafolio](evaluacion.md).
+El diagnóstico inicial y la transferencia final comparan hábitos: investigar,
+acordar, comprobar, intervenir y revisar, y no llevan nota. La calificación son
+dos cifras: el cuestionario final sobre Claude Code, con 24 horas de plazo desde
+que se publica, vale el 80 %, y la asistencia el 20 %. Consulta
+[Evaluación](evaluacion.md).
