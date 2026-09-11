@@ -204,6 +204,13 @@ Se trabaja en la [sesión 5](../sesiones/sesion-05-revisar-e-integrar/README.md)
 ### Subagente
 
 Otro agente al que delegas una tarea, con su propio contexto. Un **subagente
-nombrado** empieza limpio, sin tu conversación; un **fork** hereda la tuya
-entera, con tus supuestos incluidos, y por eso su acuerdo vale menos como
-segunda opinión.
+nombrado** vive en `.claude/agents/`, se versiona con el proyecto y empieza
+limpio: carga tu `CLAUDE.md` y el repositorio, pero no tu conversación, y de
+todo su trabajo solo devuelve un resumen. Un **fork** —`/fork` o `/subtask`—
+hereda la tuya entera, con tus supuestos incluidos, y por eso su acuerdo vale
+menos como segunda opinión.
+
+Su autoridad se declara en el propio archivo: las herramientas que no le
+escribes, las hereda todas.
+
+Se trabaja en la [sesión 9](../sesiones/sesion-09-delegar-con-contexto-aislado/README.md).

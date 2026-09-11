@@ -19,7 +19,7 @@ filas 1 a 7 se verificaron con Claude Code 2.1.252; las filas 8 a 10, con
 | 6 | `/branch`, `/fork` | Interrumpir y recuperar |
 | 7 | `/rename`, `--continue` | Reproducir un fallo y demostrar su corrección |
 | 8 | `/hooks` | Generar la descripción del sistema y garantizar que no envejezca |
-| 9 | `.claude/agents/`, `/subtask` | Delegar con contexto aislado |
+| 9 | `.claude/agents/`, `@agent-<nombre>`, `/subtask`, `/security-review` | Delegar con contexto aislado |
 | 10 | `/mcp`, `/goal`, `claude -p`, `--output-format json` | Conectar sistemas externos, y trabajar sin nadie delante |
 
 ## Etiquetas del Curso
@@ -29,13 +29,10 @@ filas 1 a 7 se verificaron con Claude Code 2.1.252; las filas 8 a 10, con
 - **Referencia:** se muestra para descubrimiento, no se memoriza.
 - **Creado en el lab:** skill o comando propio, no incorporado a Claude Code.
 
-Ninguna fila de las sesiones 8 a 10 está marcada como opcional todavía: el
-diseño se decidió el 07/09/2026 y aún no se escribió ningún lab.
-
-Las filas de la sesión 8 en adelante son **provisionales**: la sesión 7 ya
-está escrita y verificada, con su propia sección **Comandos Nuevos**. Manda
-siempre esa sección de cada sesión, que es la que se verifica contra la
-instalación antes de publicarse.
+La fila de la sesión 10 es **provisional**: su diseño está cerrado, pero
+ningún laboratorio está escrito todavía. Las sesiones 1 a 9 tienen su propia
+sección **Comandos Nuevos**, verificada contra la instalación antes de
+publicarse, y manda siempre esa sección de cada sesión.
 
 No evalúes memorización de la tabla. Evalúa si la persona elige la herramienta
 correcta para el riesgo y puede verificar su efecto.

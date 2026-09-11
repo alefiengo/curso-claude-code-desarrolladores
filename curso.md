@@ -198,21 +198,22 @@ probados en los dos sentidos.
 
 #### Sesión 9 — Delegar con contexto aislado
 
-Una revisión que necesita criterio, y que el estudiante no va a supervisar
-turno a turno, se entrega a un subagente con contexto propio. La decisión no
-es si delegar: es con cuánta autoridad. Se construyen tres, y el tercero es el
-que rompe la receta: un revisor de código y un auditor de seguridad comparten
-autoridad —solo lectura, sin poder editar lo que revisan— y solo cambian de
-lente; el que resume la suite necesita ejecutar, y sigue sin poder escribir.
-Después se tría lo que devuelven: hallazgo real frente a ruido de alguien que
-no sabe qué se decidió a propósito.
+El cambio de hoy no lo escribe el estudiante ni lo supervisa turno a turno:
+lo encarga a un subagente que trabaja solo y devuelve un resumen. La decisión
+no es si delegar: es con cuánta autoridad, y se escribe en una línea. Se
+construyen cuatro, y cada uno ocupa un punto distinto de esa escala: el que
+escribe; un revisor de código y un auditor de seguridad que solo leen, con
+autoridad idéntica y distinta lente; y uno que ejecuta comprobaciones sin
+recibir ninguna herramienta de edición. Después se tría lo que devuelven:
+hallazgo confirmado frente a ruido de quien no sabe qué se decidió a
+propósito.
 
 **Decisión central:** qué contexto, qué herramientas y qué autoridad recibe
 un trabajo que no estás observando.
 
-**Evidencia:** tres subagentes acotados y versionados, cada uno con la
+**Evidencia:** cuatro subagentes acotados y versionados, cada uno con la
 autoridad mínima de su oficio, y sus hallazgos triados en aceptados y
-rechazados con motivo.
+rechazados con motivo, citando cada rechazo dónde está escrita la decisión.
 
 #### Sesión 10 — Conectar sistemas externos, y soltar el volante
 

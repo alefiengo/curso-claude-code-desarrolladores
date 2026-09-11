@@ -29,7 +29,7 @@ cuentas tengan las mismas capacidades.
 | Sesiones interactivas, archivos y Bash | Pro, Max, Team, Enterprise o API | Obligatoria |
 | Modelos concretos | Depende del plan y proveedor | Usar `default` y registrar el activo |
 | Contexto de 1M | Depende del plan y créditos | No es requisito |
-| Auto mode | Solo aparece si plan, modelo, proveedor y política lo permiten; no está disponible en Pro | Usar el modo **Manual** (`default`) o `acceptEdits`; comprobar el modo con `/status` |
+| Auto mode | Es el modo de arranque en los planes Pro, Max y Team, pero exige modelo y proveedor concretos y una organización puede desactivarlo | Comprobar el modo con `/status`; si no está, usar **Manual** (`default`) o `acceptEdits` |
 | GitHub App y funciones cloud | Dependen de cuenta y GitHub | Flujo local con `git diff` y `git format-patch` |
 | Revisión cloud avanzada | Depende de disponibilidad y créditos | Revisión local con subagente nombrado |
 
@@ -41,6 +41,7 @@ cuentas tengan las mismas capacidades.
 | `/subtask` | Buscarla en `/help` | Delegar en un subagente nombrado |
 | `/goal` | Buscarla en `/help` | Trabajar en turnos con el mismo criterio de terminación |
 | `/code-review` | Buscarla en `/help` | Pedir revisión del diff con rúbrica explícita |
+| `/security-review` | Buscarla en `/help` | Pedir la auditoría al subagente propio de la sesión 9 |
 | `/cost` | Buscarla en `/help` | En 2.1.247 es alias de `/usage`, igual que `/stats` |
 
 ## Herramientas de Shell que No Están en Todas Partes
@@ -59,7 +60,7 @@ Ninguno es obligatorio para completar una sesión. Si te falta alguno, el paso l
 dice y ofrece la ruta alternativa.
 
 Los subagentes nombrados se crean escribiendo el archivo en `.claude/agents/`,
-o pidiéndoselo a Claude. En 2.1.263, `/agents` aparece marcado como retirado y
+o pidiéndoselo a Claude. En 2.1.268, `/agents` aparece marcado como retirado y
 solo remite a esa carpeta: el material no depende de él en ninguna sesión.
 
 No se usan como requisito comandos que solo existan en una instalación local o

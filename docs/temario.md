@@ -146,13 +146,14 @@ el cambio no es independiente.
 **Conceptos:** contexto aislado, autoridad acotada de un trabajo delegado,
 revisión adversaria y triaje de hallazgos.
 
-**Práctica:** crear tres subagentes con la autoridad mínima de su oficio —un
-revisor de código y un auditor de seguridad que solo leen, y uno que ejecuta
-la suite para resumirla y aun así no escribe—, delegarles trabajo real, y
-triar sus hallazgos en aceptados y rechazados con motivo.
+**Práctica:** crear cuatro subagentes con la autoridad mínima de su oficio
+—uno que escribe y produce el cambio; un revisor de código y un auditor de
+seguridad que solo leen; y uno que ejecuta comprobaciones sin herramientas de
+edición—, comparar tres revisiones del mismo cambio según el contexto que
+lleva cada una, y triar los hallazgos en aceptados y rechazados con motivo.
 
-**Sales con:** tres subagentes acotados y versionados, y hallazgos triados con
-criterio propio.
+**Sales con:** cuatro subagentes acotados y versionados, y hallazgos triados
+con criterio propio.
 
 ### 10. Conectar sistemas externos, y soltar el volante
 
