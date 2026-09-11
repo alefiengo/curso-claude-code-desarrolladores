@@ -1,10 +1,9 @@
 # Desafío Opcional — Sesión 9
 
-## El Quinto que no Construiste
+## El Agente que no Hace Falta
 
-Hoy añadiste cuatro agentes a tu repositorio. Este desafío te pide proponer
-un quinto y **no construirlo**, con un argumento que puedas defender; y
-comprobar de primera mano qué pasa cuando a un agente no le declaras
+Hoy añadiste tres agentes a tu repositorio. Este desafío te pide proponer
+varios candidatos, rechazar los que no se justifiquen y comprobar de primera mano qué pasa cuando a un agente no le declaras
 herramientas.
 
 Este desafío no se entrega y no hace falta para seguir el curso. Se registra
@@ -33,9 +32,8 @@ después vas a borrar.
    repositorio que hoy podrían delegarse a un subagente nuevo, sacados de lo
    que de verdad haces, no de una lista genérica.
 
-2. **Rechaza dos, con la razón exacta.** Para cada uno, decide si le falta
-   contexto tuyo —entonces es una skill—, si tiene que ocurrir siempre
-   —entonces es un hook—, o si es una línea de comando que ya está en el
+2. **Rechaza dos, con la razón exacta.** Para cada uno, decide si encaja mejor en una
+   skill con un procedimiento reutilizable, en un hook ligado a un evento, o si es una línea de comando que ya está en el
    `README.md`. Escribe el motivo en una frase por candidato.
 
 3. **Construye el que sobreviva, si sobrevive alguno.** Puede que ninguno lo
@@ -44,17 +42,20 @@ después vas a borrar.
 
 4. **Haz el experimento de la autoridad.** Crea un agente de prueba **sin
    declararle herramientas**, con un oficio cualquiera, y pregúntale qué
-   puede hacer. Compáralo con lo que declara el revisor del Lab 02. Después
-   bórralo.
+   puede hacer. Compáralo con lo que declara el auditor del Lab 03. Conserva
+   la instancia para el punto siguiente. Comprueba una capacidad con una tarea
+   inocua, como ejecutar `git status --short`, y observa la llamada real.
 
 5. **Comprueba qué sabe de ti.** Al agente de prueba, antes de borrarlo,
    pregúntale qué archivos de instrucciones cargó y si conoce algo de la
-   conversación en la que lo creaste. Anota la respuesta: es la que explica
-   por qué el revisor del Lab 02 vale como segunda opinión.
+   conversación en la que lo creaste. Retoma la misma instancia y contrasta
+   la respuesta con su encargo y el registro de invocación; su declaración
+   por sí sola no prueba qué recibió. Después bórralo.
 
-6. **Deja el repositorio como estaba.** Borra lo del experimento y descarta
-   la rama. Lo único que puede sobrevivir es el agente del punto 3, si
-   decidiste que valía la pena, y entonces va con su commit y su motivo.
+6. **Deja el repositorio como estaba.** Retira los archivos de prueba.
+   Si conservas el agente del punto 3, revisa su diff, confirma solo ese archivo
+   e integra la rama con su motivo. Si no conservas nada, vuelve a main y elimina
+   la rama desechable una vez comprobado que no contiene trabajo que quieras guardar.
 
 ## Cómo saber si salió bien
 
@@ -70,7 +71,7 @@ después vas a borrar.
 
 | Situación | Qué hacer |
 |---|---|
-| Los tres candidatos parecen buenos | Pregúntate cuál necesita tu conversación para hacer bien su trabajo. Ese no es un subagente: es una skill |
-| El agente sin herramientas dice que puede hacerlo todo | Es lo esperado, y es justo el problema. Compruébalo pidiéndole algo que el revisor no podría hacer |
-| No sabes si algo debería ser hook o subagente | Un hook se ejecuta pase lo que pase, en un momento fijo. Un subagente se invoca cuando alguien lo pide. Si la respuesta es "siempre", no es un agente |
-| Terminaste sin construir ninguno | Es un resultado válido, y probablemente el más honesto. Escribe por qué en una frase |
+| Los tres candidatos parecen buenos | Comprueba si alguno ya queda cubierto por una skill o un encargo puntual; justifica los rechazos sin forzarlos |
+| El agente sin herramientas dice que puede hacerlo todo | No tomes su declaración como prueba. Observa una llamada inocua que el auditor no tiene disponible |
+| No sabes si algo debería ser hook o subagente | Un hook se ejecuta cuando ocurre su evento y coincide el filtro configurado. Un subagente se invoca cuando alguien lo pide. Si la respuesta es "siempre", no es un agente |
+| Terminaste sin construir ninguno | Es un resultado válido, que debes justificar. Escribe por qué en una frase |

@@ -140,20 +140,19 @@ y dos guardarraíles probados en los dos sentidos.
 
 ### 9. Delegar con contexto aislado
 
-**Situación:** una segunda opinión contaminada por la conversación que produjo
-el cambio no es independiente.
+**Situación:** el resumen de un trabajo delegado no basta para decidir si puedes
+integrarlo.
 
-**Conceptos:** contexto aislado, autoridad acotada de un trabajo delegado,
-revisión adversaria y triaje de hallazgos.
+**Conceptos:** contexto aislado, autoridad acotada, captura del cambio,
+revisión con evidencia y triaje de hallazgos.
 
-**Práctica:** crear cuatro subagentes con la autoridad mínima de su oficio
-—uno que escribe y produce el cambio; un revisor de código y un auditor de
-seguridad que solo leen; y uno que ejecuta comprobaciones sin herramientas de
-edición—, comparar tres revisiones del mismo cambio según el contexto que
-lleva cada una, y triar los hallazgos en aceptados y rechazados con motivo.
+**Práctica:** delegar la centralización de errores de la API, guardar un diff
+completo y revisarlo. Delegar una comprobación adicional solo si hace falta,
+ampliar la revisión con un auditor de seguridad y verificar hallazgos con un
+consolidador. Se crean tres agentes; la revisión puntual no exige uno nuevo.
 
-**Sales con:** cuatro subagentes acotados y versionados, y hallazgos triados
-con criterio propio en la solicitud de cambios.
+**Sales con:** tres subagentes acotados y versionados, una captura fuera del
+repositorio y hallazgos triados con criterio propio en la solicitud de cambios.
 
 ### 10. Conectar sistemas externos, y soltar el volante
 

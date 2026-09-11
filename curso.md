@@ -198,23 +198,21 @@ probados en los dos sentidos.
 
 #### Sesión 9 — Delegar con contexto aislado
 
-El cambio de hoy no lo escribe el estudiante ni lo supervisa turno a turno:
-lo encarga a un subagente que trabaja solo y devuelve un resumen. La decisión
-no es si delegar: es con cuánta autoridad, y se escribe en una línea. Se
-construyen cuatro, y cada uno ocupa un punto distinto de esa escala: el que
-escribe; un revisor de código y un auditor de seguridad que solo leen, con
-autoridad idéntica y distinta lente; y uno que ejecuta comprobaciones sin
-recibir ninguna herramienta de edición. Después se tría lo que devuelven:
-hallazgo confirmado frente a ruido de quien no sabe qué se decidió a
-propósito.
+Delegas la centralización de errores de toda la API a un refactorizador y
+guardas el cambio completo en un `.diff` fuera del repositorio, con su commit
+base. Revisas ese estado con la herramienta disponible y solo delegas otra
+comprobación si queda una duda concreta. Un auditor propio amplía el alcance
+a la seguridad del repositorio; un consolidador reúne evidencia para el triaje.
 
-**Decisión central:** qué contexto, qué herramientas y qué autoridad recibe
-un trabajo que no estás observando.
+**Decisión central:** qué contexto, herramientas y evidencia necesita cada
+encargo, y cuándo merece convertirse en un subagente reutilizable.
 
-**Evidencia:** cuatro subagentes acotados y versionados, cada uno con la
-autoridad mínima de su oficio, y sus hallazgos triados en la solicitud de
-cambios —aceptados y rechazados con motivo, citando cada rechazo dónde está
-escrita la decisión—. La sesión no añade ningún documento al repositorio.
+**Evidencia:** tres subagentes acotados y versionados —refactorizador, auditor
+y consolidador—, una captura del cambio y hallazgos triados en la solicitud de
+cambios. Los rechazos citan evidencia o una decisión documentada de alcance;
+lo no comprobado queda pendiente. Si no hubo cambio o hallazgos, se registra
+ese resultado. La captura se conserva fuera del repositorio y se identifica
+en la revisión; no se añade documentación nueva al proyecto.
 
 #### Sesión 10 — Conectar sistemas externos, y soltar el volante
 

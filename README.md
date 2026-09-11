@@ -62,7 +62,7 @@ Al terminar podrás:
 | [6](sesiones/sesion-06-interrumpir-y-recuperar/README.md) | Una línea de trabajo se desvía o debe continuar otro día |
 | [7](sesiones/sesion-07-reproducir-y-depurar/README.md) | Una explicación plausible reemplaza a la reproducción |
 | [8](sesiones/sesion-08-generar-y-garantizar/README.md) | La descripción del sistema envejece sin que nadie lo note |
-| [9](sesiones/sesion-09-delegar-con-contexto-aislado/README.md) | Una segunda opinión contaminada por la conversación que la produjo |
+| [9](sesiones/sesion-09-delegar-con-contexto-aislado/README.md) | El resumen de un trabajo delegado no basta para integrarlo |
 | 10 _(aún no publicada)_ | Herramientas externas manejadas a mano, y una verificación que solo corre cuando alguien la mira |
 
 Consulta el [temario detallado](docs/temario.md) para ver las decisiones y los
